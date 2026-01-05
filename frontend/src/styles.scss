@@ -1,0 +1,22 @@
+@use 'variables' as *;
+@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: $dark-bg; 
+  color: $text-primary;
+  font-family: $font-main;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: $dark-bg;
+}
+::-webkit-scrollbar-thumb {
+  background: $f1-red;
+  border-radius: 4px;
+}

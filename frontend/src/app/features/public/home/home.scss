@@ -1,0 +1,7 @@
+@use '../../../../variables' as *; // Subimos 4 niveles: home->public->features->app->src
+
+.home {
+    min-height: 80%;
+    margin-top: 10%;
+    margin-bottom: 10%;
+}

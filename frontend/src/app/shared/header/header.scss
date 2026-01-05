@@ -1,0 +1,196 @@
+@use '../../../variables' as *;
+@use "sass:color";
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80px; 
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding: 0 2rem;
+  background: rgba($dark-bg, 0.85);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+  &__logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    font-style: italic;
+    color: $text-primary;
+    text-decoration: none;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+
+    span {
+      color: $f1-red;
+      margin-left: 2px;
+    }
+    
+    &:hover { opacity: 0.9; }
+  }
+
+  &__menu {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; 
+    flex-grow: 1;
+    margin-left: 3rem;
+
+    &__links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      margin-right: auto; 
+
+      a {
+        text-decoration: none;
+        color: $text-secondary; 
+        text-transform: uppercase;
+        font-weight: 600;
+        font-size: 0.9rem;
+        letter-spacing: 1px;
+        position: relative;
+        transition: color 0.3s ease;
+        cursor: pointer;
+
+        &:hover, &.active {
+          color: $text-primary; 
+        }
+
+        &::after {
+          content: '';
+          position: absolute;
+          width: 0;
+          height: 2px;
+          bottom: -5px;
+          left: 0;
+          background-color: $f1-red;
+          transition: width 0.3s ease;
+        }
+
+        &:hover::after, &.active::after {
+          width: 100%;
+        }
+      }
+
+      &__dropdown {
+        position: relative;
+        height: 100%;
+
+        &-trigger {
+          display: flex;
+          align-items: center;
+          gap: 5px;
+        }
+
+        &__menu {
+          position: absolute;
+          top: 200%;
+          left: -10px;
+          background: $dark-card;
+          border: 1px solid rgba(255,255,255,0.1);
+          list-style: none;
+          padding: 1rem;
+          min-width: 180px;
+          border-radius: 6px;
+          box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+          opacity: 0;
+          visibility: hidden;
+          transform: translateY(10px);
+          transition: all 0.3s ease;
+          
+          li { margin-bottom: 0.5rem; }
+          li:last-child { margin-bottom: 0; }
+          
+          a::after { display: none; }
+          a:hover { color: $f1-red; }
+        }
+
+        &:hover .header__menu__links__dropdown__menu {
+          opacity: 1;
+          visibility: visible;
+          transform: translateY(0);
+          top: 150%; 
+        }
+      }
+
+      &__admin {
+        color: #3b82f6 !important;
+        &:hover { color: color.adjust(#3b82f6, $lightness: 10%) }
+      }
+    }
+
+    &__auth {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+
+      .btn-login {
+        text-decoration: none;
+        color: $text-primary;
+        font-weight: 600;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        &:hover { color: $f1-red; }
+      }
+
+      .btn-register {
+        background-color: $f1-red;
+        color: white;
+        text-decoration: none;
+        padding: 0.6rem 1.8rem;
+        border-radius: 50px;
+        font-weight: 700;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        box-shadow: 0 0 15px rgba($f1-red, 0.4);
+        transition: transform 0.2s ease, background 0.2s;
+
+        &:hover {
+          background-color: color.adjust($f1-red, $lightness: -5%);
+          transform: scale(1.05);
+        }
+      }
+
+      &__userInfo {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        border-left: 1px solid rgba(255,255,255,0.2);
+        padding-left: 1rem;
+
+        &__name {
+          font-weight: 700;
+          font-size: 0.9rem;
+          color: $text-primary;
+        }
+
+        .btn-logout {
+          background: rgba(255,255,255,0.1);
+          border: none;
+          color: $text-secondary;
+          width: 35px;
+          height: 35px;
+          border-radius: 50%;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: all 0.2s;
+
+          &:hover {
+            background: $f1-red;
+            color: white;
+          }
+        }
+      }
+    }
+  }
+}

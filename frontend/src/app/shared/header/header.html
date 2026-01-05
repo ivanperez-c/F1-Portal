@@ -1,0 +1,38 @@
+<nav class="header">
+  <a routerLink="/" class="header__logo">
+    F1<span>PORTAL</span>
+  </a>
+
+  <div class="header__menu">
+    <ul class="header__menu__links">
+      <li><a routerLink="/noticias" routerLinkActive="active">Noticias</a></li>
+      <li><a routerLink="/calendario" routerLinkActive="active">Calendario</a></li>
+      
+      <li *ngIf="userRole === 'TEAM'" class="header__menu__links__dropdown">
+        <a class="header__menu__links__dropdown-trigger">Escudería <i class="bi bi-chevron-down"></i></a>
+        <ul class="header__menu__links__dropdown__menu">
+          <li><a routerLink="/equipo/gestion">Gestión</a></li>
+          <li><a routerLink="/equipo/simulador">Simulador ERS</a></li>
+        </ul>
+      </li>
+
+      <li *ngIf="userRole === 'ADMIN'">
+        <a routerLink="/admin/dashboard" class="header__menu__links__admin">Admin Panel</a>
+      </li>
+    </ul>
+
+    <div class="header__menu__auth">
+      <ng-container *ngIf="!isLoggedIn; else userLogged">
+        <a routerLink="/login" class="btn-login">Login</a>
+        <a routerLink="/registro" class="btn-register">Registro</a>
+      </ng-container>
+
+      <ng-template #userLogged>
+        <div class="header__menu__auth__userInfo">
+          <span class="header__menu__auth__userInfo__name">{{ userName }}</span>
+          <button (click)="logout()" class="btn-logout"><i class="bi bi-box-arrow-right"></i></button>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</nav>
