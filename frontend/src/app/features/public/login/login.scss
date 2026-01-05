@@ -1,0 +1,126 @@
+@use '../../../../variables' as *;
+@use 'sass:color';
+
+.login {
+  width: 100%;
+  min-height: calc(100vh - 160px);
+  margin-top: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at center, #2c3e50 0%, $dark-bg 100%);
+
+  &__card {
+    background: $dark-card;
+    width: 100%;
+    max-width: 420px;
+    padding: 2.5rem;
+    border-radius: 12px;
+    border-top: 4px solid $f1-red;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+
+    &__header {
+      text-align: center;
+      margin-bottom: 2rem;
+
+      &__title {
+        color: $text-primary;
+        font-style: italic;
+        font-size: 1.6rem;
+        
+        span {
+          color: $f1-red;
+          font-weight: 800;
+        }
+      }
+
+      &__subtitle {
+        color: $text-secondary;
+        font-size: 0.9rem;
+        margin-top: 5px;
+      }
+    }
+
+    &__form {
+      
+      &__group {
+        margin-bottom: 1.5rem;
+
+        &__label {
+          display: block;
+          color: $text-primary;
+          font-size: 0.85rem;
+          margin-bottom: 0.5rem;
+          font-weight: 600;
+        }
+
+        &__input-wrapper {
+          position: relative;
+
+          i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: $text-secondary;
+          }
+
+          input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px 15px 12px 45px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            color: white;
+            outline: none;
+            transition: 0.3s;
+
+            &:focus {
+              border-color: $f1-red;
+              background: rgba(255, 255, 255, 0.1);
+            }
+          }
+        }
+      }
+
+      &__btn {
+        width: 100%;
+        padding: 1rem;
+        background: $f1-red;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-weight: 700;
+        text-transform: uppercase;
+        font-style: italic;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+
+        &:hover {
+          transform: translateY(-2px);
+        }
+      }
+    }
+
+    &__footer {
+      margin-top: 2rem;
+      text-align: center;
+      font-size: 0.9rem;
+      color: $text-secondary;
+
+      a {
+        color: $f1-red;
+        text-decoration: none;
+        font-weight: 600;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}

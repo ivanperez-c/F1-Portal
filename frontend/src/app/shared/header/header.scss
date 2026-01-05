@@ -130,63 +130,59 @@
     &__auth {
       display: flex;
       align-items: center;
-      gap: 1.5rem;
+      margin-left: 2rem;
+      height: 100%;
 
-      .btn-login {
-        text-decoration: none;
-        color: $text-primary;
-        font-weight: 600;
-        font-size: 0.9rem;
-        text-transform: uppercase;
-        &:hover { color: $f1-red; }
-      }
-
-      .btn-register {
-        background-color: $f1-red;
-        color: white;
-        text-decoration: none;
-        padding: 0.6rem 1.8rem;
-        border-radius: 50px;
-        font-weight: 700;
-        font-size: 0.85rem;
-        text-transform: uppercase;
-        box-shadow: 0 0 15px rgba($f1-red, 0.4);
-        transition: transform 0.2s ease, background 0.2s;
-
-        &:hover {
-          background-color: color.adjust($f1-red, $lightness: -5%);
-          transform: scale(1.05);
-        }
-      }
-
-      &__userInfo {
+      &__login-link {
+        color: $text-secondary;
+        font-size: 1.6rem;
+        cursor: pointer;
+        transition: color 0.3s;
         display: flex;
         align-items: center;
-        gap: 1rem;
-        border-left: 1px solid rgba(255,255,255,0.2);
-        padding-left: 1rem;
 
-        &__name {
-          font-weight: 700;
-          font-size: 0.9rem;
-          color: $text-primary;
+        &:hover {
+          color: $f1-red; 
+          transform: scale(1.1);
         }
+      }
 
-        .btn-logout {
-          background: rgba(255,255,255,0.1);
-          border: none;
-          color: $text-secondary;
-          width: 35px;
-          height: 35px;
-          border-radius: 50%;
-          cursor: pointer;
+      &__profile {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        border-left: 1px solid rgba(255, 255, 255, 0.1);
+        padding-left: 1.5rem;
+
+        &__info {
           display: flex;
           align-items: center;
-          justify-content: center;
-          transition: all 0.2s;
+          gap: 10px;
+
+          &__name {
+            color: $text-primary;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+          }
+
+          &__icon {
+            color: $f1-red;
+            font-size: 1.4rem;
+          }
+        }
+
+        &__logout {
+          background: none;
+          border: none;
+          color: $text-secondary;
+          font-size: 1.2rem;
+          cursor: pointer;
+          transition: 0.3s;
+          display: flex;
+          align-items: center;
 
           &:hover {
-            background: $f1-red;
             color: white;
           }
         }

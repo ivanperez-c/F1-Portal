@@ -22,17 +22,30 @@
     </ul>
 
     <div class="header__menu__auth">
-      <ng-container *ngIf="!isLoggedIn; else userLogged">
-        <a routerLink="/login" class="btn-login">Login</a>
-        <a routerLink="/registro" class="btn-register">Registro</a>
-      </ng-container>
 
-      <ng-template #userLogged>
-        <div class="header__menu__auth__userInfo">
-          <span class="header__menu__auth__userInfo__name">{{ userName }}</span>
-          <button (click)="logout()" class="btn-logout"><i class="bi bi-box-arrow-right"></i></button>
+      @if (!authService.isLoggedIn()) {
+        <a routerLink="/login" class="header__menu__auth__login-link" title="Iniciar Sesión">
+          <i class="bi bi-person"></i>
+        </a>
+      }
+
+      @if (authService.isLoggedIn()) {
+        <div class="header__menu__auth__profile">
+          
+          <div class="header__menu__auth__profile__info">
+            <span class="header__menu__auth__profile__info__name">
+              {{ userName }}
+            </span>
+            <i class="bi bi-person-circle header__menu__auth__profile__info__icon"></i>
+          </div>
+
+          <button (click)="logout()" class="header__menu__auth__profile__logout" title="Cerrar Sesión">
+            <i class="bi bi-box-arrow-right"></i>
+          </button>
+
         </div>
-      </ng-template>
+      }
+
     </div>
   </div>
 </nav>

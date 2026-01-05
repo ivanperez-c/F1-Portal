@@ -1,1 +1,43 @@
-<p>login</p>
+<div class="login">
+  
+  <div class="login__card">
+    
+    <div class="login__card__header">
+      <h2 class="login__card__header__title">BIENVENIDO AL <span>PADDOCK</span></h2>
+      <p class="login__card__header__subtitle">Gestiona tu escudería desde aquí</p>
+    </div>
+
+    <form class="login__card__form" (ngSubmit)="login()">
+      
+        <div class="login__card__form__group">
+            <label class="login__card__form__group__label">Email</label>
+            <div class="login__card__form__group__input-wrapper">
+            <i class="bi bi-person"></i>
+            <input type="text" [(ngModel)]="loginData.email" name="email" placeholder="Email" required>
+            </div>
+        </div>
+
+        <div class="login__card__form__group">
+            <label class="login__card__form__group__label">Contraseña</label>
+            <div class="login__card__form__group__input-wrapper">
+            <i class="bi bi-lock"></i>
+            <input type="password" [(ngModel)]="loginData.password" name="password" placeholder="••••••••" required>
+            </div>
+        </div>
+
+        <button type="submit" class="login__card__form__btn" [disabled]="isLoading">
+            {{ isLoading ? 'ARRANCANDO MOTORES...' : 'ENTRAR A PISTA' }} 
+
+            @if (!isLoading) {
+                <i class="bi bi-flag-fill"></i>
+            }
+        </button>
+
+    </form>
+
+    <div class="login__card__footer">
+      <p>¿Nuevo aquí? <a routerLink="/registro">Crea una cuenta</a></p>
+    </div>
+
+  </div>
+</div>
