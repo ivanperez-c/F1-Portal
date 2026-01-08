@@ -1,0 +1,50 @@
+@if (loading) {
+  <div class="detail__loading">
+    <div class="detail__spinner"></div>
+  </div>
+} @else if (newsItem) {
+
+  <div class="detail">
+    
+    <div class="detail__nav">
+      <a routerLink="/noticias" class="detail__nav__back">
+        ← Volver a Noticias
+      </a>
+    </div>
+
+    <header class="detail__header">
+      <h1 class="detail__header__title">{{ newsItem.title }}</h1>
+      <div class="detail__header__meta">
+      </div>
+    </header>
+
+    <div class="detail__media">
+      <img [src]="newsItem.image" [alt]="newsItem.title" class="detail__media__img">
+    </div>
+
+    <article class="detail__body">
+      <p class="detail__body__text">{{ newsItem.text }}</p>
+    </article>
+
+    <hr class="detail__divider">
+
+    <section class="related">
+      <h3 class="related__title">Noticias Relacionadas</h3>
+      
+      <div class="related__carousel">
+        @for (item of relatedNews; track item.permalink) {
+          <a [routerLink]="['/noticias', item.permalink]" class="related__card">
+            <img [src]="item.image" [alt]="item.title" class="related__card__img">
+            <div class="related__card__content">
+              <h4 class="related__card__title">{{ item.title }}</h4>
+            </div>
+          </a>
+        }
+      </div>
+    </section>
+
+  </div>
+
+} @else {
+  <div class="detail__error">Noticia no encontrada</div>
+}

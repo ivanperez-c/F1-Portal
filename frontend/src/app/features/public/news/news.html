@@ -1,0 +1,43 @@
+<section class="news">
+  
+  <h1 class="news__header">
+    Últimas Noticias <span class="news__header__accent">F1</span>
+  </h1>
+
+  @if (loading) {
+    <div class="news__loader">
+      <div class="news__loader__spinner"></div>
+      <p class="news__loader__text">Cargando noticias...</p>
+    </div>
+  } @else {
+    
+    <div class="news__grid">
+      
+      @for (item of newsList; track item.permalink) {
+        
+        <article class="news__grid__card">
+          
+          <div class="news__grid__card__media">
+            <img [src]="item.image" [alt]="item.title" class="news__grid__card__media__img" loading="lazy">
+          </div>
+
+          <div class="news__grid__card__body">
+            
+            <h2 class="news__grid__card__body__title">{{ item.title }}</h2>
+            
+            <div class="news__grid__card__body__excerpt">
+              {{ item.text }}
+            </div>
+            
+            <div class="news__grid__card__body__actions">
+              <a [routerLink]="['/noticias/', item.permalink]" class="news__grid__card__body__actions__btn">
+                Leer más
+              </a>
+            </div>
+
+          </div>
+        </article>
+      }
+    </div>
+  }
+</section>

@@ -1,0 +1,133 @@
+.detail {
+  min-height: calc(100vh - 160px);
+  margin-top: 120px;
+  margin-bottom: 120px;
+  padding: 0 5rem;;
+
+  &__loading {
+    display: flex;
+    justify-content: center;
+    padding-top: 5rem;
+  }
+  
+  &__spinner { 
+    width: 50px; height: 50px; 
+    border: 4px solid rgba(255,255,255,0.1); 
+    border-left-color: #e10600; 
+    border-radius: 50%; 
+    animation: spin 1s linear infinite;
+  }
+
+  &__nav {
+    margin-bottom: 2rem;
+
+    &__back {
+      text-decoration: none;
+      color: #b0b0b0;
+      font-weight: bold;
+      transition: color 0.3s;
+      display: inline-flex;
+      align-items: center;
+
+      &:hover {
+        color: #e10600;
+      }
+    }
+  }
+
+  &__header {
+    margin-bottom: 1.5rem;
+
+    &__title {
+      font-size: 2.5rem;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      font-weight: 800;
+    }
+
+    &__meta {
+      color: #e10600;
+      font-weight: bold;
+      font-family: monospace;
+      font-size: 1.1rem;
+    }
+  }
+
+  &__media {
+    width: 100%;
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: center;
+
+    &__img {
+      width: 40%;
+      aspect-ratio: 16/9;
+      display: block;
+      border: 1px solid #e10600;
+      border-radius: 8px;
+    }
+  }
+
+  &__body {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #e0e0e0;
+  }
+
+  &__divider {
+    border: 0;
+    border-top: 1px solid #333;
+    margin: 4rem 0 2rem;
+  }
+}
+
+
+.related {
+  &__title {
+    font-size: 1.5rem;
+    border-left: 4px solid #e10600;
+    padding-left: 1rem;
+  }
+
+  &__carousel {
+    display: flex;
+    gap: 3rem;
+  }
+
+  &__card {
+    flex: 0 0 280px;
+    background: #1f1f1f;
+    border: 1px solid #333;
+    border-radius: 8px;
+    overflow: hidden;
+    text-decoration: none;
+    transition: transform 0.3s, border-color 0.3s;
+
+    &:hover {
+      transform: translateY(-5px);
+      border-color: #e10600;
+    }
+
+    &__img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }
+
+    &__content {
+      padding: 1rem;
+    }
+
+    &__title {
+      font-size: 1rem;
+      color: #fff;
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+  }
+}
+
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
