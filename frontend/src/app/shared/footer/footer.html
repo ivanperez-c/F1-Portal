@@ -1,1 +1,33 @@
-<section class="footer">FOOTER</section>
+<footer class="footer">
+  
+  <div class="footer__border"></div>
+
+  <div class="footer__content">
+    
+    <div class="footer__content__brand">
+      <h2 class="footer__content__brand__logo">F1 <span class="footer__content__brand__logo__accent">PORTAL</span></h2>
+    </div>
+
+    <nav class="footer__content__nav">
+      <ul class="footer__content__nav__list">
+        <li><a routerLink="/noticias" class="footer__content__nav__list__link">Noticias</a></li>
+        <li class="separator">•</li>
+        <li><a routerLink="/calendario" class="footer__content__nav__list__link">Calendario</a></li>
+        <li class="separator">•</li>
+        <li><a routerLink="/escuderias" class="footer__content__nav__list__link">Escuderías</a></li>
+      </ul>
+    </nav>
+
+  </div>
+
+  <div class="footer__bottom">
+    <p class="footer__bottom__disclaimer">
+      Este portal es un proyecto estrictamente educativo desarrollado con fines académicos. 
+      No oficial y sin ánimo de lucro.
+    </p>
+    <p class="footer__bottom__copyright">
+      &copy; {{ currentYear }} F1 Portal.
+    </p>
+  </div>
+
+</footer>
