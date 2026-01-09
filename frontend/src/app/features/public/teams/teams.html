@@ -1,0 +1,51 @@
+<section class="teams">
+  <h1 class="teams__header">Escuderías <span class="teams__header__accent">2026</span></h1>
+
+  @if (loading) {
+    <div class="teams__loader"><div class="teams__loader__spinner"></div></div>
+  } @else {
+    
+    <div class="teams__grid">
+      @for (team of teams; track team.id) {
+        
+        <article class="teams__grid__card">
+          
+          <div class="teams__grid__card__header">
+            <img [src]="team.logo" [alt]="team.name" class="teams__grid__card__header__logo">
+            <h2 class="teams__grid__card__header__name">{{ team.name }}</h2>
+          </div>
+
+          <div class="teams__grid__card__drivers">
+            @for (driver of team.drivers; track driver.id) {
+              
+              <div class="teams__grid__card__drivers__pilot">
+                
+                <div class="teams__grid__card__drivers__pilot__visual">
+                  <img [src]="driver.photo" [alt]="driver.lastname" class="teams__grid__card__drivers__pilot__visual__img">
+                </div>
+
+                <div class="teams__grid__card__drivers__pilot__data">
+                  
+                  <div class="teams__grid__card__drivers__pilot__data__tv">
+                    <span class="teams__grid__card__drivers__pilot__data__tv__number">{{ driver.number }}</span>
+                    <div class="teams__grid__card__drivers__pilot__data__tv__separator"></div>
+                    <span class="teams__grid__card__drivers__pilot__data__tv__code">{{ driver.code }}</span>
+                  </div>
+
+                  <div class="teams__grid__card__drivers__pilot__data__name">
+                    <span class="teams__grid__card__drivers__pilot__data__name__first">{{ driver.firstname }}</span>
+                    <span class="teams__grid__card__drivers__pilot__data__name__last">{{ driver.lastname }}</span>
+                  </div>
+
+                  <span class="teams__grid__card__drivers__pilot__data__country">{{ driver.country }}</span>
+                </div>
+
+              </div>
+            }
+          </div>
+
+        </article>
+      }
+    </div>
+  }
+</section>

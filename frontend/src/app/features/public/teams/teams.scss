@@ -1,0 +1,184 @@
+.teams {
+  min-height: calc(100vh - 160px);
+  margin-top: 80px;
+  margin-bottom: 120px;
+  padding: 0 5rem;
+
+  &__header {
+    font-size: 2.5rem;
+    color: #fff;
+    margin-bottom: 3rem;
+    text-transform: uppercase;
+    font-style: italic;
+    border-bottom: 4px solid #e10600;
+    display: inline-block;
+
+    &__accent {
+      color: #e10600;
+    }
+  }
+
+  &__loader {
+    text-align: center;
+    padding: 3rem;
+
+    &__spinner {
+      width: 50px;
+      height: 50px;
+      border: 4px solid rgba(255, 255, 255, 0.1);
+      border-left-color: #e10600;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto;
+    }
+  }
+
+  &__grid {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+
+    &__card {
+      background: #151515;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid #333;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+
+      &__header {
+        display: flex;
+        align-items: center;
+        padding: 1.5rem 2rem;
+        background: linear-gradient(90deg, #1f1f1f, #252525);
+        border-bottom: 1px solid #333;
+        gap: 1.5rem;
+
+        &__logo {
+          height: 50px;
+          width: auto;
+        }
+
+        &__name {
+          font-size: 1.5rem;
+          color: #fff;
+          text-transform: uppercase;
+          margin: 0;
+          font-weight: 800;
+          letter-spacing: 1px;
+        }
+      }
+
+      &__drivers {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+
+        &__pilot {
+          display: flex;
+          align-items: center;
+          padding: 2rem;
+          border-right: 1px solid #333;
+          transition: background 0.3s ease;
+
+          &:last-child {
+            border-right: none;
+          }
+
+          &:hover {
+            background: #1a1a1a;
+          }
+
+          &__visual {
+            width: 100px;
+            height: 100px;
+            margin-right: 1.5rem;
+
+            &__img {
+              width: 100%;
+              height: 100%;
+              border-radius: 50%;
+              border: 3px solid #e10600;
+              padding: 2px;
+              background: #fff;
+            }
+          }
+
+          &__data {
+            display: flex;
+            flex-direction: column;
+
+            &__tv {
+              display: flex;
+              align-items: center;
+              font-family: 'Oswald', sans-serif;
+              margin-bottom: 0.5rem;
+
+              &__number {
+                font-size: 1.8rem;
+                font-weight: 900;
+                color: #e10600;
+                line-height: 1;
+              }
+
+              &__separator {
+                width: 2px;
+                height: 18px;
+                background: #666;
+                margin: 0 8px;
+                transform: skewX(-20deg);
+              }
+
+              &__code {
+                font-size: 1.8rem;
+                font-weight: 700;
+                color: #fff;
+                line-height: 1;
+                letter-spacing: 1px;
+              }
+            }
+
+            &__name {
+              display: flex;
+              flex-direction: column;
+              line-height: 1.2;
+              margin-bottom: 0.5rem;
+
+              &__first {
+                font-size: 0.9rem;
+                color: #bbb;
+                text-transform: uppercase;
+              }
+
+              &__last {
+                font-size: 1.2rem;
+                color: #fff;
+                font-weight: bold;
+                text-transform: uppercase;
+              }
+            }
+
+            &__country {
+              font-size: 0.75rem;
+              color: #888;
+              background: #2a2a2a;
+              padding: 2px 8px;
+              border-radius: 4px;
+              align-self: flex-start;
+              text-transform: uppercase;
+              font-weight: 600;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}

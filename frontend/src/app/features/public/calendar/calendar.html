@@ -1,0 +1,40 @@
+<section class="calendar">
+  <h1 class="calendar__header">Calendario <span class="calendar__header__accent">F1</span></h1>
+
+  @if (loading) {
+    <div class="calendar__loader">
+      <div class="calendar__loader__spinner"></div>
+    </div>
+  } @else {
+    
+    <div class="calendar__list">
+      @for (circuit of circuits; track circuit.id) {
+        
+        <article class="calendar__list__item" 
+                 [class.calendar__list__item--finished]="isFinished(circuit.date)">
+          
+          <div class="calendar__list__item__date">
+            <span class="calendar__list__item__date__day">{{ circuit.date | date:'dd' }}</span>
+            <span class="calendar__list__item__date__month">{{ circuit.date | date:'MMM' }}</span>
+          </div>
+
+          <div class="calendar__list__item__info">
+            <h2 class="calendar__list__item__info__name">{{ circuit.name }}</h2>
+            <p class="calendar__list__item__info__location"><i class="bi bi-geo-fill"></i> {{ circuit.city }}, {{ circuit.country }}</p>
+          </div>
+
+          <div class="calendar__list__item__map">
+             <img [src]="circuit.image" [alt]="circuit.name" class="calendar__list__item__map__img">
+          </div>
+
+          <div class="calendar__list__item__status">
+             @if (isFinished(circuit.date)) {
+               <span class="calendar__list__item__status__label">Finalizado</span>
+             }
+          </div>
+
+        </article>
+      }
+    </div>
+  }
+</section>

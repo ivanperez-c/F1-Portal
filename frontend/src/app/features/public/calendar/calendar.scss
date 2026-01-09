@@ -1,0 +1,136 @@
+.calendar {
+  min-height: calc(100vh - 160px);
+  margin-top: 80px;
+  margin-bottom: 120px;
+  padding: 0 5rem;
+
+  &__header {
+    font-size: 2.5rem;
+    color: #fff;
+    margin-bottom: 3rem;
+    text-transform: uppercase;
+    font-style: italic;
+    border-bottom: 4px solid #e10600;
+    display: inline-block;
+
+    &__accent {
+      color: #e10600;
+    }
+  }
+
+  &__loader {
+    text-align: center;
+    padding: 3rem;
+
+    &__spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid rgba(255, 255, 255, 0.1);
+      border-left-color: #e10600;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto;
+    }
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    &__item {
+      display: grid;
+      grid-template-columns: 80px 1fr 150px 120px;
+      align-items: center;
+      background: #1f1f1f;
+      border: 1px solid #333;
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: transform 0.2s, border-color 0.2s;
+      gap: 1rem;
+
+      &:hover {
+        transform: translateX(5px);
+        border-color: #e10600;
+      }
+
+      &--finished {
+        opacity: 0.6;
+        filter: grayscale(0.8);
+
+        &:hover {
+          opacity: 1;
+          filter: grayscale(0);
+        }
+      }
+
+      &__date {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border-right: 1px solid #333;
+        padding-right: 1rem;
+        color: #fff;
+
+        &__day {
+          font-size: 1.8rem;
+          font-weight: bold;
+          line-height: 1;
+        }
+
+        &__month {
+          font-size: 0.9rem;
+          text-transform: uppercase;
+          color: #e10600;
+          font-weight: bold;
+        }
+      }
+
+      &__info {
+        padding-left: 1rem;
+
+        &__name {
+          font-size: 1.2rem;
+          color: #fff;
+          margin-bottom: 0.5rem;
+          font-weight: 700;
+          line-height: 1.2;
+        }
+
+        &__location {
+          font-size: 0.85rem;
+          color: #888;
+        }
+      }
+
+      &__map {
+        &__img {
+          width: 100%;
+          height: auto;
+          filter: invert(1);
+          opacity: 0.7;
+        }
+      }
+
+      &__status {
+        text-align: right;
+
+        &__label {
+          color: #888;
+          font-size: 0.9rem;
+          font-style: italic;
+        }
+      }
+    }
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
