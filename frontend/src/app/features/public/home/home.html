@@ -1,1 +1,159 @@
-<section class="home">home</section>
+<main class="home" #mainContainer>
+
+  <section class="home__hero">
+    
+    <div class="home__hero__bg">
+      <video autoplay muted loop playsinline class="home__hero__bg__video">
+         <source src="/videos/video_home.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <div class="home__hero__content">
+      
+      <div class="home__hero__content__header">
+        <span class="home__hero__content__header__meta">TEMPORADA 2026</span>
+        
+        <h1 class="home__hero__content__header__title">
+          <span class="home__hero__content__header__title__char">F</span>
+          <span class="home__hero__content__header__title__char">Ó</span>
+          <span class="home__hero__content__header__title__char">R</span>
+          <span class="home__hero__content__header__title__char">M</span>
+          <span class="home__hero__content__header__title__char">U</span>
+          <span class="home__hero__content__header__title__char">L</span>
+          <span class="home__hero__content__header__title__char">A</span>
+          <span class="home__hero__content__header__title__space"> </span>
+          <span class="home__hero__content__header__title__char home__hero__content__header__title__char--stroke">U</span>
+          <span class="home__hero__content__header__title__char home__hero__content__header__title__char--stroke">N</span>
+          <span class="home__hero__content__header__title__char home__hero__content__header__title__char--stroke">O</span>
+        </h1>
+      </div>
+
+      @if (nextRace) {
+        <div class="home__hero__content__telemetry">
+          
+          <div class="home__hero__content__telemetry__info">
+            <span class="home__hero__content__telemetry__info__label">PRÓXIMO GRAN PREMIO</span>
+            <span class="home__hero__content__telemetry__info__value">{{ nextRace.city | uppercase }}</span>
+          </div>
+          
+          <div class="home__hero__content__telemetry__divider"></div>
+          
+          <div class="home__hero__content__telemetry__timer">
+            <div class="home__hero__content__telemetry__timer__digit"><span>{{ days }}</span><small>D</small></div>:
+            <div class="home__hero__content__telemetry__timer__digit"><span>{{ hours }}</span><small>H</small></div>:
+            <div class="home__hero__content__telemetry__timer__digit"><span>{{ minutes }}</span><small>M</small></div>:
+            <div class="home__hero__content__telemetry__timer__digit home__hero__content__telemetry__timer__digit--active"><span>{{ seconds }}</span><small>S</small></div>
+          </div>
+
+        </div>
+      }
+    </div>
+    
+    <div class="home__hero__scroll">DESLIZA PARA EXPLORAR</div>
+  </section>
+
+
+  <section class="home__news">
+    
+    <div class="home__news__header">
+      <h2 class="home__news__header__title">ÚLTIMAS <span class="home__news__header__title--accent">NOTICIAS</span></h2>
+      <a routerLink="/noticias" class="home__news__header__link">VER NOTICIAS →</a>
+    </div>
+
+    @if (latestNews.length > 0) {
+      <div class="home__news__grid">
+        
+        <article class="home__news__grid__card home__news__grid__card--featured">
+          <a [routerLink]="['/noticias', latestNews[0].permalink]">
+            <div class="home__news__grid__card__media">
+              <img [src]="latestNews[0].image" [alt]="latestNews[0].title" class="home__news__grid__card__media__img">
+              <span class="home__news__grid__card__media__tag">DESTACADO</span>
+            </div>
+            <div class="home__news__grid__card__body">
+              <h3 class="home__news__grid__card__body__title">{{ latestNews[0].title }}</h3>
+              <p class="home__news__grid__card__body__text">{{ latestNews[0].text | slice:0:100 }}...</p>
+            </div>
+          </a>
+        </article>
+
+        <div class="home__news__grid__aside">
+          @for (news of latestNews | slice:1:5; track news.id) {
+            <article class="home__news__grid__card home__news__grid__card--compact">
+              <a [routerLink]="['/noticias', news.permalink]">
+                <div class="home__news__grid__card__media">
+                  <img [src]="news.image" [alt]="news.title" class="home__news__grid__card__media__img">
+                </div>
+                <div class="home__news__grid__card__body">
+                  <h4 class="home__news__grid__card__body__subtitle">{{ news.title }}</h4>
+                </div>
+              </a>
+            </article>
+          }
+        </div>
+
+      </div>
+    }
+  </section>
+
+
+  <section class="home__races">
+    
+    <div class="home__races__header">
+      <h2 class="home__races__header__title">ZONA DE <span class="home__races__header__title--accent">CARRERAS</span></h2>
+      <a routerLink="/calendario" class="home__races__header__link">CALENDARIO COMPLETO →</a>
+    </div>
+
+    <div class="home__races__container">
+      
+      @if (nextRace) {
+        <div class="home__races__container__next">
+          <div class="home__races__container__next__bg"></div> 
+          <div class="home__races__container__next__content">
+            <span class="home__races__container__next__content__label">PRÓXIMO GRAN PREMIO</span>
+            <h3 class="home__races__container__next__content__name">{{ nextRace.name }}</h3>
+            <div class="home__races__container__next__content__location">
+              <span class="home__races__container__next__content__location__icon"><i class="bi bi-geo-fill"></i></span> {{ nextRace.city }}, {{ nextRace.country }}
+            </div>
+            <div class="home__races__container__next__content__date">
+              {{ nextRace.date | date:'dd' }} <span class="home__races__container__next__content__date__month">{{ nextRace.date | date:'MMM' | uppercase }}</span>
+            </div>
+          </div>
+          <img [src]="nextRace.image" class="home__races__container__next__img" alt="Trazado del circuito">
+        </div>
+      }
+
+      <div class="home__races__container__list">
+        <h4 class="home__races__container__list__title">PRÓXIMAMENTE</h4>
+        @for (race of upcomingRaces; track race.id) {
+          <div class="home__races__container__list__row">
+            
+            <div class="home__races__container__list__row__date">
+              <span class="home__races__container__list__row__date__day">{{ race.date | date:'dd' }}</span>
+              <span class="home__races__container__list__row__date__month">{{ race.date | date:'MMM' | uppercase }}</span>
+            </div>
+            
+            <div class="home__races__container__list__row__info">
+              <span class="home__races__container__list__row__info__city">{{ race.city }}</span>
+              <span class="home__races__container__list__row__info__circuit">{{ race.name }}</span>
+            </div>
+            
+            <span class="home__races__container__list__row__flag">{{ race.country | slice:0:3 | uppercase }}</span>
+          </div>
+        }
+      </div>
+
+    </div>
+  </section>
+
+
+  <section class="home__teams">
+    <div class="home__teams__bg"></div> 
+    
+    <div class="home__teams__content">
+      <span class="home__teams__content__subtitle">LA PARRILLA 2026</span>
+      <h2 class="home__teams__content__title">CONSTRUCTORES Y <br> PILOTOS</h2>
+      <a routerLink="/escuderias" class="home__teams__content__btn">CONOCE LOS EQUIPOS</a>
+    </div>
+  </section>
+
+</main>
