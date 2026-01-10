@@ -1,9 +1,11 @@
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { Router } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { delay, map } from 'rxjs/operators'; 
+import { User } from '../models/user.interface';
+import { LoginRequest, LoginResponse } from '../models/auth.interface';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { delay, tap } from 'rxjs/operators';
-import { LoginRequest, LoginResponse } from '../models/auth.interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -12,47 +14,83 @@ import { LoginRequest, LoginResponse } from '../models/auth.interfaces';
 export class AuthService {
   private apiUrl = 'http://localhost:8080/api/';
 
-  constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: Object) { }
+  private USER_KEY = 'auth-user';
 
-  login(credentials: LoginRequest): Observable<LoginResponse> {
+  private currentUserSubject: BehaviorSubject<User | null>;
+  
+  public user$: Observable<User | null>;
+
+  constructor(private http: HttpClient, private router: Router, @Inject(PLATFORM_ID) private platformId: Object) {
+
+    let savedUser = null;
+
+    if (isPlatformBrowser(this.platformId)) {
+      const stored = localStorage.getItem(this.USER_KEY);
+      if (stored) {
+        try {
+          savedUser = JSON.parse(stored);
+        } catch (e) {
+          console.error('Error parseando usuario', e);
+        }
+      }
+    }
+
+    this.currentUserSubject = new BehaviorSubject<LoginResponse | null>(savedUser);
+    this.user$ = this.currentUserSubject.asObservable();
+
+   }
+
+  login(credentials: LoginRequest): Observable<User> {
     /*
-    return this.http.post<LoginResponse>(`${this.apiUrl}/login`, credentials).pipe(
-      tap(response => this.saveSession(response))
+    return this.http.post<User>(`${this.apiUrl}/login`, credentials).pipe(
+      tap((userResponse: User) => {
+        if (isPlatformBrowser(this.platformId)) {
+          localStorage.setItem(this.USER_KEY, JSON.stringify(userResponse));
+        }
+        
+        this.currentUserSubject.next(userResponse);
+      })
     );
     */
 
     // simulación
-    const mockResponse: LoginResponse = {
-      username: 'TestUser',
-      role: 'TEAM'
-    };
-
-    return of(mockResponse).pipe(
+    return of(true).pipe(
       delay(1000), 
-      tap(response => this.saveSession(response))
+      map(() => {
+        
+        let mockUser: User;
+
+        if (credentials.email === 'admin'){
+          mockUser = { username: 'AdminUser', role: 'ADMIN' };
+          
+        } else {
+          mockUser = { username: 'TeamUser', role: 'TEAM' };
+          
+        } 
+
+        if (isPlatformBrowser(this.platformId)) {
+          localStorage.setItem(this.USER_KEY, JSON.stringify(mockUser));
+        }
+
+        this.currentUserSubject.next(mockUser);
+        
+        return mockUser;
+      })
     );
     //
   }
 
-  private saveSession(data: LoginResponse): void {
-    if (isPlatformBrowser(this.platformId)) {
-      localStorage.setItem('userRole', data.role);
-      localStorage.setItem('userName', data.username);
-    }
-  }
-
   logout(): void {
     if (isPlatformBrowser(this.platformId)) {
-      localStorage.removeItem('userRole');
-      localStorage.removeItem('userName');
+      localStorage.removeItem(this.USER_KEY);
     }
+    
+    this.currentUserSubject.next(null);
+    
+    this.router.navigate(['/login']);
   }
-
-  isLoggedIn(): boolean {
-    if (isPlatformBrowser(this.platformId)) {
-      return !!localStorage.getItem('userName');
-    } else {
-      return false;
-    }
+  
+  getUser(): User | null {
+    return this.currentUserSubject.value;
   }
 }

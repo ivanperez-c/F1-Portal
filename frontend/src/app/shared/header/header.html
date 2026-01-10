@@ -9,42 +9,46 @@
       <li><a routerLink="/calendario" routerLinkActive="active">Calendario</a></li>
       <li><a routerLink="/escuderias" routerLinkActive="active">Escuderías</a></li>
       
-      <li *ngIf="userRole === 'TEAM'" class="header__menu__links__dropdown">
-        <a class="header__menu__links__dropdown-trigger">Escudería <i class="bi bi-chevron-down"></i></a>
-        <ul class="header__menu__links__dropdown__menu">
-          <li><a routerLink="/equipo/gestion">Gestión</a></li>
-          <li><a routerLink="/equipo/simulador">Simulador ERS</a></li>
-        </ul>
-      </li>
-
-      <li *ngIf="userRole === 'ADMIN'">
-        <a routerLink="/admin/dashboard" class="header__menu__links__admin">Admin Panel</a>
-      </li>
+      @if (currentUser?.role === 'TEAM') {
+        <li class="header__menu__links__dropdown">
+          <a class="header__menu__links__dropdown-trigger">Escudería <i class="bi bi-chevron-down"></i></a>
+          <ul class="header__menu__links__dropdown__menu">
+            <li><a routerLink="/equipo/gestion">Gestión</a></li>
+            <li><a routerLink="/equipo/simulador">Simulador ERS</a></li>
+          </ul>
+        </li>
+      }
+      @if (currentUser?.role === 'ADMIN') {
+        <li>
+          <a routerLink="/admin/dashboard" class="header__menu__links__admin">Admin Panel</a>
+        </li>
+      }
     </ul>
 
     <div class="header__menu__auth">
+      @if (isBrowser) {
+        @if (!currentUser) {
+          <a routerLink="/login" class="header__menu__auth__login-link" title="Iniciar Sesión">
+            <i class="bi bi-person"></i>
+          </a>
+        }
 
-      @if (!authService.isLoggedIn()) {
-        <a routerLink="/login" class="header__menu__auth__login-link" title="Iniciar Sesión">
-          <i class="bi bi-person"></i>
-        </a>
-      }
+        @if (currentUser) {
+          <div class="header__menu__auth__profile">
+            
+            <div class="header__menu__auth__profile__info">
+              <span class="header__menu__auth__profile__info__name">
+                {{ currentUser.username }}
+              </span>
+              <i class="bi bi-person-circle header__menu__auth__profile__info__icon"></i>
+            </div>
 
-      @if (authService.isLoggedIn()) {
-        <div class="header__menu__auth__profile">
-          
-          <div class="header__menu__auth__profile__info">
-            <span class="header__menu__auth__profile__info__name">
-              {{ userName }}
-            </span>
-            <i class="bi bi-person-circle header__menu__auth__profile__info__icon"></i>
+            <button (click)="logout()" class="header__menu__auth__profile__logout" title="Cerrar Sesión">
+              <i class="bi bi-box-arrow-right"></i>
+            </button>
+
           </div>
-
-          <button (click)="logout()" class="header__menu__auth__profile__logout" title="Cerrar Sesión">
-            <i class="bi bi-box-arrow-right"></i>
-          </button>
-
-        </div>
+        }
       }
 
     </div>

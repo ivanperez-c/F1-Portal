@@ -1,9 +1,8 @@
-import { Component, OnInit, Inject, PLATFORM_ID  } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { AuthService } from '../../core/services/auth.service';
-import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common'; 
+import { CommonModule, isPlatformBrowser } from '@angular/common'; 
 import { RouterModule, RouterLink } from '@angular/router'; 
-import { isPlatformBrowser } from '@angular/common';
+import { User } from '../../core/models/user.interface';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -14,16 +13,20 @@ import Swal from 'sweetalert2';
   styleUrls: ['./header.scss']
 })
 export class Header implements OnInit {
-  userName: string = '';
-  userRole: string = '';
+  currentUser: User | null = null;
+
+  isBrowser: boolean;
   
-  constructor(public authService: AuthService, private router: Router, @Inject(PLATFORM_ID) private platformId: Object) {}
+  constructor(public authService: AuthService, @Inject(PLATFORM_ID) private platformId: Object) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
+    this.currentUser = this.authService.getUser();
+  }
 
   ngOnInit(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      this.userName = localStorage.getItem('userName') || '';
-      this.userRole = localStorage.getItem('userRole') || '';
-    }
+    this.authService.user$.subscribe(user => {
+      this.currentUser = user;
+      console.log('Usuario actual en Header:', this.currentUser);
+    });
   }
 
   logout() {
@@ -43,7 +46,6 @@ export class Header implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.authService.logout();
-        this.router.navigate(['/login']);
       
         const Toast = Swal.mixin({
           toast: true,
