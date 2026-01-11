@@ -72,9 +72,9 @@
               <div class="stat"><i class="bi bi-fuel-pump-fill"></i> {{ car.consumption }} L</div>
               <div class="stat ers">
                 <i class="bi bi-lightning-charge-fill"></i>
-                <span>S:{{ car.ersSlow }}</span>
+                <span>L:{{ car.ersSlow }}</span>
                 <span>M:{{ car.ersMedium }}</span>
-                <span>F:{{ car.ersFast }}</span>
+                <span>R:{{ car.ersFast }}</span>
               </div>
             </div>
             <button class="btn-del" (click)="deleteItem('CAR', car.id)"><i class="bi bi-trash"></i></button>

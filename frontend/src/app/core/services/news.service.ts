@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { delay, map } from 'rxjs/operators';
+import { delay } from 'rxjs/operators';
 import { NewsItem } from '../models/news.interface';
 
 @Injectable({
@@ -128,30 +128,45 @@ export class NewsService {
     }
   ];
 
-
+  /**
+   * OBTENER TODAS LAS NOTICIAS
+   * -------------------------------------------------------------------------
+   * Operación: Devuelve el listado de noticias para la home o sección noticias.
+   * Endpoint: GET /api/news
+   * @returns Observable<NewsItem[]> Lista de noticias.
+   */
   getNews(): Observable<NewsItem[]> {
-    
+    // return this.http.get<NewsItem[]>(this.apiUrl);
     return of(this.mockNews).pipe(delay(800));
-
-    /*
-    return this.http.get<NewsItem[]>(this.apiUrl).pipe(
-      map(news => news.map(item => ({
-        ...item,
-        date: new Date(item.date) 
-      })))
-    );
-    */
   }
 
+  /**
+   * OBTENER NOTICIA POR PERMALINK
+   * -------------------------------------------------------------------------
+   * Operación: Devuelve el detalle de una noticia específica.
+   * Endpoint: GET /api/news/{permalink}
+   * @param permalink URL amigable de la noticia
+   * @returns Observable<NewsItem> La noticia solicitada.
+   */
   getNewsByPermalink(permalink: string): Observable<NewsItem | undefined> {
+    // return this.http.get<NewsItem>(`${this.apiUrl}/${permalink}`);
+
     const item = this.mockNews.find(n => n.permalink === permalink);
     return of(item).pipe(delay(500));
   }
 
+  /**
+   * OBTENER NOTICIAS RELACIONADAS
+   * -------------------------------------------------------------------------
+   * Operación: Devuelve 3 noticias excepto la actual.
+   * Endpoint: GET /api/news/{permalink}/related
+   * @param currentPermalink La noticia que se está viendo
+   * @returns Observable<NewsItem[]> Array de 3 noticias.
+   */
   getRelatedNews(currentPermalink: string): Observable<NewsItem[]> {
-    const related = this.mockNews
-        .filter(n => n.permalink !== currentPermalink)
-        .slice(0, 3);
+    // return this.http.get<NewsItem[]>(`${this.apiUrl}/${permalink}/related`);
+
+    const related = this.mockNews.filter(n => n.permalink !== currentPermalink).slice(0, 3);
     return of(related);
   }
 }

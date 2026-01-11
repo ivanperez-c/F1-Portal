@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { delay, map } from 'rxjs/operators';
+import { delay } from 'rxjs/operators';
 import { Circuit } from '../models/circuit.interface';
 
 @Injectable({
@@ -9,14 +9,14 @@ import { Circuit } from '../models/circuit.interface';
 })
 export class CircuitService {
 
-  private apiUrl = 'http://localhost:8080/api/calendar';
+  private apiUrl = 'http://localhost:8080/api/circuits';
 
   constructor(private http: HttpClient) { }
 
   private mockCircuits: Circuit[] = [
     {
       id: 1,
-      name: 'Gran Premio de Bahrein - Sakhir International Circuit',
+      name: 'Gran Premio de Bahrein',
       date: new Date('2024-03-02'),
       city: 'Sakhir',
       country: 'Bahrein',
@@ -43,16 +43,15 @@ export class CircuitService {
     }
   ];
 
+  /**
+   * OBTENER CIRCUITOS / CALENDARIO
+   * -------------------------------------------------------------------------
+   * Operación: Devuelve la lista de circuitos de la temporada.
+   * Endpoint: GET /api/circuits
+   * @returns Observable<Circuit[]> Lista de circuitos.
+   */
   getCircuits(): Observable<Circuit[]> {
+    // return this.http.get<Circuit[]>(this.apiUrl);
     return of(this.mockCircuits).pipe(delay(600));
-
-    /*
-    return this.http.get<Circuit[]>(this.apiUrl).pipe(
-      map(circuits => circuits.map(c => ({
-        ...c,
-        date: new Date(c.date)
-      })))
-    );
-    */
   }
 }
