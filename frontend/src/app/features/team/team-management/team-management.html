@@ -1,0 +1,150 @@
+<div class="mgmt">
+  
+  @if (!isLoading && team) {
+    <header class="mgmt__header">
+      <div class="mgmt__header__brand">
+        <img [src]="team.logo" alt="Logo">
+        <div>
+          <span class="subtitle">PANEL DE CONTROL</span>
+          <h1>{{ team.name | uppercase }}</h1>
+        </div>
+      </div>
+    </header>
+
+    <section class="mgmt__section">
+      <div class="mgmt__section__head">
+        <h2><i class="bi bi-person-lock"></i> Gestión de Accesos</h2>
+        <button class="btn-add" (click)="openModal('USER')"><i class="bi bi-plus-lg"></i> Autorizar</button>
+      </div>
+      
+      <div class="mgmt__grid">
+        @for (user of team.users; track user.username) {
+          <div class="card-simple">
+            <div class="card-simple__avatar user-icon">
+               <i class="bi bi-shield-lock-fill"></i>
+            </div>
+            <div class="card-simple__info">
+              <span class="role">Miembros del equipo</span>
+              <span class="name">{{ user.username }}</span>
+            </div>
+            <button class="btn-del" (click)="deleteItem('USER', user.username)"><i class="bi bi-trash"></i></button>
+          </div>
+        }
+      </div>
+    </section>
+
+    <section class="mgmt__section">
+      <div class="mgmt__section__head">
+        <h2><i class="bi bi-speedometer2"></i> Pilotos</h2>
+        <button class="btn-add" (click)="openModal('DRIVER')"><i class="bi bi-plus-lg"></i> Añadir</button>
+      </div>
+      <div class="mgmt__grid">
+        @for (driver of team.drivers; track driver.id) {
+          <div class="card-driver">
+            <div class="card-driver__top">
+              <span class="number">{{ driver.number }}</span>
+              <img [src]="driver.photo || 'assets/default.png'" class="photo">
+            </div>
+            <div class="card-driver__info">
+              <span class="code">{{ driver.code }}</span>
+              <span class="name">{{ driver.firstname }} {{ driver.lastname }}</span>
+              <small class="country">{{ driver.country }}</small>
+            </div>
+            <button class="btn-del" (click)="deleteItem('DRIVER', driver.id)"><i class="bi bi-trash"></i></button>
+          </div>
+        }
+      </div>
+    </section>
+
+    <section class="mgmt__section">
+      <div class="mgmt__section__head">
+        <h2><i class="bi bi-car-front-fill"></i> Monoplazas</h2>
+        <button class="btn-add" (click)="openModal('CAR')"><i class="bi bi-plus-lg"></i> Añadir</button>
+      </div>
+      <div class="mgmt__list">
+        @for (car of team.cars; track car.id) {
+          <div class="card-list-item">
+            <div class="card-list-item__main">
+              <span class="model">{{ car.name }}</span>
+              <span class="code">{{ car.code }}</span>
+            </div>
+            <div class="card-list-item__stats">
+              <div class="stat"><i class="bi bi-fuel-pump-fill"></i> {{ car.consumption }} L</div>
+              <div class="stat ers">
+                <i class="bi bi-lightning-charge-fill"></i>
+                <span>S:{{ car.ersSlow }}</span>
+                <span>M:{{ car.ersMedium }}</span>
+                <span>F:{{ car.ersFast }}</span>
+              </div>
+            </div>
+            <button class="btn-del" (click)="deleteItem('CAR', car.id)"><i class="bi bi-trash"></i></button>
+          </div>
+        }
+      </div>
+    </section>
+
+  } @else {
+    <div class="loading">
+      <div class="spinner"></div> Cargando datos...
+    </div>
+  }
+
+  @if (currentModal) {
+    <div class="modal-backdrop" (click)="closeModal()">
+      <div class="modal-window" (click)="$event.stopPropagation()">
+        
+        <div class="modal-window__header">
+          <h3>
+            @if(currentModal === 'USER') { Autorizar Nuevo Usuario }
+            @if(currentModal === 'DRIVER') { Fichar Piloto }
+            @if(currentModal === 'CAR') { Fabricar Coche }
+          </h3>
+          <button class="close" (click)="closeModal()">&times;</button>
+        </div>
+
+        <div class="modal-window__body">
+          
+          @if (currentModal === 'USER') {
+            <form [formGroup]="userForm" (ngSubmit)="submitUser()">
+              <div class="form-group">
+                <label>Nombre de Usuario</label>
+                <input type="text" formControlName="username" placeholder="Ej: LawrenceStroll">
+              </div>
+              <button type="submit" class="btn-submit" [disabled]="userForm.invalid">Dar Acceso</button>
+            </form>
+          }
+
+          @if (currentModal === 'DRIVER') {
+            <form [formGroup]="driverForm" (ngSubmit)="submitDriver()">
+              <div class="row">
+                <div class="form-group"><label>Nombre</label><input type="text" formControlName="firstname"></div>
+                <div class="form-group"><label>Apellidos</label><input type="text" formControlName="lastname"></div>
+              </div>
+              <div class="row">
+                <div class="form-group"><label>Siglas (3 letras)</label><input type="text" formControlName="code"></div>
+                <div class="form-group"><label>Número</label><input type="number" formControlName="number"></div>
+              </div>
+              <div class="form-group"><label>País</label><input type="text" formControlName="country"></div>
+              <div class="form-group"><label>Foto</label><input type="text" formControlName="photo"></div>
+              <button type="submit" class="btn-submit" [disabled]="driverForm.invalid">Guardar</button>
+            </form>
+          }
+
+          @if (currentModal === 'CAR') {
+            <form [formGroup]="carForm" (ngSubmit)="submitCar()">
+              <div class="form-group"><label>Nombre</label><input type="text" formControlName="name"></div>
+              <div class="form-group"><label>Código</label><input type="text" formControlName="code"></div>
+              <div class="form-group"><label>Consumo</label><input type="number" formControlName="consumption"></div>
+              <div class="row">
+                <div class="form-group"><label>ERS Curva Lenta</label><input type="number" formControlName="ersSlow" step="0.001"></div>
+                <div class="form-group"><label>ERS Curva Media</label><input type="number" formControlName="ersMedium" step="0.001"></div>
+                <div class="form-group"><label>ERS Curva Rápida</label><input type="number" formControlName="ersFast" step="0.001"></div>
+              </div>
+              <button type="submit" class="btn-submit" [disabled]="carForm.invalid">Guardar</button>
+            </form>
+          }
+        </div>
+      </div>
+    </div>
+  }
+</div>

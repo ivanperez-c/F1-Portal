@@ -61,10 +61,10 @@ export class AuthService {
         let mockUser: User;
 
         if (credentials.email === 'admin'){
-          mockUser = { username: 'AdminUser', role: 'ADMIN' };
+          mockUser = { username: 'AdminUser', role: 'ADMIN', teamId: undefined };
           
         } else {
-          mockUser = { username: 'TeamUser', role: 'TEAM' };
+          mockUser = { username: 'TeamUser', role: 'TEAM', teamId: 1 };
           
         } 
 

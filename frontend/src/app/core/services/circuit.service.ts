@@ -7,7 +7,7 @@ import { Circuit } from '../models/circuit.interface';
 @Injectable({
   providedIn: 'root'
 })
-export class CalendarService {
+export class CircuitService {
 
   private apiUrl = 'http://localhost:8080/api/calendar';
 
@@ -20,7 +20,8 @@ export class CalendarService {
       date: new Date('2024-03-02'),
       city: 'Sakhir',
       country: 'Bahrein',
-      image: 'https://media.formula1.com/image/upload/content/dam/fom-website/2018-redesign-assets/Track%20icons%204x3/Bahrain%20carbon.png.transform/2col/image.png'
+      image: 'https://media.formula1.com/image/upload/content/dam/fom-website/2018-redesign-assets/Track%20icons%204x3/Bahrain%20carbon.png.transform/2col/image.png',
+      length: 5412
     },
     {
       id: 2,
@@ -28,7 +29,8 @@ export class CalendarService {
       date: new Date('2026-05-09'),
       city: 'Jeddah',
       country: 'Arabia Saudí',
-      image: 'https://media.formula1.com/image/upload/content/dam/fom-website/2018-redesign-assets/Track%20icons%204x3/Saudi%20Arabia%20carbon.png.transform/2col/image.png'
+      image: 'https://media.formula1.com/image/upload/content/dam/fom-website/2018-redesign-assets/Track%20icons%204x3/Saudi%20Arabia%20carbon.png.transform/2col/image.png',
+      length: 6174
     },
     {
       id: 3,
@@ -36,11 +38,12 @@ export class CalendarService {
       date: new Date('2026-06-24'),
       city: 'Melbourne',
       country: 'Australia',
-      image: 'https://media.formula1.com/image/upload/content/dam/fom-website/2018-redesign-assets/Track%20icons%204x3/Australia%20carbon.png.transform/2col/image.png'
+      image: 'https://media.formula1.com/image/upload/content/dam/fom-website/2018-redesign-assets/Track%20icons%204x3/Australia%20carbon.png.transform/2col/image.png',
+      length: 5278
     }
   ];
 
-  getCalendar(): Observable<Circuit[]> {
+  getCircuits(): Observable<Circuit[]> {
     return of(this.mockCircuits).pipe(delay(600));
 
     /*

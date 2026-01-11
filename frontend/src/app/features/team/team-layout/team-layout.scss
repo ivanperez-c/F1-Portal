@@ -1,0 +1,50 @@
+.team-layout {
+  display: flex;
+  min-height: calc(100vh - 160px);
+  margin-top: 80px;
+  background: #0a0a0a;
+
+  &__sidebar {
+    width: 260px;
+    background: #111;
+    border-right: 1px solid #333;
+    padding: 2rem;
+
+    &__head {
+      margin-bottom: 2rem;
+
+      h3 {
+        color: #e10600;
+        font-style: italic;
+        font-weight: 900;
+      }
+    }
+
+    &__nav__link {
+      display: flex;
+      gap: 10px;
+      padding: 1rem;
+      color: #888;
+      text-decoration: none;
+      border-radius: 6px;
+      margin-bottom: 0.5rem;
+      transition: 0.3s;
+
+      &:hover,
+      &.active {
+        background: #222;
+        color: #fff;
+
+        i {
+          color: #e10600;
+        }
+      }
+    }
+  }
+
+  &__content {
+    flex: 1;
+    padding: 3rem;
+    overflow-y: auto;
+  }
+}

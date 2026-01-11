@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { Home } from './features/public/home/home';
 import { Login } from './features/public/login/login';
 import { guestGuard } from './core/guards/public.guard';
+import { teamGuard } from './core/guards/team.guard';
 import { News } from './features/public/news/news';
 import { NewsDetail } from './features/public/newsDetail/newsDetail';
 import { Calendar } from './features/public/calendar/calendar';
@@ -23,6 +24,13 @@ export const routes: Routes = [
 
   // Equipos
   { path: 'escuderias', component: Teams },
+
+  // Módulo de gestión de equipo
+  {
+    path: 'equipo',
+    loadChildren: () => import('./features/team/team.module').then(m => m.TeamModule),
+    canActivate: [teamGuard] 
+  },
 
   // Redirección por seguridad (si pone una url rara, va al home)
   { path: '**', redirectTo: '' }

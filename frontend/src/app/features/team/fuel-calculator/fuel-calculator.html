@@ -1,0 +1,28 @@
+<div class="calc-box">
+  <h2>ESTRATEGIA <span class="accent">COMBUSTIBLE</span></h2>
+  <form [formGroup]="form" (ngSubmit)="calc()" class="calc-box__form">
+    <div class="group">
+      <label>Coche</label>
+      <select formControlName="carId">
+        <option [ngValue]="null">-- Seleccionar --</option>
+        @for (c of cars; track c.id) { <option [value]="c.id">{{c.name}} ({{c.consumption}} L/100)</option> }
+      </select>
+    </div>
+    <div class="group">
+      <label>Circuito</label>
+      <select formControlName="circuitId">
+        <option [ngValue]="null">-- Seleccionar --</option>
+        @for (c of circuits; track c.id) { <option [value]="c.id">{{c.name}}</option> }
+      </select>
+    </div>
+    <button type="submit" [disabled]="form.invalid || loading">{{ loading ? '...' : 'CALCULAR' }}</button>
+  </form>
+
+  @if(result) {
+    <div class="calc-box__res">
+      <div class="item"><span>POR VUELTA</span><strong>{{result.consumptionPerLap}} kg</strong></div>
+      <div class="item highlight"><span>TOTAL</span><strong>{{result.totalFuelNeeded}} kg</strong></div>
+      <div class="item"><span>VUELTAS</span><strong>{{result.laps}}</strong></div>
+    </div>
+  }
+</div>

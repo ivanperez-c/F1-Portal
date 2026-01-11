@@ -5,7 +5,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import { NewsService } from '../../../core/services/news.service';
-import { CalendarService } from '../../../core/services/calendar.service';
+import { CircuitService } from '../../../core/services/circuit.service';
 import { NewsItem } from '../../../core/models/news.interface';
 import { Circuit } from '../../../core/models/circuit.interface';
 
@@ -30,7 +30,7 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(
     private newsService: NewsService,
-    private calendarService: CalendarService,
+    private circuitService: CircuitService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     gsap.registerPlugin(ScrollTrigger);
@@ -39,7 +39,7 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit(): void {
     this.newsService.getNews().subscribe(news => this.latestNews = news.slice(0, 5));
     
-    this.calendarService.getCalendar().subscribe(calendar => {
+    this.circuitService.getCircuits().subscribe(calendar => {
       const now = new Date();
       const nextIndex = calendar.findIndex(c => new Date(c.date) > now);
       

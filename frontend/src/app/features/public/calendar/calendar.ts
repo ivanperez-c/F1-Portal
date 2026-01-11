@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CalendarService } from '../../../core/services/calendar.service';
+import { CircuitService } from '../../../core/services/circuit.service';
 import { Circuit } from '../../../core/models/circuit.interface';
 
 @Component({
@@ -16,10 +16,10 @@ export class Calendar implements OnInit {
   loading: boolean = true;
   today: Date = new Date();
 
-  constructor(private calendarService: CalendarService) {}
+  constructor(private circuitsService: CircuitService) {}
 
   ngOnInit(): void {
-    this.calendarService.getCalendar().subscribe(data => {
+    this.circuitsService.getCircuits().subscribe(data => {
       this.circuits = data;
       this.loading = false;
     });

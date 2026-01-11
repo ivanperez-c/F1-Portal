@@ -1,0 +1,21 @@
+<div class="team-layout">
+  <aside class="team-layout__sidebar">
+    <div class="team-layout__sidebar__head">
+      <h3>TEAM HUB</h3>
+    </div>
+    <nav class="team-layout__sidebar__nav">
+      <a routerLink="gestion" routerLinkActive="active" class="team-layout__sidebar__nav__link">
+        <i class="bi bi-speedometer2"></i> Gestión de equipo
+      </a>
+      <a routerLink="gasolina" routerLinkActive="active" class="team-layout__sidebar__nav__link">
+        <i class="bi bi-fuel-pump"></i> Calculadora combustible
+      </a>
+      <a routerLink="ers" routerLinkActive="active" class="team-layout__sidebar__nav__link">
+        <i class="bi bi-battery-charging"></i> Simulador ERS
+      </a>
+    </nav>
+  </aside>
+  <main class="team-layout__content">
+    <router-outlet></router-outlet>
+  </main>
+</div>

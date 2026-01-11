@@ -5,4 +5,5 @@ export interface Circuit {
   city: string;
   country: string;
   image: string;
+  length: number;
 }

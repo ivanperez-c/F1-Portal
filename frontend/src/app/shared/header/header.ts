@@ -25,7 +25,6 @@ export class Header implements OnInit {
   ngOnInit(): void {
     this.authService.user$.subscribe(user => {
       this.currentUser = user;
-      console.log('Usuario actual en Header:', this.currentUser);
     });
   }
 
