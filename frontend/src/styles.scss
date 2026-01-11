@@ -5,9 +5,9 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: $dark-bg; 
-  color: $text-primary;
-  font-family: $font-main;
+  background-color: #15151E; 
+  color: #FFFFFF;
+  font-family: 'Titillium Web', sans-serif;
   overflow-x: hidden;
 }
 
@@ -15,9 +15,9 @@ body {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: $dark-bg;
+  background: #15151E;
 }
 ::-webkit-scrollbar-thumb {
-  background: $f1-red;
+  background: #FF1801;
   border-radius: 4px;
 }

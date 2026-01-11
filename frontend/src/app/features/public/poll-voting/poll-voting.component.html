@@ -1,0 +1,115 @@
+<div class="poll-voting">
+  
+  <aside class="poll-voting__sidebar">
+    <h2 class="poll-voting__sidebar-title"><i class="bi bi-ui-checks-grid"></i> Votaciones</h2>
+    <div class="poll-voting__nav">
+      @for (p of polls; track p.id) {
+        <button class="poll-voting__nav-item" 
+                [class.poll-voting__nav-item--active]="activePoll?.poll?.id === p.id"
+                (click)="selectPoll(p.id)">
+          <div class="title">{{ p.title }}</div>
+          <div class="meta">
+            @if (p.deadline < now) { 
+              <span class="badge badge--closed">Cerrada</span> 
+            } @else { 
+              <span class="badge badge--open">Activa</span> 
+            }
+            <span class="date">{{ p.deadline | date:'dd/MM/yyyy' }}</span>
+          </div>
+        </button>
+      }
+    </div>
+  </aside>
+
+  <main class="poll-voting__content">
+    
+    @if (activePoll) {
+      <header class="poll-voting__header">
+        <h1 class="poll-voting__title">{{ activePoll.poll.title }}</h1>
+        <p class="poll-voting__desc">{{ activePoll.poll.description }}</p>
+        
+        <div class="poll-voting__status-bar">
+          @if (activePoll.isExpired) {
+            <span class="status status--closed"><i class="bi bi-lock-fill"></i> Votación finalizada</span>
+          } @else {
+            <span class="status status--open"><i class="bi bi-clock-history"></i> Cierra el {{ activePoll.poll.deadline | date }}</span>
+          }
+        </div>
+      </header>
+
+      @if (!activePoll.isExpired) {
+        <div class="poll-voting__section">
+          <h3 class="poll-voting__section-title">1. Elige a tu piloto favorito</h3>
+          
+          <div class="poll-voting__grid">
+            @for (driver of activePoll.drivers; track driver.id) {
+              <div class="poll-voting__card" 
+                   [class.poll-voting__card--selected]="selectedDriverId === driver.id"
+                   (click)="selectDriver(driver.id)">
+                
+                <img [src]="driver.photo" class="poll-voting__card-photo">
+                
+                <div class="poll-voting__card-info">
+                  <span class="name">{{ driver.firstname }} {{ driver.lastname }}</span>
+                  <span class="team">{{ driver.teamName }}</span>
+                </div>
+                
+                <div class="poll-voting__card-check"><i class="bi bi-check-circle-fill"></i></div>
+              </div>
+            }
+          </div>
+
+          <h3 class="poll-voting__section-title">2. Tus datos para validar</h3>
+          <form [formGroup]="voteForm" (ngSubmit)="submitVote()" class="poll-voting__form">
+            <div class="poll-voting__form-row">
+              <div class="poll-voting__field">
+                <label>Nombre Completo</label>
+                <input type="text" formControlName="voterName" placeholder="Tu nombre">
+              </div>
+              <div class="poll-voting__field">
+                <label>Email (Solo un voto por email)</label>
+                <input type="email" formControlName="voterEmail" placeholder="ejemplo@correo.com">
+              </div>
+            </div>
+            
+            <button type="submit" class="poll-voting__btn-submit" [disabled]="isSubmitting">
+              {{ isSubmitting ? 'Enviando...' : 'ENVIAR VOTO' }}
+            </button>
+          </form>
+        </div>
+      }
+
+      @if (activePoll.isExpired) {
+        <div class="poll-voting__section">
+          <h3 class="poll-voting__section-title">Resultados Finales</h3>
+          <div class="poll-voting__results">
+            @for (driver of activePoll.drivers; track driver.id) {
+              @let votes = activePoll.poll.votes[driver.id] || 0;
+              @let percent = getPercent(votes);
+              
+              <div class="poll-voting__result-row">
+                <img [src]="driver.photo" class="mini-face">
+                <div class="bar-container">
+                  <div class="info">
+                    <strong>{{ driver.lastname }}</strong>
+                    <span>{{ votes }} votos ({{ percent }}%)</span>
+                  </div>
+                  <div class="progress-bar">
+                    <div class="fill" [style.width.%]="percent"></div>
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      }
+
+    } @else {
+      <div class="poll-voting__empty">
+        <i class="bi bi-hand-index-thumb"></i>
+        <p>Selecciona una votación de la lista para participar.</p>
+      </div>
+    }
+
+  </main>
+</div>

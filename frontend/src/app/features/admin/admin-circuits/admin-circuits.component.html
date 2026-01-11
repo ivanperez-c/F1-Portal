@@ -1,0 +1,139 @@
+<div class="admin-circuits">
+  
+  <header class="admin-circuits__header">
+    <div class="admin-circuits__header-content">
+      <h1>Gestión de Circuitos</h1>
+      <p>Base de datos técnica y calendario FIA.</p>
+    </div>
+    
+    @if (!showForm) {
+      <button class="admin-circuits__btn admin-circuits__btn--create" (click)="openCreate()">
+        <i class="bi bi-plus-lg"></i> Nuevo Circuito
+      </button>
+    } @else {
+      <button class="admin-circuits__btn admin-circuits__btn--cancel" (click)="closeForm()">
+        Cancelar
+      </button>
+    }
+  </header>
+
+  @if (showForm) {
+    <div class="admin-circuits__editor">
+      <h3 class="admin-circuits__editor-title">{{ isEditing ? 'Editar Trazado' : 'Registrar Nuevo Trazado' }}</h3>
+      
+      <form [formGroup]="circuitForm" (ngSubmit)="onSubmit()" class="admin-circuits__form">
+        
+        <div class="admin-circuits__grid">
+          <div class="admin-circuits__field admin-circuits__grid--full">
+            <label>Nombre Oficial</label>
+            <input type="text" formControlName="name" placeholder="Ej: Silverstone Circuit">
+          </div>
+          <div class="admin-circuits__field admin-circuits__grid--full">
+            <label>Imagen (URL)</label>
+            <input type="text" formControlName="image" placeholder="https://...">
+          </div>
+        </div>
+
+        <div class="admin-circuits__grid">
+          <div class="admin-circuits__field"><label>Ciudad</label><input type="text" formControlName="city"></div>
+          <div class="admin-circuits__field"><label>País</label><input type="text" formControlName="country"></div>
+        </div>
+
+        <h4 class="admin-circuits__editor-subtitle">Telemetría</h4>
+        
+        <div class="admin-circuits__grid admin-circuits__grid--three-cols">
+          <div class="admin-circuits__field"><label>Vueltas</label><input type="number" formControlName="laps"></div>
+          <div class="admin-circuits__field"><label>Longitud (m)</label><input type="number" formControlName="length"></div>
+        </div>
+        
+        <div class="admin-circuits__grid admin-circuits__grid--three-cols">
+          <div class="admin-circuits__field"><label>Curvas Lentas</label><input type="number" formControlName="cornersSlow"></div>
+          <div class="admin-circuits__field"><label>Curvas Medias</label><input type="number" formControlName="cornersMedium"></div>
+          <div class="admin-circuits__field"><label>Curvas Rápidas</label><input type="number" formControlName="cornersFast"></div>
+        </div>
+
+        <div class="admin-circuits__calendar-box">
+          <label class="admin-circuits__toggle">
+            <input type="checkbox" formControlName="isInCalendar">
+            <span class="admin-circuits__toggle-slider"></span>
+            <span class="admin-circuits__toggle-label">Incluir en Calendario 2026</span>
+          </label>
+          
+          @if (circuitForm.get('isInCalendar')?.value) {
+            <div class="admin-circuits__field date-input">
+              <label>Fecha del Gran Premio</label>
+              <input type="date" formControlName="date">
+            </div>
+          }
+        </div>
+
+        <button type="submit" class="admin-circuits__btn admin-circuits__btn--submit" [disabled]="circuitForm.invalid">
+          {{ isEditing ? 'Actualizar Circuito' : 'Guardar Circuito' }}
+        </button>
+      </form>
+    </div>
+  }
+
+  @if (!isLoading) {
+    <div class="admin-circuits__table-wrapper">
+      <table class="admin-circuits__table">
+        <thead>
+          <tr>
+            <th>Estado</th>
+            <th>Circuito</th>
+            <th>Detalles</th>
+            <th>Curvas (L/M/R)</th>
+            <th class="text-right">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (c of circuits; track c.id) {
+            <tr>
+              <td>
+                @if (c.isInCalendar) {
+                  <div class="admin-circuits__badge admin-circuits__badge--active" title="En Calendario">
+                    <i class="bi bi-calendar-check-fill"></i> {{ c.date | date:'dd/MM' }}
+                  </div>
+                } @else {
+                  <div class="admin-circuits__badge admin-circuits__badge--inactive" title="Reserva">
+                    <i class="bi bi-archive"></i> Reserva
+                  </div>
+                }
+              </td>
+              
+              <td>
+                <div class="admin-circuits__circuit-info">
+                  <span class="name">{{ c.name }}</span>
+                  <div class="location"><i class="bi bi-geo-alt-fill"></i> {{ c.city }}, {{ c.country }}</div>
+                </div>
+              </td>
+
+              <td class="admin-circuits__tech-data">
+                <div>{{ c.length }}m</div>
+                <div>{{ c.laps }} vueltas</div>
+              </td>
+
+              <td class="admin-circuits__tech-data">
+                <span class="stat-slow">{{ c.cornersSlow }}</span> / 
+                <span class="stat-med">{{ c.cornersMedium }}</span> / 
+                <span class="stat-fast">{{ c.cornersFast }}</span>
+              </td>
+
+              <td class="admin-circuits__actions">
+                <button class="admin-circuits__action-btn admin-circuits__action-btn--edit" (click)="openEdit(c)" title="Editar">
+                  <i class="bi bi-pencil-fill"></i>
+                </button>
+                
+                <button class="admin-circuits__action-btn admin-circuits__action-btn--delete" (click)="deleteCircuit(c)" title="Borrar">
+                  <i class="bi bi-trash-fill"></i>
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  } @else {
+    <div class="admin-circuits__loading">Cargando datos...</div>
+  }
+</div>

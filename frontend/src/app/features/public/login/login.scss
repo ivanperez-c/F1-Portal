@@ -1,6 +1,3 @@
-@use '../../../../variables' as *;
-@use 'sass:color';
-
 .login {
   width: 100%;
   min-height: calc(100vh - 160px);
@@ -9,15 +6,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(circle at center, #2c3e50 0%, $dark-bg 100%);
+  background: radial-gradient(circle at center, #2c3e50 0%, #15151E 100%);
 
   &__card {
-    background: $dark-card;
+    background: #1F1F27;
     width: 100%;
     max-width: 420px;
     padding: 2.5rem;
     border-radius: 12px;
-    border-top: 4px solid $f1-red;
+    border-top: 4px solid #FF1801;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
 
     &__header {
@@ -25,18 +22,18 @@
       margin-bottom: 2rem;
 
       &__title {
-        color: $text-primary;
+        color: #FFFFFF;
         font-style: italic;
         font-size: 1.6rem;
 
         span {
-          color: $f1-red;
+          color: #FF1801;
           font-weight: 800;
         }
       }
 
       &__subtitle {
-        color: $text-secondary;
+        color: #949498;
         font-size: 0.9rem;
         margin-top: 5px;
       }
@@ -49,7 +46,7 @@
 
         &__label {
           display: block;
-          color: $text-primary;
+          color: #FFFFFF;
           font-size: 0.85rem;
           margin-bottom: 0.5rem;
           font-weight: 600;
@@ -63,7 +60,7 @@
             left: 15px;
             top: 50%;
             transform: translateY(-50%);
-            color: $text-secondary;
+            color: #949498;
           }
 
           input {
@@ -78,7 +75,7 @@
             transition: 0.3s;
 
             &:focus {
-              border-color: $f1-red;
+              border-color: #FF1801;
               background: rgba(255, 255, 255, 0.1);
             }
           }
@@ -88,7 +85,7 @@
       &__btn {
         width: 100%;
         padding: 1rem;
-        background: $f1-red;
+        background: #FF1801;
         color: white;
         border: none;
         border-radius: 6px;
@@ -111,10 +108,10 @@
       margin-top: 2rem;
       text-align: center;
       font-size: 0.9rem;
-      color: $text-secondary;
+      color: #949498;
 
       a {
-        color: $f1-red;
+        color: #FF1801;
         text-decoration: none;
         font-weight: 600;
 

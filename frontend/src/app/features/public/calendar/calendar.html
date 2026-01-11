@@ -11,7 +11,7 @@
       @for (circuit of circuits; track circuit.id) {
         
         <article class="calendar__list__item" 
-                 [class.calendar__list__item--finished]="isFinished(circuit.date)">
+                 [class.calendar__list__item--finished]="isFinished(circuit.date!)">
           
           <div class="calendar__list__item__date">
             <span class="calendar__list__item__date__day">{{ circuit.date | date:'dd' }}</span>
@@ -28,7 +28,7 @@
           </div>
 
           <div class="calendar__list__item__status">
-             @if (isFinished(circuit.date)) {
+             @if (isFinished(circuit.date!)) {
                <span class="calendar__list__item__status__label">Finalizado</span>
              }
           </div>

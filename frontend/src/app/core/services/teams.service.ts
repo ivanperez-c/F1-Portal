@@ -36,42 +36,49 @@ export class TeamsService {
   /**
    * OBTENER DETALLE DE EQUIPO
    * -------------------------------------------------------------------------
-   * Operación: Recupera toda la info de un equipo (usuarios, pilotos, coches).
+   * Operación: Recupera toda la info de un equipo (incluyendo relaciones).
    * Endpoint: GET /api/teams/{id}
    * @param id ID del equipo
    * @returns Observable<Team> Objeto Team completo.
    */
   getTeamById(id: number): Observable<Team> {
+    // --- API CALL ---
     // return this.http.get<Team>(`${this.apiUrl}/${id}`);
     
+    // --- MOCK ---
     const team = this.mockTeams.find(t => t.id === id);
     return team ? of(team).pipe(delay(600)) : throwError(() => new Error('Not Found'));
   }
 
   /**
-   * OBTENER LISTA DE EQUIPOS (PÚBLICA)
+   * OBTENER TODOS LOS EQUIPOS
    * -------------------------------------------------------------------------
-   * Operación: Lista básica de equipos para la sección "Escuderías".
+   * Operación: Lista básica de equipos.
    * Endpoint: GET /api/teams
    * @returns Observable<Team[]> Array de equipos.
    */
   getTeams(): Observable<Team[]> {
+    // --- API CALL ---
     // return this.http.get<Team[]>(this.apiUrl);
+    
+    // --- MOCK ---
     return of(this.mockTeams).pipe(delay(500));
   }
 
   /**
    * AÑADIR RESPONSABLE DE EQUIPO
    * -------------------------------------------------------------------------
-   * Operación: Autoriza a un usuario existente (por username) en el equipo.
+   * Operación: Asocia un usuario existente a un equipo.
    * Endpoint: POST /api/teams/{teamId}/responsibles
    * @param teamId ID del equipo
-   * @param username String con el nombre de usuario a autorizar
-   * @returns Observable<User> El usuario añadido con su rol actualizado.
+   * @param username Username del usuario
+   * @returns Observable<User> Usuario actualizado.
    */
   addResponsible(teamId: number, username: string): Observable<User> {
+    // --- API CALL ---
     // return this.http.post<User>(`${this.apiUrl}/${teamId}/responsibles`, { username });
 
+    // --- MOCK ---
     const team = this.mockTeams.find(t => t.id === teamId);
     if(team) {
       const newUser: User = { username: username, role: 'TEAM', teamId: teamId };
@@ -84,14 +91,17 @@ export class TeamsService {
   /**
    * ELIMINAR RESPONSABLE
    * -------------------------------------------------------------------------
-   * Operación: Revoca el acceso de un usuario al equipo.
+   * Operación: Desvincula un usuario del equipo.
    * Endpoint: DELETE /api/teams/{teamId}/responsibles/{username}
    * @param teamId ID del equipo
-   * @param username Usuario a eliminar
+   * @param username Username a eliminar
+   * @returns Observable<boolean> Éxito.
    */
   deleteResponsible(teamId: number, username: string): Observable<boolean> {
+    // --- API CALL ---
     // return this.http.delete<boolean>(`${this.apiUrl}/${teamId}/responsibles/${username}`);
 
+    // --- MOCK ---
     const team = this.mockTeams.find(t => t.id === teamId);
     if (team) {
       team.users = team.users.filter(u => u.username !== username);
@@ -103,15 +113,17 @@ export class TeamsService {
   /**
    * AÑADIR PILOTO
    * -------------------------------------------------------------------------
-   * Operación: Da de alta un piloto nuevo en la escudería.
+   * Operación: Crea un piloto en el equipo.
    * Endpoint: POST /api/teams/{teamId}/drivers
    * @param teamId ID del equipo
-   * @param driver Objeto Driver
-   * @returns Observable<Driver> El piloto creado con su ID.
+   * @param driver Datos del piloto
+   * @returns Observable<Driver> Piloto creado.
    */
   addDriver(teamId: number, driver: Partial<Driver>): Observable<Driver> {
+    // --- API CALL ---
     // return this.http.post<Driver>(`${this.apiUrl}/${teamId}/drivers`, driver);
 
+    // --- MOCK ---
     const team = this.mockTeams.find(t => t.id === teamId);
     if(team) {
       const newD = { ...driver, id: Date.now(), photo: driver.photo || 'assets/default.png' } as Driver;
@@ -124,12 +136,17 @@ export class TeamsService {
   /**
    * ELIMINAR PILOTO
    * -------------------------------------------------------------------------
-   * Operación: Borra un piloto de la base de datos.
-   * Endpoint: DELETE /api/teams/{teamId}/drivers/{driverId}
+   * Operación: Elimina un piloto.
+   * Endpoint: DELETE /api/teams/{teamId}/drivers/{id}
+   * @param teamId ID del equipo
+   * @param id ID del piloto
+   * @returns Observable<boolean> Éxito.
    */
   deleteDriver(teamId: number, id: number): Observable<boolean> {
+    // --- API CALL ---
     // return this.http.delete<boolean>(`${this.apiUrl}/${teamId}/drivers/${id}`);
 
+    // --- MOCK ---
     const t = this.mockTeams.find(x => x.id === teamId);
     if (t) { t.drivers = t.drivers.filter(d => d.id !== id); return of(true).pipe(delay(600)); }
     return of(false);
@@ -138,15 +155,17 @@ export class TeamsService {
   /**
    * AÑADIR COCHE
    * -------------------------------------------------------------------------
-   * Operación: Registra un nuevo coche con sus datos técnicos.
+   * Operación: Registra un chasis en el equipo.
    * Endpoint: POST /api/teams/{teamId}/cars
    * @param teamId ID del equipo
-   * @param car Objeto Car (Name, Code, ERS data, Consumption)
-   * @returns Observable<Car> El coche creado con ID.
+   * @param car Datos del coche
+   * @returns Observable<Car> Coche creado.
    */
   addCar(teamId: number, car: Partial<Car>): Observable<Car> {
+    // --- API CALL ---
     // return this.http.post<Car>(`${this.apiUrl}/${teamId}/cars`, car);
 
+    // --- MOCK ---
     const t = this.mockTeams.find(x => x.id === teamId);
     if(t) {
       const newC = { ...car, id: Date.now() } as Car;
@@ -159,12 +178,17 @@ export class TeamsService {
   /**
    * ELIMINAR COCHE
    * -------------------------------------------------------------------------
-   * Operación: Elimina un coche.
-   * Endpoint: DELETE /api/teams/{teamId}/cars/{carId}
+   * Operación: Elimina un chasis.
+   * Endpoint: DELETE /api/teams/{teamId}/cars/{id}
+   * @param teamId ID del equipo
+   * @param id ID del coche
+   * @returns Observable<boolean> Éxito.
    */
   deleteCar(teamId: number, id: number): Observable<boolean> {
+    // --- API CALL ---
     // return this.http.delete<boolean>(`${this.apiUrl}/${teamId}/cars/${id}`);
 
+    // --- MOCK ---
     const t = this.mockTeams.find(x => x.id === teamId);
     if (t) { t.cars = t.cars.filter(c => c.id !== id); return of(true).pipe(delay(600)); }
     return of(false);

@@ -1,0 +1,64 @@
+<div class="admin-votes">
+  
+  <header class="admin-votes__header">
+    <h1 class="admin-votes__title">Votaciones Activas</h1>
+    <button class="admin-votes__btn-toggle" (click)="showForm = !showForm">
+      {{ showForm ? 'Cancelar' : '+ Nueva Votación' }}
+    </button>
+  </header>
+
+  @if (showForm) {
+    <form [formGroup]="pollForm" (ngSubmit)="createPoll()" class="admin-votes__form">
+      
+      <div class="admin-votes__field">
+        <label>Título</label>
+        <input formControlName="title" placeholder="Ej: Driver of the Day">
+      </div>
+      
+      <div class="admin-votes__field">
+        <label>Descripción</label>
+        <textarea formControlName="description"></textarea>
+      </div>
+      
+      <div class="admin-votes__field">
+        <label>Fecha Límite</label>
+        <input type="date" formControlName="deadline">
+      </div>
+      
+      <div class="admin-votes__field">
+        <label>Seleccionar Pilotos (5-10)</label>
+        
+        <div class="admin-votes__drivers-grid">
+          @for (driver of allDrivers; track driver.id) {
+            <label class="admin-votes__driver-item">
+              <input type="checkbox" [value]="driver.id" (change)="toggleDriverSelection(driver.id, $event)">
+              <div class="admin-votes__driver-content">
+                <img [src]="driver.photo" class="face">
+                <span class="name">{{ driver.lastname }}</span>
+              </div>
+            </label>
+          }
+        </div>
+        
+        <small class="admin-votes__hint">{{ pollForm.get('selectedDrivers')?.value?.length }} seleccionados</small>
+      </div>
+
+      <button type="submit" class="admin-votes__btn-submit">Publicar Votación</button>
+    </form>
+  }
+
+  <div class="admin-votes__list">
+    @for (poll of polls; track poll.id) {
+      <div class="admin-votes__card">
+        <div class="admin-votes__card-info">
+          <h3>{{ poll.title }}</h3>
+          <p>Cierra: {{ poll.deadline | date }}</p>
+          <span class="badge">{{ poll.driverIds.length }} Pilotos</span>
+        </div>
+        <button class="admin-votes__btn-delete" (click)="deletePoll(poll.id)">
+          <i class="bi bi-trash"></i>
+        </button>
+      </div>
+    }
+  </div>
+</div>

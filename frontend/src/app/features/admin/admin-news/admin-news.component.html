@@ -1,0 +1,93 @@
+<div class="admin-news">
+  
+  <header class="admin-news__header">
+    <div class="admin-news__header-info">
+      <h1 class="admin-news__title">Gestión de Noticias</h1>
+      <p class="admin-news__subtitle">Creación y edición de contenido para el portal.</p>
+    </div>
+    
+    @if (!showForm) {
+      <button class="admin-news__btn admin-news__btn--create" (click)="openCreate()">
+        <i class="bi bi-plus-lg"></i> Nueva Noticia
+      </button>
+    } @else {
+      <button class="admin-news__btn admin-news__btn--cancel" (click)="cancelForm()">
+        Cancelar
+      </button>
+    }
+  </header>
+
+  @if (showForm) {
+    <div class="admin-news__editor">
+      <h3 class="admin-news__editor-title">{{ isEditing ? 'Editar Noticia' : 'Redactar Nueva Noticia' }}</h3>
+      
+      <form [formGroup]="newsForm" (ngSubmit)="onSubmit()" class="admin-news__form">
+        
+        <div class="admin-news__field">
+          <label>Titular</label>
+          <input type="text" formControlName="title" placeholder="Ej: Verstappen logra la pole">
+        </div>
+
+        <div class="admin-news__row">
+          <div class="admin-news__field">
+            <label>Permalink (URL)</label>
+            <input type="text" formControlName="permalink" placeholder="ej: verstappen-pole-monza">
+          </div>
+          <div class="admin-news__field">
+            <label>Imagen URL</label>
+            <input type="text" formControlName="image" placeholder="https://...">
+          </div>
+        </div>
+
+        <div class="admin-news__field">
+          <label>Cuerpo de la noticia</label>
+          <textarea formControlName="text" rows="6"></textarea>
+        </div>
+
+        <button type="submit" class="admin-news__btn admin-news__btn--submit" [disabled]="newsForm.invalid">
+          {{ isEditing ? 'Guardar Cambios' : 'Publicar Noticia' }}
+        </button>
+      </form>
+    </div>
+  }
+
+  @if (!isLoading) {
+    <div class="admin-news__table-wrapper">
+      <table class="admin-news__table">
+        <thead>
+          <tr>
+            <th>Imagen</th>
+            <th>Titular</th>
+            <th>URL</th>
+            <th class="text-right">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (item of newsList; track item.id) {
+            <tr>
+              <td>
+                <img [src]="item.image" class="admin-news__thumb">
+              </td>
+              <td>
+                <span class="admin-news__item-title">{{ item.title }}</span>
+              </td>
+              <td>
+                <span class="admin-news__item-link">/{{ item.permalink }}</span>
+              </td>
+              <td class="admin-news__actions">
+                <button class="admin-news__icon-btn admin-news__icon-btn--edit" (click)="openEdit(item)" title="Editar">
+                  <i class="bi bi-pencil-fill"></i>
+                </button>
+                <button class="admin-news__icon-btn admin-news__icon-btn--delete" (click)="deleteNews(item.id)" title="Borrar">
+                  <i class="bi bi-trash-fill"></i>
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  } @else {
+    <div class="admin-news__loading">Cargando noticias...</div>
+  }
+</div>

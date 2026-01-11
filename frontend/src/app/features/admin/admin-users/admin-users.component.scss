@@ -1,0 +1,83 @@
+@use '../../../../_variables' as *;
+
+.admin-users {
+  padding: 2rem;
+  color: $c-text;
+
+  &__header {
+    margin-bottom: 2rem;
+    border-bottom: 1px solid $c-border;
+    padding-bottom: 1rem;
+  }
+
+  &__title {
+    color: $c-red;
+    font-style: italic;
+    font-weight: 900;
+    margin: 0;
+  }
+
+  &__subtitle {
+    margin: 5px 0 0;
+    color: $c-text-muted;
+  }
+
+  &__table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+
+    th {
+      text-align: left;
+      color: $c-text-muted;
+      border-bottom: 1px solid #444;
+      padding: 10px;
+    }
+
+    td {
+      padding: 15px 10px;
+      border-bottom: 1px solid #222;
+      vertical-align: middle;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    gap: 5px;
+  }
+
+  &__btn {
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 5px 10px;
+    color: #fff;
+    transition: 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+
+    &--validate {
+      background: $c-green;
+      &:hover { background: darken($c-green, 5%); }
+    }
+
+    &--reject {
+      background: $c-danger;
+      &:hover { background: darken($c-danger, 5%); }
+    }
+  }
+
+  &__empty {
+    text-align: center;
+    color: $c-text-muted;
+    padding: 2rem;
+    border: 1px dashed $c-border;
+    border-radius: 8px;
+  }
+}

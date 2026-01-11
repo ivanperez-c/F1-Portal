@@ -1,6 +1,4 @@
-@use '../../../variables' as *;
 @use "sass:color";
-
 .header {
   position: fixed;
   top: 0;
@@ -13,21 +11,21 @@
   justify-content: space-between;
   box-sizing: border-box;
   padding: 0 2rem;
-  background: rgba($dark-bg, 0.85);
+  background: rgba(#15151E, 0.85);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 
   &__logo {
     font-size: 1.8rem;
     font-weight: 700;
     font-style: italic;
-    color: $text-primary;
+    color: #FFFFFF;
     text-decoration: none;
     letter-spacing: 2px;
     display: flex;
     align-items: center;
 
     span {
-      color: $f1-red;
+      color: #FF1801;
       margin-left: 2px;
     }
 
@@ -53,7 +51,7 @@
 
       a {
         text-decoration: none;
-        color: $text-secondary;
+        color: #949498;
         text-transform: uppercase;
         font-weight: 600;
         font-size: 0.9rem;
@@ -64,7 +62,7 @@
 
         &:hover,
         &.active {
-          color: $text-primary;
+          color: #FFFFFF;
         }
 
         &::after {
@@ -74,7 +72,7 @@
           height: 2px;
           bottom: -5px;
           left: 0;
-          background-color: $f1-red;
+          background-color: #FF1801;
           transition: width 0.3s ease;
         }
 
@@ -98,7 +96,7 @@
           position: absolute;
           top: 200%;
           left: -10px;
-          background: $dark-card;
+          background: #1F1F27;
           border: 1px solid rgba(255, 255, 255, 0.1);
           list-style: none;
           padding: 1rem;
@@ -123,7 +121,7 @@
           }
 
           a:hover {
-            color: $f1-red;
+            color: #FF1801;
           }
         }
 
@@ -151,7 +149,7 @@
       height: 100%;
 
       &__login-link {
-        color: $text-secondary;
+        color: #949498;
         font-size: 1.6rem;
         cursor: pointer;
         transition: color 0.3s;
@@ -159,7 +157,7 @@
         align-items: center;
 
         &:hover {
-          color: $f1-red;
+          color: #FF1801;
           transform: scale(1.1);
         }
       }
@@ -177,14 +175,14 @@
           gap: 10px;
 
           &__name {
-            color: $text-primary;
+            color: #FFFFFF;
             font-weight: 700;
             font-size: 0.9rem;
             text-transform: uppercase;
           }
 
           &__icon {
-            color: $f1-red;
+            color: #FF1801;
             font-size: 1.4rem;
           }
         }
@@ -192,7 +190,7 @@
         &__logout {
           background: none;
           border: none;
-          color: $text-secondary;
+          color: #949498;
           font-size: 1.2rem;
           cursor: pointer;
           transition: 0.3s;

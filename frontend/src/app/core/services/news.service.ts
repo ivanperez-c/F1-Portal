@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { NewsItem } from '../models/news.interface';
 
@@ -131,12 +131,15 @@ export class NewsService {
   /**
    * OBTENER TODAS LAS NOTICIAS
    * -------------------------------------------------------------------------
-   * Operación: Devuelve el listado de noticias para la home o sección noticias.
+   * Operación: Devuelve el listado de noticias públicas.
    * Endpoint: GET /api/news
    * @returns Observable<NewsItem[]> Lista de noticias.
    */
   getNews(): Observable<NewsItem[]> {
+    // --- API CALL ---
     // return this.http.get<NewsItem[]>(this.apiUrl);
+
+    // --- MOCK ---
     return of(this.mockNews).pipe(delay(800));
   }
 
@@ -144,13 +147,15 @@ export class NewsService {
    * OBTENER NOTICIA POR PERMALINK
    * -------------------------------------------------------------------------
    * Operación: Devuelve el detalle de una noticia específica.
-   * Endpoint: GET /api/news/{permalink}
-   * @param permalink URL amigable de la noticia
-   * @returns Observable<NewsItem> La noticia solicitada.
+   * Endpoint: GET /api/news/permalink/{permalink}
+   * @param permalink URL amigable
+   * @returns Observable<NewsItem> Objeto noticia.
    */
   getNewsByPermalink(permalink: string): Observable<NewsItem | undefined> {
-    // return this.http.get<NewsItem>(`${this.apiUrl}/${permalink}`);
+    // --- API CALL ---
+    // return this.http.get<NewsItem>(`${this.apiUrl}/permalink/${permalink}`);
 
+    // --- MOCK ---
     const item = this.mockNews.find(n => n.permalink === permalink);
     return of(item).pipe(delay(500));
   }
@@ -158,15 +163,74 @@ export class NewsService {
   /**
    * OBTENER NOTICIAS RELACIONADAS
    * -------------------------------------------------------------------------
-   * Operación: Devuelve 3 noticias excepto la actual.
+   * Operación: Devuelve noticias sugeridas (excluyendo la actual).
    * Endpoint: GET /api/news/{permalink}/related
-   * @param currentPermalink La noticia que se está viendo
-   * @returns Observable<NewsItem[]> Array de 3 noticias.
+   * @param currentPermalink Permalink de la noticia actual
+   * @returns Observable<NewsItem[]> Array de noticias relacionadas.
    */
   getRelatedNews(currentPermalink: string): Observable<NewsItem[]> {
-    // return this.http.get<NewsItem[]>(`${this.apiUrl}/${permalink}/related`);
+    // --- API CALL ---
+    // return this.http.get<NewsItem[]>(`${this.apiUrl}/${currentPermalink}/related`);
 
+    // --- MOCK ---
     const related = this.mockNews.filter(n => n.permalink !== currentPermalink).slice(0, 3);
     return of(related);
+  }
+
+  /**
+   * CREAR NOTICIA (ADMIN)
+   * -------------------------------------------------------------------------
+   * Operación: Crea una nueva noticia en el sistema.
+   * Endpoint: POST /api/news
+   * @param news Objeto con título, texto, imagen, permalink
+   * @returns Observable<NewsItem> Noticia creada.
+   */
+  createNews(news: Partial<NewsItem>): Observable<NewsItem> {
+    // --- API CALL ---
+    // return this.http.post<NewsItem>(this.apiUrl, news);
+    
+    // --- MOCK ---
+    const newItem = { ...news, id: Date.now() } as NewsItem;
+    this.mockNews.push(newItem);
+    return of(newItem).pipe(delay(600));
+  }
+
+  /**
+   * EDITAR NOTICIA (ADMIN)
+   * -------------------------------------------------------------------------
+   * Operación: Actualiza una noticia existente.
+   * Endpoint: PUT /api/news/{id}
+   * @param id ID de la noticia
+   * @param news Datos a actualizar
+   * @returns Observable<NewsItem> Noticia actualizada.
+   */
+  updateNews(id: number, news: Partial<NewsItem>): Observable<NewsItem> {
+    // --- API CALL ---
+    // return this.http.put<NewsItem>(`${this.apiUrl}/${id}`, news);
+
+    // --- MOCK ---
+    const index = this.mockNews.findIndex(n => n.id === id);
+    if (index !== -1) {
+      this.mockNews[index] = { ...this.mockNews[index], ...news };
+      return of(this.mockNews[index]).pipe(delay(600));
+    }
+    return throwError(() => new Error('Not found'));
+  }
+
+  /**
+   * BORRAR NOTICIA (ADMIN)
+   * -------------------------------------------------------------------------
+   * Operación: Elimina una noticia.
+   * Endpoint: DELETE /api/news/{id}
+   * @param id ID de la noticia
+   * @returns Observable<boolean> Éxito de la operación.
+   */
+  deleteNews(id: number): Observable<boolean> {
+    // --- API CALL ---
+    // return this.http.delete<boolean>(`${this.apiUrl}/${id}`);
+
+    // --- MOCK ---
+    this.mockNews = this.mockNews.filter(n => n.id !== id);
+    return of(true).pipe(delay(600));
   }
 }

@@ -1,0 +1,63 @@
+<div class="admin-teams">
+  <header class="admin-teams__header">
+    <div class="admin-teams__header-content">
+      <h1 class="admin-teams__title">Monitorización de Equipos</h1>
+      <p class="admin-teams__subtitle">Acceso directo a herramientas de simulación y telemetría.</p>
+    </div>
+  </header>
+
+  @if (!isLoading) {
+    <div class="admin-teams__grid">
+      @for (team of teams; track team.id) {
+        <article class="admin-teams__card">
+          <div class="admin-teams__card-head">
+            <div class="admin-teams__card-logo">
+              <img [src]="team.logo" [alt]="team.name">
+            </div>
+            <div class="admin-teams__card-info">
+              <h2>{{ team.name }}</h2>
+              <span class="badge">ID: {{ team.id }}</span>
+            </div>
+          </div>
+
+          <div class="admin-teams__card-body">
+            <div class="admin-teams__stat">
+              <span class="label">Pilotos</span>
+              <strong class="value">{{ team.drivers.length }}</strong>
+            </div>
+            <div class="admin-teams__stat">
+              <span class="label">Coches</span>
+              <strong class="value">{{ team.cars.length }}</strong>
+            </div>
+          </div>
+
+          <div class="admin-teams__card-actions">
+            <p class="title">HERRAMIENTAS TV</p>
+            <div class="admin-teams__tools-grid">
+              
+              <a [routerLink]="['/equipo', 'ers']" 
+                 [queryParams]="{teamId: team.id}" 
+                 class="admin-teams__tool-btn admin-teams__tool-btn--ers">
+                <i class="bi bi-lightning-charge-fill"></i>
+                <span>Simulación ERS</span>
+              </a>
+
+              <a [routerLink]="['/equipo', 'gasolina']" 
+                 [queryParams]="{teamId: team.id}" 
+                 class="admin-teams__tool-btn admin-teams__tool-btn--fuel">
+                <i class="bi bi-fuel-pump-fill"></i>
+                <span>Cálculo Gasolina</span>
+              </a>
+
+            </div>
+          </div>
+        </article>
+      }
+    </div>
+  } @else {
+    <div class="admin-teams__loading">
+      <div class="spinner"></div>
+      <p>Cargando escuderías...</p>
+    </div>
+  }
+</div>

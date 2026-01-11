@@ -1,0 +1,40 @@
+<div class="admin-users">
+  <header class="admin-users__header">
+    <h1 class="admin-users__title">Solicitudes de Registro</h1>
+    <p class="admin-users__subtitle">Usuarios pendientes de validación para acceder a la zona privada.</p>
+  </header>
+
+  @if (!isLoading && pendingUsers.length > 0) {
+    <div class="admin-users__table-wrapper">
+      <table class="admin-users__table">
+        <thead>
+          <tr>
+            <th>Usuario</th>
+            <th>Email</th>
+            <th>Fecha</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (user of pendingUsers; track user.id) {
+            <tr>
+              <td><strong>{{ user.username }}</strong></td>
+              <td>{{ user.email }}</td>
+              <td>{{ user.registrationDate | date:'shortDate' }}</td>
+              <td class="admin-users__actions">
+                <button class="admin-users__btn admin-users__btn--validate" (click)="validateUser(user)">
+                  <i class="bi bi-check-lg"></i> Validar
+                </button>
+                <button class="admin-users__btn admin-users__btn--reject" (click)="deleteUser(user.id)">
+                  <i class="bi bi-x-lg"></i>
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  } @else {
+    <div class="admin-users__empty">No hay solicitudes pendientes.</div>
+  }
+</div>

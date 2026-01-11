@@ -1,14 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { TeamsService } from '../../../core/services/teams.service';
-import { CircuitService } from '../../../core/services/circuit.service';
 import { SimulationService } from '../../../core/services/simulation.service';
 import { AuthService } from '../../../core/services/auth.service';
-import { User } from '../../../core/models/user.interface';
-import Swal from 'sweetalert2';
-import { Router } from '@angular/router';
-
+import { CircuitService } from '../../../core/services/circuit.service';
 
 @Component({
   selector: 'app-ers-simulator',
@@ -17,41 +14,43 @@ import { Router } from '@angular/router';
   templateUrl: './ers-simulator.html',
   styleUrls: ['./ers-simulator.scss']
 })
-export class ErsSimulator implements OnInit {
+export class ErsSimulatorComponent implements OnInit {
   form: FormGroup;
   cars: any[] = [];
   circuits: any[] = [];
   result: any;
   loading = false;
-  currentUser: User | null = null;
+  currentTeamId!: number;
 
-  constructor(private router: Router, public authService: AuthService, private fb: FormBuilder, private teamSrv: TeamsService,  private circuitSrv: CircuitService, private simSrv: SimulationService) {
+  constructor(
+    private fb: FormBuilder,
+    private teamSrv: TeamsService,
+    private simSrv: SimulationService,
+    private authSrv: AuthService,
+    private route: ActivatedRoute,
+    private circuitSrv: CircuitService,
+  ) {
     this.form = this.fb.group({
       carId: [null, Validators.required],
       circuitId: [null, Validators.required],
       mode: ['NORMAL', Validators.required]
     });
-    this.currentUser = this.authService.getUser();
   }
 
   ngOnInit() {
-    const user = this.authService.getUser();
-    if(user?.teamId != undefined){
-      this.teamSrv.getTeamById(user?.teamId).subscribe(t => this.cars = t.cars);
-      this.circuitSrv.getCircuits().subscribe(c => this.circuits = c);
-    }else{
-      Swal.fire({
-        title: 'Acceso Restringido',
-        text: 'No tienes un equipo asignado.',
-        icon: 'error',
-        background: '#141414',
-        color: '#fff',
-        confirmButtonColor: '#e10600',
-        confirmButtonText: 'Volver al inicio'
-      }).then(() => {
-        this.router.navigate(['/']);
-      });
-    }
+    this.route.queryParams.subscribe(params => {
+      if (params['teamId']) {
+        this.currentTeamId = Number(params['teamId']);
+      } else {
+        this.currentTeamId = this.authSrv.getUser()?.teamId || 1;
+      }
+      this.loadData();
+    });
+  }
+
+  loadData() {
+    this.teamSrv.getTeamById(this.currentTeamId).subscribe(t => this.cars = t.cars);
+    this.circuitSrv.getCircuits().subscribe(c => this.circuits = c);
   }
 
   sim() {

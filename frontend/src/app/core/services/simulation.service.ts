@@ -13,19 +13,16 @@ export class SimulationService {
   /**
    * CALCULAR COMBUSTIBLE
    * -------------------------------------------------------------------------
-   * Operación: Calcula consumo por vuelta y total según circuito y coche.
+   * Operación: Calcula consumo por vuelta y total necesario.
    * Endpoint: POST /api/simulation/fuel
-   * * @param data Objeto { carId: number, circuitId: number }
-   * * @returns Observable con JSON:
-   * {
-   * consumptionPerLap: number (litros/vuelta),
-   * totalFuelNeeded: number (litros totales),
-   * laps: number (vueltas del circuito)
-   * }
+   * @param data { carId, circuitId }
+   * @returns Observable<{ consumptionPerLap, totalFuelNeeded, laps }>
    */
   calculateFuel(data: { carId: number, circuitId: number }): Observable<any> {
+    // --- API CALL ---
     // return this.http.post(`${this.apiUrl}/fuel`, data);
 
+    // --- MOCK ---
     const mockResult = {
       consumptionPerLap: (1.7 + Math.random() * 0.2).toFixed(2),
       totalFuelNeeded: (100 + Math.random() * 10).toFixed(1),
@@ -35,22 +32,18 @@ export class SimulationService {
   }
 
   /**
-   * CALCULAR ERS (ENERGÍA)
+   * CALCULAR ERS
    * -------------------------------------------------------------------------
-   * Operación: Calcula recuperación de energía y vueltas de carga.
-   * Lógica de negocio: Debe aplicar factores según modo SAVING, NORMAL, HOTLAP.
+   * Operación: Simula recuperación de energía y estado de batería.
    * Endpoint: POST /api/simulation/ers
-   * * @param data Objeto { carId: number, circuitId: number, mode: 'SAVING'|'NORMAL'|'HOTLAP' }
-   * * @returns Observable con JSON:
-   * {
-   * energyMj: number (Energía recuperada por vuelta en MJ),
-   * batteryPercent: number (% recargado por vuelta),
-   * lapsToFull: number (Vueltas para cargar 100%)
-   * }
+   * @param data { carId, circuitId, mode }
+   * @returns Observable<{ energyMj, batteryPercent, lapsToFull }>
    */
   calculateErs(data: { carId: number, circuitId: number, mode: string }): Observable<any> {
+    // --- API CALL ---
     // return this.http.post(`${this.apiUrl}/ers`, data);
 
+    // --- MOCK ---
     let modeFactor = 1.0;
     if (data.mode === 'SAVING') modeFactor = 1.2;
     if (data.mode === 'HOTLAP') modeFactor = 0.5;

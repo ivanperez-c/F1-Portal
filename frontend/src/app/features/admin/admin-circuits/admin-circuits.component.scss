@@ -1,0 +1,316 @@
+@use '../../../../_variables' as *;
+
+.admin-circuits {
+  padding: 2rem;
+  color: $c-text;
+  min-height: 100vh;
+  font-family: 'Titillium Web', sans-serif;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid $c-border;
+    padding-bottom: 1rem;
+
+    &-content {
+      h1 {
+        font-size: 2rem;
+        font-style: italic;
+        font-weight: 900;
+        margin: 0;
+        color: $c-red;
+      }
+
+      p {
+        margin: 5px 0 0 0;
+        color: $c-text-muted;
+        font-size: 0.9rem;
+      }
+    }
+  }
+
+  &__btn {
+    border: none;
+    padding: 0.8rem 1.5rem;
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: 0.3s;
+    font-size: 0.9rem;
+
+    &--create {
+      background: #fff;
+      color: $c-dark;
+
+      &:hover {
+        background: $c-red;
+        color: #fff;
+      }
+    }
+
+    &--cancel {
+      background: $c-border;
+      color: #fff;
+    }
+
+    &--submit {
+      background: $c-red;
+      color: #fff;
+      margin-top: 1rem;
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  &__editor {
+    background: $c-panel-bg;
+    border: 1px solid $c-border;
+    padding: 2rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    animation: slideDown 0.3s ease-out;
+
+    &-title {
+      margin-top: 0;
+      margin-bottom: 1.5rem;
+      color: #ccc;
+      font-weight: 700;
+    }
+
+    &-subtitle {
+      color: $c-red;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+
+    &--full {
+      grid-column: 1 / -1;
+      width: 100%;
+    }
+
+    &--three-cols {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+      &--three-cols { grid-template-columns: 1fr; }
+    }
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    label {
+      font-size: 0.85rem;
+      color: $c-text-muted;
+      font-weight: 600;
+    }
+
+    input {
+      background: $c-input-bg;
+      border: 1px solid $c-border;
+      color: $c-text;
+      padding: 12px;
+      border-radius: 4px;
+
+      &:focus {
+        border-color: $c-red;
+        outline: none;
+      }
+    }
+  }
+
+  &__calendar-box {
+    background: #222;
+    padding: 1rem;
+    border-radius: 6px;
+    border: 1px solid #444;
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+
+    .date-input {
+      flex: 1;
+      input { background: #333; }
+    }
+  }
+
+  &__toggle {
+    position: relative;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+
+    input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+      
+      &:checked + .admin-circuits__toggle-slider {
+        background-color: $c-red;
+        &:before { transform: translateX(24px); }
+      }
+    }
+
+    &-slider {
+      position: relative;
+      width: 50px;
+      height: 26px;
+      background-color: #444;
+      border-radius: 34px;
+      transition: .4s;
+      margin-right: 10px;
+
+      &:before {
+        position: absolute;
+        content: "";
+        height: 18px;
+        width: 18px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        border-radius: 50%;
+        transition: .4s;
+      }
+    }
+
+    &-label {
+      font-weight: bold;
+      color: $c-text;
+    }
+  }
+
+  &__table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+
+    th {
+      text-align: left;
+      color: $c-text-muted;
+      border-bottom: 1px solid #444;
+      padding: 15px;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    td {
+      padding: 15px;
+      border-bottom: 1px solid #222;
+      vertical-align: middle;
+    }
+  }
+
+  &__circuit-info {
+    .name {
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-right: 10px;
+      display: block;
+    }
+    .location {
+      font-size: 0.85rem;
+      color: #ccc;
+      i { color: $c-red; margin-right: 4px; }
+    }
+  }
+
+  &__tech-data {
+    font-family: monospace;
+    color: $c-text-muted;
+    font-size: 0.9rem;
+    
+    .stat-slow { color: #4caf50; }
+    .stat-med { color: #ff9800; }
+    .stat-fast { color: #f44336; }
+  }
+
+  &__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 700;
+
+    &--active {
+      background: rgba($c-red, 0.2);
+      color: $c-red;
+      border: 1px solid $c-red;
+    }
+
+    &--inactive {
+      background: $c-border;
+      color: $c-text-muted;
+      border: 1px solid #555;
+    }
+  }
+
+  &__actions {
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  &__action-btn {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: 0.2s;
+
+    &--edit {
+      color: $c-blue;
+      &:hover { color: #fff; }
+    }
+
+    &--delete {
+      color: #666;
+      &:hover { color: $c-red; }
+    }
+  }
+
+  &__loading {
+    text-align: center;
+    color: $c-text-muted;
+    margin-top: 3rem;
+  }
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

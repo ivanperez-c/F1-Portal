@@ -8,6 +8,7 @@
       <li><a routerLink="/noticias" routerLinkActive="active">Noticias</a></li>
       <li><a routerLink="/calendario" routerLinkActive="active">Calendario</a></li>
       <li><a routerLink="/escuderias" routerLinkActive="active">Escuderías</a></li>
+      <li><a routerLink="/votaciones" routerLinkActive="active">Votaciones</a></li>
       
       @if (currentUser?.role === 'TEAM') {
         <li class="header__menu__links__dropdown">
@@ -23,7 +24,7 @@
       }
       @if (currentUser?.role === 'ADMIN') {
         <li>
-          <a routerLink="/admin/dashboard" class="header__menu__links__admin">Panel de administrador</a>
+          <a routerLink="/admin" class="header__menu__links__admin">Panel de administrador</a>
         </li>
       }
     </ul>

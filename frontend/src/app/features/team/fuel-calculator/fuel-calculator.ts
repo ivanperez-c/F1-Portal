@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { TeamsService } from '../../../core/services/teams.service';
-import { CircuitService } from '../../../core/services/circuit.service';
 import { SimulationService } from '../../../core/services/simulation.service';
 import { AuthService } from '../../../core/services/auth.service';
-import Swal from 'sweetalert2';
-import { Router } from '@angular/router';
+import { CircuitService } from '../../../core/services/circuit.service';
 
 @Component({
   selector: 'app-fuel-calculator',
@@ -15,35 +14,43 @@ import { Router } from '@angular/router';
   templateUrl: './fuel-calculator.html',
   styleUrls: ['./fuel-calculator.scss']
 })
-export class FuelCalculator implements OnInit {
+export class FuelCalculatorComponent implements OnInit {
   form: FormGroup;
   cars: any[] = [];
   circuits: any[] = [];
   result: any;
   loading = false;
+  currentTeamId!: number;
 
-  constructor(private router: Router, public authService: AuthService, private fb: FormBuilder, private teamSrv: TeamsService, private circuitSrv: CircuitService, private simSrv: SimulationService) {
+  constructor(
+    private fb: FormBuilder,
+    private teamSrv: TeamsService,
+    private simSrv: SimulationService,
+    private authSrv: AuthService,
+    private route: ActivatedRoute,
+    private circuitSrv: CircuitService,
+  ) {
     this.form = this.fb.group({ carId: [null, Validators.required], circuitId: [null, Validators.required] });
   }
 
   ngOnInit() {
-    const user = this.authService.getUser();
-    if(user?.teamId != undefined){
-      this.teamSrv.getTeamById(user?.teamId).subscribe(t => this.cars = t.cars);
-      this.circuitSrv.getCircuits().subscribe(c => this.circuits = c);
-    }else{
-      Swal.fire({
-        title: 'Acceso Restringido',
-        text: 'No tienes un equipo asignado.',
-        icon: 'error',
-        background: '#141414',
-        color: '#fff',
-        confirmButtonColor: '#e10600',
-        confirmButtonText: 'Volver al inicio'
-      }).then(() => {
-        this.router.navigate(['/']);
-      });
-    }
+    this.route.queryParams.subscribe(params => {
+      const adminTeamId = params['teamId'];
+
+      if (adminTeamId) {
+        this.currentTeamId = Number(adminTeamId);
+      } else {
+        const user = this.authSrv.getUser();
+        this.currentTeamId = user?.teamId || 1;
+      }
+
+      this.loadData();
+    });
+  }
+
+  loadData() {
+    this.teamSrv.getTeamById(this.currentTeamId).subscribe(t => this.cars = t.cars);
+    this.circuitSrv.getCircuits().subscribe(c => this.circuits = c);
   }
 
   calc() {

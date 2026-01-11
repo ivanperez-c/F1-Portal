@@ -2,7 +2,7 @@ import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { delay, map } from 'rxjs/operators'; 
+import { delay, map, tap } from 'rxjs/operators'; 
 import { User } from '../models/user.interface';
 import { LoginRequest } from '../models/auth.interface';
 import { HttpClient } from '@angular/common/http';
@@ -31,25 +31,26 @@ export class AuthService {
   /**
    * INICIO DE SESIÓN
    * -------------------------------------------------------------------------
-   * Operación: Verifica credenciales y devuelve el usuario con su rol y teamId.
+   * Operación: Verifica credenciales y devuelve el usuario con su rol.
    * Endpoint: POST /api/auth/login
-   * * @param credentials Objeto con email y password.
-   * - Ejemplo Input: { "email": "admin", "password": "123" }
-   * * @returns Observable<User> Objeto usuario autenticado.
-   * - Ejemplo Output: { "email": "AdminUser", "role": "ADMIN", "teamId": null }
+   * @param credentials Objeto { email, password }
+   * @returns Observable<User> Datos del usuario logueado (incluyendo token si aplica).
    */
   login(credentials: LoginRequest): Observable<User> {
+    
+    // --- API CALL ---
     /*
     return this.http.post<User>(`${this.apiUrl}/login`, credentials).pipe(
-      tap((userResponse: User) => {
+      tap(user => {
         if (isPlatformBrowser(this.platformId)) {
-          localStorage.setItem(this.USER_KEY, JSON.stringify(userResponse));
+          localStorage.setItem(this.USER_KEY, JSON.stringify(user));
         }
-        this.currentUserSubject.next(userResponse);
+        this.currentUserSubject.next(user);
       })
     );
     */
 
+    // --- MOCK ---
     return of(true).pipe(
       delay(1000), 
       map(() => {
@@ -68,6 +69,12 @@ export class AuthService {
     );
   }
 
+  /**
+   * CERRAR SESIÓN
+   * -------------------------------------------------------------------------
+   * Operación: Elimina la sesión local y redirige al login.
+   * Endpoint: (Opcional) POST /api/auth/logout para invalidar token en servidor.
+   */
   logout(): void {
     if (isPlatformBrowser(this.platformId)) localStorage.removeItem(this.USER_KEY);
     this.currentUserSubject.next(null);

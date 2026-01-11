@@ -1,0 +1,186 @@
+@use '../../../../_variables' as *;
+
+.admin-votes {
+  padding: 2rem;
+  color: $c-text;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid $c-border;
+    padding-bottom: 1rem;
+  }
+
+  &__title {
+    color: $c-red;
+    font-style: italic;
+    font-weight: 900;
+    margin: 0;
+  }
+
+  &__btn-toggle {
+    background: #fff;
+    color: #000;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 4px;
+    &:hover { background: #ccc; }
+  }
+
+  &__form {
+    background: $c-panel-bg;
+    padding: 2rem;
+    border-radius: 8px;
+    border: 1px solid $c-border;
+    margin-bottom: 2rem;
+  }
+
+  &__field {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    label {
+      color: $c-text-muted;
+      font-size: 0.9rem;
+    }
+
+    input, textarea {
+      width: 100%;
+      background: #000;
+      border: 1px solid #444;
+      color: #fff;
+      padding: 10px;
+      border-radius: 4px;
+      
+      &:focus {
+        border-color: $c-red;
+        outline: none;
+      }
+    }
+  }
+
+  &__hint {
+    color: $c-text-muted;
+    font-size: 0.8rem;
+    margin-top: 5px;
+  }
+
+  &__btn-submit {
+    background: $c-red;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 1rem;
+    border-radius: 4px;
+  }
+
+  &__drivers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 10px;
+    max-height: 200px;
+    overflow-y: auto;
+    background: #0a0a0a;
+    padding: 10px;
+    border: 1px solid #333;
+    border-radius: 4px;
+  }
+
+  &__driver-item {
+    cursor: pointer;
+    
+    input[type="checkbox"] {
+      display: none;
+      
+      &:checked + .admin-votes__driver-content {
+        background: rgba($c-red, 0.2);
+        border-color: $c-red;
+        
+        .name { color: $c-red; }
+      }
+    }
+  }
+
+  &__driver-content {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #222;
+    padding: 5px 8px;
+    border-radius: 4px;
+    border: 1px solid transparent;
+    transition: 0.2s;
+
+    .face {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .name {
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    
+    &:hover {
+      background: #333;
+    }
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  &__card {
+    background: $c-panel-bg;
+    border: 1px solid $c-border;
+    padding: 1.5rem;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: 0.2s;
+
+    &:hover {
+      border-color: #666;
+    }
+
+    &-info {
+      h3 { margin: 0 0 5px 0; font-size: 1.2rem; }
+      p { margin: 0 0 10px 0; color: $c-text-muted; font-size: 0.9rem; }
+      .badge {
+        background: #333;
+        padding: 2px 8px;
+        border-radius: 10px;
+        font-size: 0.8rem;
+        color: #ccc;
+      }
+    }
+  }
+
+  &__btn-delete {
+    background: none;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 10px;
+    border-radius: 50%;
+    
+    &:hover {
+      background: rgba($c-red, 0.1);
+      color: $c-red;
+    }
+  }
+}
