@@ -56,7 +56,7 @@
 
     &-logo {
       width: 60px; height: 60px;
-      background: #fff;
+      background: $c-text;
       border-radius: 6px;
       padding: 5px;
       display: flex; align-items: center; justify-content: center;
@@ -66,7 +66,7 @@
     &-info {
       h2 { margin: 0; font-size: 1.1rem; font-weight: 700; line-height: 1.2; }
       .badge {
-        font-size: 0.75rem; background: #333; padding: 2px 6px;
+        font-size: 0.75rem; background: $c-border; padding: 2px 6px;
         border-radius: 4px; color: #aaa; margin-top: 4px;
         display: inline-block; font-family: monospace;
       }
@@ -114,12 +114,12 @@
 
     &--ers {
       background: rgba($c-blue, 0.1); color: $c-blue; border-color: rgba($c-blue, 0.3);
-      &:hover { background: $c-blue; color: #fff; }
+      &:hover { background: $c-blue; color: $c-text; }
     }
 
     &--fuel {
       background: rgba($c-orange, 0.1); color: $c-orange; border-color: rgba($c-orange, 0.3);
-      &:hover { background: $c-orange; color: #fff; }
+      &:hover { background: $c-orange; color: $c-text; }
     }
   }
 

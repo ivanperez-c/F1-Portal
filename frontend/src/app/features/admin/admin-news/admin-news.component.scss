@@ -36,19 +36,19 @@
     transition: 0.3s;
 
     &--create {
-      background: #fff;
+      background: $c-text;
       color: $c-dark;
-      &:hover { background: $c-red; color: #fff; }
+      &:hover { background: $c-red; color: $c-text; }
     }
 
     &--cancel {
       background: $c-border;
-      color: #fff;
+      color: $c-text;
     }
 
     &--submit {
       background: $c-red;
-      color: #fff;
+      color: $c-text;
       width: fit-content;
       &:disabled { opacity: 0.5; }
     }
@@ -91,9 +91,9 @@
     }
 
     input, textarea {
-      background: #000;
+      background: $c-input-bg;
       border: 1px solid $c-border;
-      color: #fff;
+      color: $c-text;
       padding: 10px;
       border-radius: 4px;
 
@@ -158,7 +158,7 @@
 
     &--edit {
       color: $c-blue;
-      &:hover { color: #fff; }
+      &:hover { color: $c-text; }
     }
 
     &--delete {

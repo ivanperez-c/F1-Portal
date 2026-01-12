@@ -1,8 +1,8 @@
+@use '../../../../_variables' as *;
 .login {
   width: 100%;
   min-height: calc(100vh - 160px);
   margin-top: 80px;
-  margin-bottom: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -14,7 +14,7 @@
     max-width: 420px;
     padding: 2.5rem;
     border-radius: 12px;
-    border-top: 4px solid #FF1801;
+    border-top: 4px solid #e10600;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
 
     &__header {
@@ -22,12 +22,12 @@
       margin-bottom: 2rem;
 
       &__title {
-        color: #FFFFFF;
+        color: $c-text;
         font-style: italic;
         font-size: 1.6rem;
 
         span {
-          color: #FF1801;
+          color: #e10600;
           font-weight: 800;
         }
       }
@@ -46,7 +46,7 @@
 
         &__label {
           display: block;
-          color: #FFFFFF;
+          color: $c-text;
           font-size: 0.85rem;
           margin-bottom: 0.5rem;
           font-weight: 600;
@@ -75,7 +75,7 @@
             transition: 0.3s;
 
             &:focus {
-              border-color: #FF1801;
+              border-color: #e10600;
               background: rgba(255, 255, 255, 0.1);
             }
           }
@@ -85,7 +85,7 @@
       &__btn {
         width: 100%;
         padding: 1rem;
-        background: #FF1801;
+        background: #e10600;
         color: white;
         border: none;
         border-radius: 6px;
@@ -111,7 +111,7 @@
       color: #949498;
 
       a {
-        color: #FF1801;
+        color: #e10600;
         text-decoration: none;
         font-weight: 600;
 

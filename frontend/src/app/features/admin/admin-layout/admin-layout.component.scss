@@ -4,7 +4,7 @@
   display: flex;
   min-height: calc(100vh - 80px);
   margin-top: 80px;
-  background: $c-bg-dark;
+  background: $c-dark;
   font-family: 'Titillium Web', sans-serif;
 
   &__sidebar {
@@ -49,7 +49,7 @@
       i { font-size: 1.1rem; }
 
       &:hover {
-        background: $c-hover;
+        background: $c-bg-card;
         color: $c-text;
       }
 
@@ -79,6 +79,6 @@
     flex: 1;
     padding: 3rem;
     overflow-y: auto;
-    background-image: radial-gradient(circle at top right, #1a1a1a 0%, $c-bg-dark 40%);
+    background-image: radial-gradient(circle at top right, $c-bg-card 0%, $c-dark 40%);
   }
 }

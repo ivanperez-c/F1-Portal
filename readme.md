@@ -23,34 +23,59 @@ La estructura está organizada en módulos funcionales:
 
 ```
 src/app/
- core/
-    services/    # Comunicación con el backend
-       auth.service.ts       # Autenticación
-       simulation.service.ts # Simulaciones
-    guards/      # Protección de rutas
-        admin-guard.ts        # Solo admins
-        team-guard.ts         # Solo equipos
-
- features/        # Módulos principales
-    public/      # Sección póblica (acceso libre)
-       home/           # Noticias y votaciones
-       login/          # Formulario de login
-       register/        # Registro de usuarios
-       circuit-list/    # Lista de circuitos
-       news-list/       # Lista de noticias
-   
-    team/        # Sección privada para equipos
-       car-management/  # CRUD de coches y pilotos
-       team-dashboard/  # Dashboard del equipo
-   
-    admin/       # Sección restringida para admins
-        circuit-management/  # Gestión de circuitos
-        dashboard/           # Dashboard admin
-        user-validation/     # Validar usuarios
-
- shared/          # Componentes reutilizables
-     header/      # Menú dinámico (cambia según rol)
-     footer/      # Pie de página
+ ├── core/                      # Núcleo de la aplicación (Singletons)
+ │    ├── guards/      
+ │    │    ├── public.guard.ts  # Control de acceso al login      
+ │    │    └── auth.guard.ts    # Control de acceso a secciones privadas
+ │    │
+ │    ├── models/               # Interfaces de TypeScript
+ │    │    ├── admin.interface.ts
+ │    │    ├── auth.interface.ts
+ │    │    ├── car.interface.ts
+ │    │    ├── circuit.interface.ts
+ │    │    ├── driver.interface.ts
+ │    │    ├── news.interface.ts
+ │    │    ├── poll.interface.ts
+ │    │    ├── team.interface.ts
+ │    │    └── user.interface.ts
+ │    │
+ │    └── services/             # Lógica de negocio y comunicación HTTP
+ │         ├── admin.service.ts      # Gestión de usuarios pendientes
+ │         ├── auth.service.ts       # Login y Registro
+ │         ├── circuit.service.ts    # CRUD Circuitos
+ │         ├── news.service.ts       # CRUD Noticias
+ │         ├── polls.service.ts      # Votaciones públicas y gestión
+ │         ├── simulation.service.ts # Cálculos ERS y Fuel
+ │         └── teams.service.ts      # Datos de escuderías y pilotos
+ │
+ ├── features/                  # Módulos funcionales
+ │    ├── public/               # Acceso libre (Aficionados)
+ │    │    ├── home/                 # Landing page
+ │    │    ├── login/                # Inicio de sesión
+ │    │    ├── register/             # Nuevo registro (nombre, usuario, email)
+ │    │    ├── poll-voting/          # Zona de votación y resultados
+ │    │    ├── news/                 # Vista pública de noticias
+ │    │    ├── newsDetail/           # Vista pública de una única noticia
+ │    │    ├── teams/                # Vista pública de equipos
+ │    │    └── calendar/             # Calendario público
+ │    │
+ │    ├── team/                 # Zona Privada Escuderías (Role: TEAM)
+ │    │    ├── layout/               # Layout específico de equipos
+ │    │    ├── management/           # Gestión interna del equipo
+ │    │    ├── fuel-calculator/      # Herramienta: Calculadora Gasolina
+ │    │    └── ers-simulator/        # Herramienta: Simulador ERS
+ │    │
+ │    └── admin/                 # Zona Privada FIA (Role: ADMIN)
+ │         ├── layout/               # Layout con Sidebar de administración
+ │         ├── admin-users/          # Validación de registros pendientes
+ │         ├── admin-circuits/       # CRUD Circuitos y Calendario
+ │         ├── admin-news/           # CMS de Noticias
+ │         ├── admin-teams/          # Monitorización y acceso datos de equipos
+ │         └── admin-votes/          # Creación de votaciones
+ │
+ └── shared/                    # Componentes compartidos
+      ├── header/               # Navbar principal (adapta enlaces según rol)
+      └── footer/               # Pie de página
 ```
 
 ## Cómo Ejecutar el Proyecto

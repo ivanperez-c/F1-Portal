@@ -21,8 +21,8 @@
   }
 
   &__btn-toggle {
-    background: #fff;
-    color: #000;
+    background: $c-text;
+    color: $c-input-bg;
     border: none;
     padding: 0.6rem 1.2rem;
     font-weight: 700;
@@ -52,9 +52,9 @@
 
     input, textarea {
       width: 100%;
-      background: #000;
+      background: $c-input-bg;
       border: 1px solid #444;
-      color: #fff;
+      color: $c-text;
       padding: 10px;
       border-radius: 4px;
       
@@ -73,7 +73,7 @@
 
   &__btn-submit {
     background: $c-red;
-    color: #fff;
+    color: $c-text;
     padding: 10px 20px;
     border: none;
     font-weight: bold;
@@ -88,9 +88,9 @@
     gap: 10px;
     max-height: 200px;
     overflow-y: auto;
-    background: #0a0a0a;
+    background: $c-dark;
     padding: 10px;
-    border: 1px solid #333;
+    border: 1px solid $c-border;
     border-radius: 4px;
   }
 
@@ -132,7 +132,7 @@
     }
     
     &:hover {
-      background: #333;
+      background: $c-border;
     }
   }
 
@@ -160,7 +160,7 @@
       h3 { margin: 0 0 5px 0; font-size: 1.2rem; }
       p { margin: 0 0 10px 0; color: $c-text-muted; font-size: 0.9rem; }
       .badge {
-        background: #333;
+        background: $c-border;
         padding: 2px 8px;
         border-radius: 10px;
         font-size: 0.8rem;

@@ -44,23 +44,23 @@
     font-size: 0.9rem;
 
     &--create {
-      background: #fff;
+      background: $c-text;
       color: $c-dark;
 
       &:hover {
         background: $c-red;
-        color: #fff;
+        color: $c-text;
       }
     }
 
     &--cancel {
       background: $c-border;
-      color: #fff;
+      color: $c-text;
     }
 
     &--submit {
       background: $c-red;
-      color: #fff;
+      color: $c-text;
       margin-top: 1rem;
 
       &:disabled {
@@ -156,7 +156,7 @@
 
     .date-input {
       flex: 1;
-      input { background: #333; }
+      input { background: $c-border; }
     }
   }
 
@@ -253,7 +253,7 @@
     font-size: 0.9rem;
     
     .stat-slow { color: #4caf50; }
-    .stat-med { color: #ff9800; }
+    .stat-med { color: $c-orange; }
     .stat-fast { color: #f44336; }
   }
 
@@ -294,7 +294,7 @@
 
     &--edit {
       color: $c-blue;
-      &:hover { color: #fff; }
+      &:hover { color: $c-text; }
     }
 
     &--delete {

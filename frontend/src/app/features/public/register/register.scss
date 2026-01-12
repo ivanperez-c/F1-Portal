@@ -12,15 +12,15 @@
   
   background-color: $c-dark;
   background-image:
-    linear-gradient(45deg, #111 25%, transparent 25%, transparent 75%, #111 75%, #111),
-    linear-gradient(45deg, #111 25%, transparent 25%, transparent 75%, #111 75%, #111);
+    linear-gradient(45deg, $c-sidebar 25%, transparent 25%, transparent 75%, $c-sidebar 75%, $c-sidebar),
+    linear-gradient(45deg, $c-sidebar 25%, transparent 25%, transparent 75%, $c-sidebar 75%, $c-sidebar);
   background-size: 40px 40px;
   background-position: 0 0, 20px 20px;
 
   &__container {
     width: 100%;
     max-width: 450px;
-    background: rgba($c-card-bg, 0.98);
+    background: rgba($c-bg-card, 0.98);
     border: 1px solid $c-border;
     border-radius: 12px;
     padding: 2.5rem;
@@ -117,7 +117,7 @@
   &__submit-btn {
     margin-top: 1rem;
     background: $c-red;
-    color: #fff;
+    color: $c-text;
     border: none;
     padding: 14px;
     border-radius: 6px;

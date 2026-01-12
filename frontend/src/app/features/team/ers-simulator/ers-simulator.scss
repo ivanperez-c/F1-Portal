@@ -1,3 +1,4 @@
+@use '../../../../_variables' as *;
 .calc-box {
   max-width: 600px;
   margin: 0 auto;
@@ -9,22 +10,22 @@
     margin-bottom: 2rem;
 
     .accent {
-      color: #e10600;
+      color: $c-red;
     }
   }
 
   &__form {
-    background: #141414;
+    background: $c-panel-bg;
     padding: 2rem;
     border-radius: 8px;
-    border: 1px solid #333;
+    border: 1px solid $c-border;
 
     .group {
       margin-bottom: 1.5rem;
 
       label {
         display: block;
-        color: #888;
+        color: $c-text-muted;
         margin-bottom: 5px;
         font-size: 0.9rem;
       }
@@ -32,9 +33,9 @@
       select {
         width: 100%;
         padding: 10px;
-        background: #000;
-        color: #fff;
-        border: 1px solid #333;
+        background: $c-input-bg;
+        color: $c-text;
+        border: 1px solid $c-border;
       }
     }
 
@@ -54,14 +55,14 @@
           display: block;
           text-align: center;
           padding: 10px;
-          border: 1px solid #333;
+          border: 1px solid $c-border;
           background: #222;
         }
 
         input:checked+span {
-          background: #e10600;
-          color: #fff;
-          border-color: #e10600;
+          background: $c-red;
+          color: $c-text;
+          border-color: $c-red;
         }
       }
     }
@@ -69,14 +70,14 @@
     button {
       width: 100%;
       padding: 1rem;
-      background: #fff;
+      background: $c-text;
       border: none;
       font-weight: 900;
       cursor: pointer;
 
       &:hover:not(:disabled) {
-        background: #e10600;
-        color: #fff;
+        background: $c-red;
+        color: $c-text;
       }
 
       &:disabled {
@@ -91,7 +92,7 @@
     gap: 2rem;
     background: rgba(225, 6, 0, 0.1);
     padding: 1.5rem;
-    border-left: 4px solid #e10600;
+    border-left: 4px solid $c-red;
 
     .item {
       flex: 1;
@@ -100,7 +101,7 @@
 
       span {
         font-size: 0.8rem;
-        color: #888;
+        color: $c-text-muted;
       }
 
       strong {
@@ -108,7 +109,7 @@
       }
 
       &.highlight strong {
-        color: #e10600;
+        color: $c-red;
         font-size: 2rem;
       }
     }
@@ -130,7 +131,7 @@
           bottom: 0;
           left: 0;
           right: 0;
-          background: #e10600;
+          background: $c-red;
           transition: height 1s;
         }
 
@@ -138,7 +139,7 @@
           position: relative;
           z-index: 2;
           font-weight: bold;
-          text-shadow: 0 1px 2px #000;
+          text-shadow: 0 1px 2px $c-input-bg;
         }
       }
 

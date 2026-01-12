@@ -1,3 +1,4 @@
+@use '../../../_variables' as *;
 .footer {
   background-color: #0f0f0f;
   position: relative;
@@ -5,7 +6,7 @@
 
   &__border {
     height: 4px;
-    background: linear-gradient(90deg, #e10600 0%, #8a0400 100%);
+    background: linear-gradient(90deg, $c-red 0%, #8a0400 100%);
     width: 100%;
     position: absolute;
     top: 0;
@@ -28,7 +29,7 @@
         letter-spacing: -1px;
 
         &__accent {
-          color: #e10600;
+          color: $c-red;
         }
       }
     }
@@ -43,7 +44,7 @@
         gap: 1.5rem;
 
         .separator {
-          color: #333;
+          color: $c-border;
           font-size: 0.8rem;
         }
 
@@ -57,7 +58,7 @@
           transition: color 0.2s ease;
 
           &:hover {
-            color: #e10600;
+            color: $c-red;
           }
         }
       }
@@ -65,7 +66,7 @@
   }
 
   &__bottom {
-    border-top: 1px solid #1a1a1a;
+    border-top: 1px solid $c-bg-card;
     padding: 1.5rem 1rem;
     text-align: center;
     color: #555;

@@ -1,3 +1,4 @@
+@use '../../../../_variables' as *;
 .mgmt {
   padding: 2rem;
 
@@ -6,7 +7,7 @@
     justify-content: space-between;
     align-items: center;
     padding-bottom: 2rem;
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid $c-border;
     margin-bottom: 2rem;
 
     &__brand {
@@ -23,13 +24,13 @@
         font-style: italic;
         font-weight: 900;
         margin: 0;
-        color: #e10600;
+        color: $c-red;
       }
 
       .subtitle {
         display: block;
         font-size: 0.8rem;
-        color: #888;
+        color: $c-text-muted;
         letter-spacing: 2px;
       }
     }
@@ -54,8 +55,8 @@
       }
 
       .btn-add {
-        background: #fff;
-        color: #0a0a0a;
+        background: $c-text;
+        color: $c-dark;
         border: none;
         padding: 0.6rem 1.2rem;
         font-weight: 700;
@@ -64,8 +65,8 @@
         transition: 0.3s;
 
         &:hover {
-          background: #e10600;
-          color: #fff;
+          background: $c-red;
+          color: $c-text;
         }
       }
     }
@@ -78,8 +79,8 @@
   }
 
   .card-simple {
-    background: #141414;
-    border: 1px solid #333;
+    background: $c-panel-bg;
+    border: 1px solid $c-border;
     padding: 1.5rem;
     border-radius: 8px;
     position: relative;
@@ -101,13 +102,13 @@
       cursor: pointer;
 
       &:hover {
-        color: #e10600;
+        color: $c-red;
       }
     }
 
     &__avatar.user-icon {
       font-size: 2rem;
-      color: #e10600;
+      color: $c-red;
       background: rgba(225, 6, 0, 0.1);
       width: 50px;
       height: 50px;
@@ -128,15 +129,15 @@
 
       .role {
         font-size: 0.7rem;
-        color: #888;
+        color: $c-text-muted;
         letter-spacing: 1px;
       }
     }
   }
 
   .card-driver {
-    background: #141414;
-    border: 1px solid #333;
+    background: $c-panel-bg;
+    border: 1px solid $c-border;
     padding: 1.5rem;
     border-radius: 8px;
     position: relative;
@@ -155,7 +156,7 @@
       cursor: pointer;
 
       &:hover {
-        color: #e10600;
+        color: $c-red;
       }
     }
 
@@ -167,7 +168,7 @@
 
       .number {
         font-size: 1.5rem;
-        color: #e10600;
+        color: $c-red;
         font-weight: 900;
         font-style: italic;
       }
@@ -177,7 +178,7 @@
         height: 60px;
         border-radius: 50%;
         object-fit: cover;
-        border: 2px solid #e10600;
+        border: 2px solid $c-red;
       }
     }
 
@@ -206,8 +207,8 @@
     gap: 1rem;
 
     .card-list-item {
-      background: #141414;
-      border: 1px solid #333;
+      background: $c-panel-bg;
+      border: 1px solid $c-border;
       padding: 1rem;
       border-radius: 6px;
       display: flex;
@@ -242,7 +243,7 @@
           font-size: 0.9rem;
 
           i {
-            color: #e10600;
+            color: $c-red;
           }
         }
 
@@ -252,7 +253,7 @@
             padding: 2px 6px;
             border-radius: 3px;
             font-size: 0.75rem;
-            color: #888;
+            color: $c-text-muted;
           }
         }
       }
@@ -265,7 +266,7 @@
         font-size: 1.2rem;
 
         &:hover {
-          color: #e10600;
+          color: $c-red;
         }
       }
     }
@@ -284,15 +285,15 @@
 }
 
 .modal-window {
-  background: #111;
-  border: 1px solid #333;
+  background: $c-sidebar;
+  border: 1px solid $c-border;
   width: 500px;
   max-width: 90%;
   border-radius: 8px;
 
   &__header {
     padding: 1.5rem;
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid $c-border;
     display: flex;
     justify-content: space-between;
 
@@ -303,7 +304,7 @@
     .close {
       background: none;
       border: none;
-      color: #fff;
+      color: $c-text;
       font-size: 1.5rem;
       cursor: pointer;
     }
@@ -332,19 +333,19 @@ form {
 
     label {
       font-size: 0.8rem;
-      color: #888;
+      color: $c-text-muted;
     }
 
     input,
     select {
-      background: #000;
-      border: 1px solid #333;
-      color: #fff;
+      background: $c-input-bg;
+      border: 1px solid $c-border;
+      color: $c-text;
       padding: 10px;
       border-radius: 4px;
 
       &:focus {
-        border-color: #e10600;
+        border-color: $c-red;
         outline: none;
       }
     }
@@ -352,8 +353,8 @@ form {
 
   .btn-submit {
     margin-top: 1rem;
-    background: #e10600;
-    color: #fff;
+    background: $c-red;
+    color: $c-text;
     border: none;
     padding: 1rem;
     font-weight: 700;
@@ -377,7 +378,7 @@ form {
     height: 30px;
     border: 3px solid rgba(255, 255, 255, 0.3);
     border-radius: 50%;
-    border-top-color: #e10600;
+    border-top-color: $c-red;
     animation: spin 1s ease-in-out infinite;
     margin-bottom: 1rem;
   }

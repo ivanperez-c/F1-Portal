@@ -141,7 +141,7 @@ export class TeamManagement implements OnInit {
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#e10600',
-      cancelButtonColor: '#333',
+      cancelButtonColor: '$c-border',
       confirmButtonText: 'Sí, eliminar',
       cancelButtonText: 'Cancelar',
       background: '#141414',
