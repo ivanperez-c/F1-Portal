@@ -1,1 +1,75 @@
-<p>register</p>
+<div class="register">
+  <div class="register__container">
+    
+    <header class="register__header">
+      <h1 class="register__title">Unirse al Paddock</h1>
+      <p class="register__subtitle">Crea tu cuenta para acceder a la telemetría.</p>
+    </header>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register__form">
+      
+      <div class="register__field">
+        <label class="register__label" for="publicName">Nombre Público</label>
+        <div class="register__input-group">
+          <i class="register__icon bi bi-card-text"></i>
+          <input class="register__input" type="text" id="publicName" formControlName="publicName" placeholder="Ej: Juan Pérez">
+        </div>
+        @if (registerForm.get('publicName')?.touched && registerForm.get('publicName')?.invalid) {
+          <span class="register__error">El nombre es obligatorio</span>
+        }
+      </div>
+
+      <div class="register__field">
+        <label class="register__label" for="username">Usuario (Único)</label>
+        <div class="register__input-group">
+          <i class="register__icon bi bi-person-fill"></i>
+          <input class="register__input" type="text" id="username" formControlName="username" placeholder="Ej: supermax33">
+        </div>
+        @if (registerForm.get('username')?.touched && registerForm.get('username')?.invalid) {
+          <span class="register__error">Mínimo 4 caracteres</span>
+        }
+      </div>
+
+      <div class="register__field">
+        <label class="register__label" for="email">Correo Electrónico</label>
+        <div class="register__input-group">
+          <i class="register__icon bi bi-envelope-fill"></i>
+          <input class="register__input" type="email" id="email" formControlName="email" placeholder="ejemplo@f1.com">
+        </div>
+        @if (registerForm.get('email')?.touched && registerForm.get('email')?.invalid) {
+          <span class="register__error">Introduce un email válido</span>
+        }
+      </div>
+
+      <div class="register__field">
+        <label class="register__label" for="password">Contraseña</label>
+        <div class="register__input-group">
+          <i class="register__icon bi bi-lock-fill"></i>
+          <input class="register__input" type="password" id="password" formControlName="password" placeholder="•••••">
+        </div>
+        @if (registerForm.get('password')?.touched && registerForm.get('password')?.invalid) {
+          <span class="register__error">Mínimo 5 caracteres requeridos</span>
+        }
+      </div>
+
+      <div class="register__field">
+        <label class="register__label" for="confirmPassword">Confirmar Contraseña</label>
+        <div class="register__input-group">
+          <i class="register__icon bi bi-lock-fill"></i>
+          <input class="register__input" type="password" id="confirmPassword" formControlName="confirmPassword" placeholder="•••••">
+        </div>
+      </div>
+
+      <button type="submit" class="register__submit-btn" [disabled]="isSubmitting || registerForm.invalid">
+        {{ isSubmitting ? 'Procesando...' : 'CREAR CUENTA' }}
+      </button>
+
+    </form>
+
+    <footer class="register__footer">
+      <p class="register__footer-text">¿Ya tienes equipo?</p>
+      <a routerLink="/login" class="register__link">Iniciar Sesión</a>
+    </footer>
+
+  </div>
+</div>

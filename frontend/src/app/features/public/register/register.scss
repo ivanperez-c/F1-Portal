@@ -1,0 +1,168 @@
+@use '../../../../_variables' as *;
+
+.register {
+  min-height: calc(100vh - 160px);
+  margin-top: 80px;
+  padding: 3rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Titillium Web', sans-serif;
+  
+  background-color: $c-dark;
+  background-image:
+    linear-gradient(45deg, #111 25%, transparent 25%, transparent 75%, #111 75%, #111),
+    linear-gradient(45deg, #111 25%, transparent 25%, transparent 75%, #111 75%, #111);
+  background-size: 40px 40px;
+  background-position: 0 0, 20px 20px;
+
+  &__container {
+    width: 100%;
+    max-width: 450px;
+    background: rgba($c-card-bg, 0.98);
+    border: 1px solid $c-border;
+    border-radius: 12px;
+    padding: 2.5rem;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+    border-top: 4px solid $c-red;
+  }
+
+  &__header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  &__title {
+    font-size: 2rem;
+    font-weight: 900;
+    font-style: italic;
+    margin: 0;
+    color: $c-text;
+    text-transform: uppercase;
+  }
+
+  &__subtitle {
+    margin: 5px 0 0;
+    color: $c-text-muted;
+    font-size: 0.95rem;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+  }
+
+  &__label {
+    color: $c-text-muted;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  &__input-group {
+    position: relative;
+    width: 100%;
+  }
+
+  &__icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: $c-text-muted;
+    font-size: 1.1rem;
+    transition: 0.3s;
+    z-index: 2;
+  }
+
+  &__input {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    background: $c-input-bg;
+    border: 1px solid $c-border;
+    color: $c-text;
+    padding: 12px 12px 12px 40px;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: 0.3s;
+
+    &:focus {
+      border-color: $c-red;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba($c-red, 0.2);
+    }
+  }
+  
+  &__input-group:focus-within &__icon {
+    color: $c-red;
+  }
+
+  &__error {
+    color: #ff4d4d;
+    font-size: 0.8rem;
+    margin-left: 2px;
+  }
+
+  &__submit-btn {
+    margin-top: 1rem;
+    background: $c-red;
+    color: #fff;
+    border: none;
+    padding: 14px;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 900;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: 0.3s;
+    width: 100%;
+    box-sizing: border-box;
+
+    &:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba($c-red, 0.4);
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+
+  &__footer {
+    margin-top: 2rem;
+    text-align: center;
+    border-top: 1px solid $c-border;
+    padding-top: 1.5rem;
+  }
+
+  &__footer-text {
+    color: $c-text-muted;
+    margin: 0 0 5px;
+    font-size: 0.9rem;
+  }
+
+  &__link {
+    color: $c-text;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 1rem;
+    
+    &:hover {
+      color: $c-red;
+      text-decoration: underline;
+    }
+  }
+}

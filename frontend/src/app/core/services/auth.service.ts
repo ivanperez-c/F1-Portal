@@ -6,6 +6,7 @@ import { delay, map, tap } from 'rxjs/operators';
 import { User } from '../models/user.interface';
 import { LoginRequest } from '../models/auth.interface';
 import { HttpClient } from '@angular/common/http';
+import { RegisterRequest } from '../models/auth.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +16,12 @@ export class AuthService {
   private USER_KEY = 'auth-user';
   private currentUserSubject: BehaviorSubject<User | null>;
   public user$: Observable<User | null>;
+
+  // MOCK DE USUARIOS EXISTENTES
+  private existingUsersMock = [
+    { username: 'admin', email: 'admin@f1.com' },
+    { username: 'fvasseur', email: 'fred@ferrari.com' }
+  ];
 
   constructor(private http: HttpClient, private router: Router, @Inject(PLATFORM_ID) private platformId: Object) {
     let savedUser = null;
@@ -83,5 +90,37 @@ export class AuthService {
   
   getUser(): User | null {
     return this.currentUserSubject.value;
+  }
+
+  /**
+   * REGISTRO DE USUARIO
+   * -------------------------------------------------------------------------
+   * Operación: Crea solicitud de usuario. Valida unicidad de email/username.
+   * Endpoint: POST /api/auth/register
+   * @param userData Datos del registro
+   */
+  register(userData: RegisterRequest): Observable<boolean> {
+    // --- API CALL REAL (Comentada) ---
+    /*
+    return this.http.post<boolean>(`${this.apiUrl}/register`, userData);
+    */
+
+    // --- MOCK CON VALIDACIÓN ---
+    return of(true).pipe(
+      delay(1000),
+      map(() => {
+        const userExists = this.existingUsersMock.some(u => u.username.toLowerCase() === userData.username.toLowerCase());
+        if (userExists) {
+          throw new Error('El nombre de usuario ya está en uso.');
+        }
+
+        const emailExists = this.existingUsersMock.some(u => u.email.toLowerCase() === userData.email.toLowerCase());
+        if (emailExists) {
+          throw new Error('Esa dirección de correo ya está registrada.');
+        }
+
+        return true;
+      })
+    );
   }
 }

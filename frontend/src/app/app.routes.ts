@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { Home } from './features/public/home/home';
 import { Login } from './features/public/login/login';
+import { Register } from './features/public/register/register';
 import { guestGuard } from './core/guards/public.guard';
 import { authGuard } from './core/guards/auth.guard';
 import { News } from './features/public/news/news';
@@ -15,6 +16,8 @@ export const routes: Routes = [
 
   // Login
   { path: 'login', component: Login, canActivate: [guestGuard] },
+
+  { path: 'registro', component: Register },
 
   // Noticias
   { path: 'noticias', component: News},

@@ -64,12 +64,10 @@
 
     &--validate {
       background: $c-green;
-      &:hover { background: darken($c-green, 5%); }
     }
 
     &--reject {
       background: $c-danger;
-      &:hover { background: darken($c-danger, 5%); }
     }
   }
 
