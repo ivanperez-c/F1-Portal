@@ -6,6 +6,8 @@ USE f1_portal;
 
 SET FOREIGN_KEY_CHECKS = 0;
 
+-- NOTA: los campos null deben ser rellenados con PATHs de imagenes.
+
 -- ============================================
 -- PASO 1: CREAR USUARIO ADMINISTRADOR INICIAL
 -- ============================================
