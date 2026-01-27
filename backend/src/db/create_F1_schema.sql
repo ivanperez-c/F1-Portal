@@ -2,6 +2,7 @@
 -- SCHEMA BASE DE DATOS PORTAL FORMULA 1
 -- ============================================
 
+DROP SCHEMA IF EXISTS f1_portal;
 CREATE DATABASE IF NOT EXISTS f1_portal 
 CHARACTER SET utf8 
 COLLATE utf8_spanish_ci;
@@ -89,7 +90,7 @@ CREATE TABLE circuitos (
     nombre VARCHAR(150) NOT NULL UNIQUE COMMENT 'Nombre público del circuito',
     ciudad VARCHAR(100) NOT NULL,
     pais VARCHAR(100) NOT NULL,
-    calendario BOOLEAN DEFAULT,
+    calendario BOOLEAN,
     trazado VARCHAR(255) COMMENT 'Ruta a la imagen del trazado',
     numero_vueltas TINYINT UNSIGNED NOT NULL COMMENT 'Número de vueltas en carrera',
     longitud INT UNSIGNED NOT NULL COMMENT 'Longitud del trazado en metros',
