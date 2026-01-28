@@ -21,4 +21,9 @@ public class CircuitosServiceImpl implements ICircuitosService {
     @Override public void actualizar(Circuito circuito) {
         if(circuito.getId() != null) dao.actualizar(circuito);
     }
+
+    @Override
+    public List<Circuito> buscarCalendario() {
+        return dao.buscarCalendario();
+    }
 }

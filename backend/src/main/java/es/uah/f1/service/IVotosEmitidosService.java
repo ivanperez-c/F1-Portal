@@ -2,6 +2,7 @@ package es.uah.f1.service;
 
 import es.uah.f1.model.VotoEmitido;
 import java.util.List;
+import java.util.Map;
 
 public interface IVotosEmitidosService {
     List<VotoEmitido> buscarTodos();
@@ -9,4 +10,6 @@ public interface IVotosEmitidosService {
     void guardar(VotoEmitido voto);
     void eliminar(Integer id);
     void actualizar(VotoEmitido voto);
+    String registrarVoto(VotoEmitido voto);
+    Map<String, Long> obtenerResultados(Integer idVotacion);
 }

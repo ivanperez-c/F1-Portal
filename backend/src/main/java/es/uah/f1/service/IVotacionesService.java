@@ -9,4 +9,5 @@ public interface IVotacionesService {
     void guardar(Votacion votacion);
     void eliminar(Integer id);
     void actualizar(Votacion votacion);
+    String crearVotacion(Votacion votacion, List<Integer> idsPilotos);
 }

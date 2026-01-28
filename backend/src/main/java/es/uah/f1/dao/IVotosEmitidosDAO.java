@@ -9,4 +9,6 @@ public interface IVotosEmitidosDAO {
     void guardar(VotoEmitido votoEmitido);
     void eliminar(Integer id);
     void actualizar(VotoEmitido votoEmitido);
+    boolean yaHaVotado(String email, Integer idVotacion);
+    List<Object[]> obtenerResultados(Integer idVotacion);
 }

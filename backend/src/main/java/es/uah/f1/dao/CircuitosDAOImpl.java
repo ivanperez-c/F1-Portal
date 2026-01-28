@@ -15,4 +15,9 @@ public class CircuitosDAOImpl implements ICircuitosDAO {
     @Override public void guardar(Circuito circuito) { repo.save(circuito); }
     @Override public void eliminar(Integer id) { repo.deleteById(id); }
     @Override public void actualizar(Circuito circuito) { repo.save(circuito); }
+
+    @Override
+    public List<Circuito> buscarCalendario() {
+        return repo.findByCalendarioTrue();
+    }
 }

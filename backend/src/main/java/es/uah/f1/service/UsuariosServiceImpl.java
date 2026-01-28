@@ -5,6 +5,7 @@ import es.uah.f1.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.time.LocalDateTime;
 
 @Service
 public class UsuariosServiceImpl implements IUsuariosService {
@@ -45,6 +46,40 @@ public class UsuariosServiceImpl implements IUsuariosService {
     public void actualizar(Usuario usuario) {
         if (usuario.getId() != null && dao.buscarPorId(usuario.getId()) != null) {
             dao.actualizar(usuario);
+        }
+    }
+
+    @Override
+    public Usuario login(String usuario, String password) {
+        Usuario u = dao.buscarPorNombreUsuario(usuario);
+        if (u != null && u.getPasswdUsuario().equals(password)) {
+            return u;
+        }
+        return null;
+    }
+
+    @Override
+    public void registrarUsuario(Usuario usuario) {
+        usuario.setValidado(false);
+        usuario.setFechaRegistro(LocalDateTime.now());
+
+        if (usuario.getUsuario() != null && usuario.getPasswdUsuario() != null) {
+            dao.guardar(usuario);
+        }
+    }
+
+    @Override
+    public List<Usuario> buscarPendientes() {
+        return dao.buscarPendientesDeValidacion();
+    }
+
+    @Override
+    public void validarUsuario(Integer id) {
+        Usuario u = dao.buscarPorId(id);
+        if (u != null) {
+            u.setValidado(true);
+            u.setFechaValidacion(LocalDateTime.now());
+            dao.actualizar(u);
         }
     }
 }

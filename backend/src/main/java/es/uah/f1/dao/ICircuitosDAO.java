@@ -10,4 +10,5 @@ public interface ICircuitosDAO {
     void guardar(Circuito circuito);
     void eliminar(Integer id);
     void actualizar(Circuito circuito);
+    List<Circuito> buscarCalendario();
 }

@@ -10,4 +10,9 @@ public interface IUsuariosService {
     void guardar(Usuario usuario);
     void eliminar(Integer id);
     void actualizar(Usuario usuario);
+
+    Usuario login(String usuario, String password);
+    void registrarUsuario(Usuario usuario);
+    List<Usuario> buscarPendientes();
+    void validarUsuario(Integer id);
 }

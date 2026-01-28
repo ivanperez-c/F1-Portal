@@ -38,4 +38,9 @@ public class PilotosDAOImpl implements IPilotosDAO {
     public void actualizarPiloto(Piloto piloto) {
         pilotosJPA.save(piloto);
     }
+
+    @Override
+    public List<Piloto> buscarPorEquipo(Integer idEquipo) {
+        return pilotosJPA.findByEquipoId(idEquipo);
+    }
 }

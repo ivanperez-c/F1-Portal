@@ -9,4 +9,5 @@ public interface IPilotosDAO {
     void guardarPiloto(Piloto piloto);
     void eliminarPiloto(Integer id);
     void actualizarPiloto(Piloto piloto);
+    List<Piloto> buscarPorEquipo(Integer idEquipo);
 }

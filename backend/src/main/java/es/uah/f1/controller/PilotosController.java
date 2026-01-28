@@ -38,4 +38,9 @@ public class PilotosController {
     public void eliminarPiloto(@PathVariable("id") Integer id) {
         pilotosService.eliminarPiloto(id);
     }
+
+    @GetMapping("/equipo/{idEquipo}")
+    public List<Piloto> buscarPorEquipo(@PathVariable("idEquipo") Integer idEquipo) {
+        return pilotosService.buscarPorEquipo(idEquipo);
+    }
 }

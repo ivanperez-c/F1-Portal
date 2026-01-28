@@ -41,4 +41,9 @@ public class UsuariosDAOImpl implements IUsuariosDAO {
     public void actualizar(Usuario usuario) {
         usuariosJPA.save(usuario);
     }
+
+    @Override
+    public List<Usuario> buscarPendientesDeValidacion() {
+        return usuariosJPA.findByValidadoFalse();
+    }
 }

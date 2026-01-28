@@ -43,4 +43,9 @@ public class PilotosServiceImpl implements IPilotosService {
             pilotosDAO.actualizarPiloto(piloto);
         }
     }
+
+    @Override
+    public List<Piloto> buscarPorEquipo(Integer idEquipo) {
+        return pilotosDAO.buscarPorEquipo(idEquipo);
+    }
 }

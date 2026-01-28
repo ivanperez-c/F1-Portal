@@ -4,6 +4,7 @@ import es.uah.f1.model.Votacion;
 import es.uah.f1.service.IVotacionesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
@@ -37,5 +38,20 @@ public class VotacionesController {
     @DeleteMapping("/{id}")
     public void eliminar(@PathVariable("id") Integer id) {
         service.eliminar(id);
+    }
+
+    public static class VotacionRequest {
+        public Votacion votacion;
+        public List<Integer> pilotosIds;
+    }
+
+    @PostMapping("/crear-con-pilotos")
+    public ResponseEntity<?> crearCompleta(@RequestBody VotacionRequest request) {
+        String resultado = service.crearVotacion(request.votacion, request.pilotosIds);
+        if ("OK".equals(resultado)) {
+            return ResponseEntity.ok("Votación creada con éxito.");
+        } else {
+            return ResponseEntity.badRequest().body(resultado);
+        }
     }
 }

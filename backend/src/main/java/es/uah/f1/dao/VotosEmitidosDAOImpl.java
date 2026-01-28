@@ -35,4 +35,14 @@ public class VotosEmitidosDAOImpl implements IVotosEmitidosDAO {
     public void actualizar(VotoEmitido votoEmitido) {
         jpa.save(votoEmitido);
     }
+
+    @Override
+    public boolean yaHaVotado(String email, Integer idVotacion) {
+        return jpa.existsByEmailAficionadoAndVotacionId(email, idVotacion);
+    }
+
+    @Override
+    public List<Object[]> obtenerResultados(Integer idVotacion) {
+        return jpa.contarVotosPorVotacion(idVotacion);
+    }
 }

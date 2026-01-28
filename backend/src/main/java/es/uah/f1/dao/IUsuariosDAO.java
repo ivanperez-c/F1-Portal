@@ -6,8 +6,9 @@ import java.util.List;
 public interface IUsuariosDAO {
     List<Usuario> buscarTodos();
     Usuario buscarPorId(Integer id);
-    Usuario buscarPorNombreUsuario(String nombreUsuario); // Extra
+    Usuario buscarPorNombreUsuario(String nombreUsuario);
     void guardar(Usuario usuario);
     void eliminar(Integer id);
     void actualizar(Usuario usuario);
+    List<Usuario> buscarPendientesDeValidacion();
 }
