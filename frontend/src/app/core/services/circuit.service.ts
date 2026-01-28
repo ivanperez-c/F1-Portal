@@ -9,37 +9,24 @@ import { Circuit } from '../models/circuit.interface';
 })
 export class CircuitService {
 
-  private apiUrl = 'http://localhost:8080/api/circuits';
+  private apiUrl = 'http://localhost:8080/api/circuitos';
 
   constructor(private http: HttpClient) { }
 
   private mockCircuits: Circuit[] = [
     {
       id: 1,
-      name: 'Bahrain International Circuit',
-      city: 'Sakhir',
-      country: 'Bahrein',
-      image: 'https://media.formula1.com/image/upload/content/dam/fom-website/2018-redesign-assets/Track%20icons%204x3/Bahrain%20carbon.png.transform/2col/image.png',
-      length: 5412,
-      laps: 57,
-      cornersSlow: 3,
-      cornersMedium: 4,
-      cornersFast: 8,
-      isInCalendar: true,
-      date: new Date("2026-03-02")
-    },
-    {
-      id: 99,
-      name: 'Circuito de Jerez',
-      city: 'Jerez de la Frontera',
-      country: 'España',
-      image: 'assets/jerez.png',
-      length: 4428,
-      laps: 60,
-      cornersSlow: 5,
-      cornersMedium: 3,
-      cornersFast: 5,
-      isInCalendar: false
+      nombre: 'Bahrain International Circuit',
+      ciudad: 'Sakhir',
+      pais: 'Bahrein',
+      trazado: 'https://media.formula1.com/image/upload/content/dam/fom-website/2018-redesign-assets/Track%20icons%204x3/Bahrain%20carbon.png.transform/2col/image.png',
+      longitud: 5412,
+      numero_vueltas: 57,
+      curvas_lentas: 3,
+      curvas_media: 4,
+      curvas_rapidas: 8,
+      calendario: true,
+      fecha_carrera: new Date("2026-03-02")
     }
   ];
 
@@ -52,10 +39,10 @@ export class CircuitService {
    */
   getCircuits(): Observable<Circuit[]> {
     // --- API CALL ---
-    // return this.http.get<Circuit[]>(this.apiUrl);
+    return this.http.get<Circuit[]>(this.apiUrl);
     
     // --- MOCK ---
-    return of(this.mockCircuits).pipe(delay(600));
+    //return of(this.mockCircuits).pipe(delay(600));
   }
 
   /**

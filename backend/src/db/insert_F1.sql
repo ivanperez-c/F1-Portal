@@ -74,31 +74,32 @@ INSERT INTO pilotos
 -- PASO 4: INSERTAR CIRCUITOS
 -- ============================================
 INSERT INTO circuitos 
-(nombre, ciudad, pais, trazado, numero_vueltas, longitud, curvas_lentas, curvas_media, curvas_rapidas) VALUES
-('Albert Park', 'Melbourne', 'Australia', NULL, 58, 5278, 3, 5, 6),
-('Shanghai International Circuit', 'Shanghai', 'China', NULL, 56, 5451, 5, 7, 4),
-('Suzuka Circuit', 'Suzuka', 'Japón', NULL, 53, 5807, 2, 8, 8),
-('Bahrain International Circuit', 'Sakhir', 'Bahrain', NULL, 57, 5412, 3, 8, 4),
-('Jeddah Corniche Circuit', 'Jeddah', 'Arabia Saudí', NULL, 50, 6174, 2, 10, 15),
-('Miami International Autodrome', 'Miami Gardens', 'EE. UU.', NULL, 57, 5412, 5, 8, 6),
-('Circuit Gilles Villeneuve', 'Montreal', 'Canadá', NULL, 70, 4361, 4, 8, 2),
-('Circuit de Monaco', 'Mónaco', 'Mónaco', NULL, 78, 3337, 10, 9, 0),
-('Circuit de Barcelona-Catalunya', 'Montmeló', 'España', NULL, 66, 4657, 4, 6, 4),
-('Red Bull Ring', 'Spielberg', 'Austria', NULL, 71, 4326, 3, 3, 4),
-('Silverstone Circuit', 'Silverstone', 'Reino Unido', NULL, 52, 5891, 4, 5, 9),
-('Circuit de Spa-Francorchamps', 'Spa', 'Bélgica', NULL, 44, 7004, 3, 8, 8),
-('Hungaroring', 'Budapest', 'Hungría', NULL, 70, 4381, 6, 6, 2),
-('Circuit Zandvoort', 'Zandvoort', 'Países Bajos', NULL, 72, 4259, 4, 6, 4),
-('Autodromo Nazionale di Monza', 'Monza', 'Italia', NULL, 53, 5793, 3, 5, 3),
-('Madrid Street Circuit', 'Madrid', 'España', NULL, 57, 5474, 7, 8, 5),
-('Baku City Circuit', 'Baku', 'Azerbaiyán', NULL, 51, 6003, 8, 8, 4),
-('Marina Bay Street Circuit', 'Singapur', 'Singapur', NULL, 62, 4927, 9, 8, 2),
-('Circuit of The Americas', 'Austin', 'EE. UU.', NULL, 56, 5513, 5, 8, 7),
-('Autódromo Hermanos Rodríguez', 'Ciudad de México', 'México', NULL, 71, 4304, 8, 5, 4),
-('Autódromo José Carlos Pace', 'São Paulo', 'Brasil', NULL, 71, 4309, 5, 6, 4),
-('Las Vegas Street Circuit', 'Las Vegas', 'EE. UU.', NULL, 50, 6201, 5, 8, 4),
-('Lusail International Circuit', 'Lusail', 'Catar', NULL, 57, 5419, 1, 8, 7),
-('Yas Marina Circuit', 'Abu Dhabi', 'EAU', NULL, 58, 5281, 5, 7, 4);
+(nombre, ciudad, pais, calendario, trazado, numero_vueltas, longitud, curvas_lentas, curvas_media, curvas_rapidas, fecha_carrera) VALUES
+('Albert Park', 'Melbourne', 'Australia', true, NULL, 58, 5278, 3, 5, 6, '2026-03-08'),
+('Shanghai International Circuit', 'Shanghai', 'China', true, NULL, 56, 5451, 5, 7, 4, '2026-03-15'),
+('Suzuka Circuit', 'Suzuka', 'Japón', true, NULL, 53, 5807, 2, 8, 8, '2026-03-29'),
+('Bahrain International Circuit', 'Sakhir', 'Bahrain', true, NULL, 57, 5412, 3, 8, 4, '2026-04-12'),
+('Jeddah Corniche Circuit', 'Jeddah', 'Arabia Saudí', true, NULL, 50, 6174, 2, 10, 15, '2026-04-19'),
+('Miami International Autodrome', 'Miami Gardens', 'EE. UU.', true, NULL, 57, 5412, 5, 8, 6, '2026-05-03'),
+('Circuit Gilles Villeneuve', 'Montreal', 'Canadá', true, NULL, 70, 4361, 4, 8, 2, '2026-05-24'),
+('Circuit de Monaco', 'Mónaco', 'Mónaco', true, NULL, 78, 3337, 10, 9, 0, '2026-06-07'),
+('Circuit de Barcelona-Catalunya', 'Montmeló', 'España', true, NULL, 66, 4657, 4, 6, 4, '2026-06-14'),
+('Red Bull Ring', 'Spielberg', 'Austria', true, NULL, 71, 4326, 3, 3, 4, '2026-06-28'),
+('Silverstone Circuit', 'Silverstone', 'Reino Unido', true, NULL, 52, 5891, 4, 5, 9, '2026-07-05'),
+('Circuit de Spa-Francorchamps', 'Spa', 'Bélgica', true, NULL, 44, 7004, 3, 8, 8, '2026-07-19'),
+('Hungaroring', 'Budapest', 'Hungría', true, NULL, 70, 4381, 6, 6, 2, '2026-07-26'),
+('Circuit Zandvoort', 'Zandvoort', 'Países Bajos', true, NULL, 72, 4259, 4, 6, 4, '2026-08-23'),
+('Autodromo Nazionale di Monza', 'Monza', 'Italia', true, NULL, 53, 5793, 3, 5, 3, '2026-09-06'),
+('Madrid Street Circuit', 'Madrid', 'España', true, NULL, 57, 5474, 7, 8, 5, '2026-09-13'),
+('Baku City Circuit', 'Baku', 'Azerbaiyán', true, NULL, 51, 6003, 8, 8, 4, '2026-09-26'),
+('Marina Bay Street Circuit', 'Singapur', 'Singapur', true, NULL, 62, 4927, 9, 8, 2, '2026-10-11'),
+('Circuit of The Americas', 'Austin', 'EE. UU.', true, NULL, 56, 5513, 5, 8, 7, '2026-10-25'),
+('Autódromo Hermanos Rodríguez', 'Ciudad de México', 'México', true, NULL, 71, 4304, 8, 5, 4, '2026-11-01'),
+('Autódromo José Carlos Pace', 'São Paulo', 'Brasil', true, NULL, 71, 4309, 5, 6, 4, '2026-11-08'),
+('Las Vegas Street Circuit', 'Las Vegas', 'EE. UU.', true, NULL, 50, 6201, 5, 8, 4, '2026-11-21'),
+('Lusail International Circuit', 'Lusail', 'Catar', true, NULL, 57, 5419, 1, 8, 7, '2026-11-29'),
+('Yas Marina Circuit', 'Abu Dhabi', 'EAU', true, NULL, 58, 5281, 5, 7, 4, '2026-12-06');
+
 
 -- ============================================
 -- PASO 5: INSERTAR COCHES

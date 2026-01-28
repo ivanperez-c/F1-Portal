@@ -33,7 +33,7 @@
           
           <div class="home__hero__content__telemetry__info">
             <span class="home__hero__content__telemetry__info__label">PRÓXIMO GRAN PREMIO</span>
-            <span class="home__hero__content__telemetry__info__value">{{ nextRace.city | uppercase }}</span>
+            <span class="home__hero__content__telemetry__info__value">{{ nextRace.ciudad | uppercase }}</span>
           </div>
           
           <div class="home__hero__content__telemetry__divider"></div>
@@ -110,15 +110,15 @@
           <div class="home__races__container__next__bg"></div> 
           <div class="home__races__container__next__content">
             <span class="home__races__container__next__content__label">PRÓXIMO GRAN PREMIO</span>
-            <h3 class="home__races__container__next__content__name">{{ nextRace.name }}</h3>
+            <h3 class="home__races__container__next__content__name">{{ nextRace.nombre }}</h3>
             <div class="home__races__container__next__content__location">
-              <span class="home__races__container__next__content__location__icon"><i class="bi bi-geo-fill"></i></span> {{ nextRace.city }}, {{ nextRace.country }}
+              <span class="home__races__container__next__content__location__icon"><i class="bi bi-geo-fill"></i></span> {{ nextRace.ciudad }}, {{ nextRace.pais }}
             </div>
             <div class="home__races__container__next__content__date">
-              {{ nextRace.date | date:'dd' }} <span class="home__races__container__next__content__date__month">{{ nextRace.date | date:'MMM' | uppercase }}</span>
+              {{ nextRace.fecha_carrera | date:'dd' }} <span class="home__races__container__next__content__date__month">{{ nextRace.fecha_carrera | date:'MMM' | uppercase }}</span>
             </div>
           </div>
-          <img [src]="nextRace.image" class="home__races__container__next__img" alt="Trazado del circuito">
+          <img [src]="nextRace.trazado" class="home__races__container__next__img" alt="Trazado del circuito">
         </div>
       }
 
@@ -128,16 +128,16 @@
           <div class="home__races__container__list__row">
             
             <div class="home__races__container__list__row__date">
-              <span class="home__races__container__list__row__date__day">{{ race.date | date:'dd' }}</span>
-              <span class="home__races__container__list__row__date__month">{{ race.date | date:'MMM' | uppercase }}</span>
+              <span class="home__races__container__list__row__date__day">{{ race.fecha_carrera | date:'dd' }}</span>
+              <span class="home__races__container__list__row__date__month">{{ race.fecha_carrera | date:'MMM' | uppercase }}</span>
             </div>
             
             <div class="home__races__container__list__row__info">
-              <span class="home__races__container__list__row__info__city">{{ race.city }}</span>
-              <span class="home__races__container__list__row__info__circuit">{{ race.name }}</span>
+              <span class="home__races__container__list__row__info__city">{{ race.ciudad }}</span>
+              <span class="home__races__container__list__row__info__circuit">{{ race.nombre }}</span>
             </div>
             
-            <span class="home__races__container__list__row__flag">{{ race.country | slice:0:3 | uppercase }}</span>
+            <span class="home__races__container__list__row__flag">{{ race.pais | slice:0:3 | uppercase }}</span>
           </div>
         }
       </div>

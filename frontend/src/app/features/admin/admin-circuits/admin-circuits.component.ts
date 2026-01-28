@@ -80,17 +80,17 @@ export class AdminCircuitsComponent implements OnInit {
     this.editingId = circuit.id;
     
     this.circuitForm.patchValue({
-      name: circuit.name,
-      city: circuit.city,
-      country: circuit.country,
-      image: circuit.image,
-      length: circuit.length,
-      laps: circuit.laps,
-      cornersSlow: circuit.cornersSlow,
-      cornersMedium: circuit.cornersMedium,
-      cornersFast: circuit.cornersFast,
-      isInCalendar: circuit.isInCalendar,
-      date: circuit.date ? this.formatDate(circuit.date) : ''
+      nombre: circuit.nombre,
+      ciudad: circuit.ciudad,
+      pais: circuit.pais,
+      trazado: circuit.trazado,
+      longitud: circuit.longitud,
+      numero_vueltas: circuit.numero_vueltas,
+      curvas_lentas: circuit.curvas_lentas,
+      curvas_media: circuit.curvas_media,
+      curvas_rapidas: circuit.curvas_rapidas,
+      calendario: circuit.calendario,
+      date: circuit.fecha_carrera ? this.formatDate(circuit.fecha_carrera) : ''
     });
 
     this.showForm = true;
@@ -148,7 +148,7 @@ export class AdminCircuitsComponent implements OnInit {
   deleteCircuit(circuit: Circuit) {
     Swal.fire({
       title: '¿Eliminar Circuito?',
-      text: `Se borrará ${circuit.name}`,
+      text: `Se borrará ${circuit.nombre}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#e10600',

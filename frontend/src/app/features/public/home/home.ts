@@ -41,12 +41,12 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
     
     this.circuitService.getCircuits().subscribe(calendar => {
       const now = new Date();
-      const nextIndex = calendar.findIndex(c => new Date(c.date!) > now);
+      const nextIndex = calendar.findIndex(c => new Date(c.fecha_carrera!) > now);
       
       if (nextIndex !== -1) {
         this.nextRace = calendar[nextIndex];
         this.upcomingRaces = calendar.slice(nextIndex + 1, nextIndex + 4);
-        this.startCountdown(new Date(this.nextRace.date!));
+        this.startCountdown(new Date(this.nextRace.fecha_carrera!));
       }
     });
   }

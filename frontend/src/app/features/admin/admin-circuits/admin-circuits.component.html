@@ -90,9 +90,9 @@
           @for (c of circuits; track c.id) {
             <tr>
               <td>
-                @if (c.isInCalendar) {
+                @if (c.calendario) {
                   <div class="admin-circuits__badge admin-circuits__badge--active" title="En Calendario">
-                    <i class="bi bi-calendar-check-fill"></i> {{ c.date | date:'dd/MM' }}
+                    <i class="bi bi-calendar-check-fill"></i> {{ c.fecha_carrera | date:'dd/MM' }}
                   </div>
                 } @else {
                   <div class="admin-circuits__badge admin-circuits__badge--inactive" title="Reserva">
@@ -103,20 +103,20 @@
               
               <td>
                 <div class="admin-circuits__circuit-info">
-                  <span class="name">{{ c.name }}</span>
-                  <div class="location"><i class="bi bi-geo-alt-fill"></i> {{ c.city }}, {{ c.country }}</div>
+                  <span class="name">{{ c.nombre }}</span>
+                  <div class="location"><i class="bi bi-geo-alt-fill"></i> {{ c.ciudad }}, {{ c.pais }}</div>
                 </div>
               </td>
 
               <td class="admin-circuits__tech-data">
-                <div>{{ c.length }}m</div>
-                <div>{{ c.laps }} vueltas</div>
+                <div>{{ c.longitud }}m</div>
+                <div>{{ c.numero_vueltas }} vueltas</div>
               </td>
 
               <td class="admin-circuits__tech-data">
-                <span class="stat-slow">{{ c.cornersSlow }}</span> / 
-                <span class="stat-med">{{ c.cornersMedium }}</span> / 
-                <span class="stat-fast">{{ c.cornersFast }}</span>
+                <span class="stat-slow">{{ c.curvas_lentas }}</span> / 
+                <span class="stat-med">{{ c.curvas_media }}</span> / 
+                <span class="stat-fast">{{ c.curvas_rapidas }}</span>
               </td>
 
               <td class="admin-circuits__actions">

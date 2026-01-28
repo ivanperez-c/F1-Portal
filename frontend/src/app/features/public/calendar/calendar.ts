@@ -12,14 +12,14 @@ import { Circuit } from '../../../core/models/circuit.interface';
 })
 export class Calendar implements OnInit {
 
-  circuits: Circuit[] = [];
+  circuits: any[] = [];
   loading: boolean = true;
   today: Date = new Date();
 
   constructor(private circuitsService: CircuitService) {}
 
   ngOnInit(): void {
-    this.circuitsService.getCircuits().subscribe(data => {
+    this.circuitsService.getCircuits().subscribe((data:any) => {
       this.circuits = data;
       this.loading = false;
     });
