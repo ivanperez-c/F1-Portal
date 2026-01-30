@@ -12,7 +12,7 @@
       <label>Circuito</label>
       <select formControlName="circuitId">
         <option [ngValue]="null">-- Seleccionar --</option>
-        @for (c of circuits; track c.id) { <option [value]="c.id">{{c.name}}</option> }
+        @for (c of circuits; track c.id) { <option [value]="c.id">{{c.nombre}}</option> }
       </select>
     </div>
     <div class="group">

@@ -19,7 +19,7 @@ export class Calendar implements OnInit {
   constructor(private circuitsService: CircuitService) {}
 
   ngOnInit(): void {
-    this.circuitsService.getCircuits().subscribe((data:any) => {
+    this.circuitsService.getCircuits().subscribe(data => {
       this.circuits = data;
       this.loading = false;
     });
