@@ -12,7 +12,7 @@ import { LoginRequest } from '../../../core/models/auth.interface';
 })
 export class Login {
   loginData: LoginRequest = {
-    email: '',
+    usuario: '',
     password: ''
   };
 
@@ -22,7 +22,7 @@ export class Login {
   constructor(private authService: AuthService, private router: Router) {}
 
   login() {
-    if (!this.loginData.email || !this.loginData.password) {
+    if (!this.loginData.usuario || !this.loginData.password) {
       this.errorMessage = 'Por favor, rellena todos los campos';
       return;
     }

@@ -12,7 +12,7 @@ import { RegisterRequest } from '../models/auth.interface';
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8080/api/auth';
+  private apiUrl = 'http://localhost:8080/api/usuarios';
   private USER_KEY = 'auth-user';
   private currentUserSubject: BehaviorSubject<User | null>;
   public user$: Observable<User | null>;
@@ -46,7 +46,7 @@ export class AuthService {
   login(credentials: LoginRequest): Observable<User> {
     
     // --- API CALL ---
-    /*
+    
     return this.http.post<User>(`${this.apiUrl}/login`, credentials).pipe(
       tap(user => {
         if (isPlatformBrowser(this.platformId)) {
@@ -55,10 +55,10 @@ export class AuthService {
         this.currentUserSubject.next(user);
       })
     );
-    */
+    
 
     // --- MOCK ---
-    return of(true).pipe(
+    /*return of(true).pipe(
       delay(1000), 
       map(() => {
         let mockUser: User;
@@ -73,7 +73,7 @@ export class AuthService {
         this.currentUserSubject.next(mockUser);
         return mockUser;
       })
-    );
+    );*/
   }
 
   /**
@@ -101,12 +101,12 @@ export class AuthService {
    */
   register(userData: RegisterRequest): Observable<boolean> {
     // --- API CALL REAL (Comentada) ---
-    /*
-    return this.http.post<boolean>(`${this.apiUrl}/register`, userData);
-    */
+    
+    return this.http.post<boolean>(`${this.apiUrl}/registro`, userData);
+    
 
     // --- MOCK CON VALIDACIÓN ---
-    return of(true).pipe(
+    /*return of(true).pipe(
       delay(1000),
       map(() => {
         const userExists = this.existingUsersMock.some(u => u.username.toLowerCase() === userData.username.toLowerCase());
@@ -121,6 +121,6 @@ export class AuthService {
 
         return true;
       })
-    );
+    );*/
   }
 }

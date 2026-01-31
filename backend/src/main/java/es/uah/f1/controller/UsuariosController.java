@@ -1,5 +1,6 @@
 package es.uah.f1.controller;
 
+import es.uah.f1.model.Rol;
 import es.uah.f1.model.Usuario;
 import es.uah.f1.service.IUsuariosService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,8 +62,14 @@ public class UsuariosController {
     }
 
     @PostMapping("/registro")
-    public void registrar(@RequestBody Usuario usuario) {
-        service.registrarUsuario(usuario);
+    public void registrar(@RequestBody Map<String, String> credenciales) {
+        Usuario u = new Usuario();
+        u.setNombre(credenciales.get("nombre"));
+        u.setUsuario(credenciales.get("usuario"));
+        u.setEmail(credenciales.get("email"));
+        u.setPasswdUsuario(credenciales.get("passwdUsuario"));
+        u.setRol(Rol.responsable_equipo);
+        service.registrarUsuario(u);
     }
 
     @GetMapping("/pendientes")

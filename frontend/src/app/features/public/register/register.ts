@@ -23,10 +23,10 @@ export class Register {
     private router: Router
   ) {
     this.registerForm = this.fb.group({
-      publicName: ['', [Validators.required]],
-      username: ['', [Validators.required, Validators.minLength(4)]],
+      nombre: ['', [Validators.required]],
+      usuario: ['', [Validators.required, Validators.minLength(4)]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(5)]],
+      passwdUsuario: ['', [Validators.required, Validators.minLength(5)]],
       confirmPassword: ['', [Validators.required]]
     });
   }
@@ -39,7 +39,7 @@ export class Register {
 
     const val = this.registerForm.value;
 
-    if (val.password !== val.confirmPassword) {
+    if (val.passwdUsuario !== val.confirmPassword) {
       Swal.fire({
         icon: 'error',
         title: 'Error',
@@ -52,10 +52,10 @@ export class Register {
     this.isSubmitting = true;
 
     const requestData = {
-      publicName: val.publicName,
-      username: val.username,
+      nombre: val.nombre,
+      usuario: val.usuario,
       email: val.email,
-      password: val.password
+      passwdUsuario: val.passwdUsuario
     };
 
     this.authService.register(requestData).subscribe({

@@ -9,10 +9,10 @@
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register__form">
       
       <div class="register__field">
-        <label class="register__label" for="publicName">Nombre Público</label>
+        <label class="register__label" for="nombre">Nombre Público</label>
         <div class="register__input-group">
           <i class="register__icon bi bi-card-text"></i>
-          <input class="register__input" type="text" id="publicName" formControlName="publicName" placeholder="Ej: Juan Pérez">
+          <input class="register__input" type="text" id="nombre" formControlName="nombre" placeholder="Ej: Juan Pérez">
         </div>
         @if (registerForm.get('publicName')?.touched && registerForm.get('publicName')?.invalid) {
           <span class="register__error">El nombre es obligatorio</span>
@@ -20,10 +20,10 @@
       </div>
 
       <div class="register__field">
-        <label class="register__label" for="username">Usuario (Único)</label>
+        <label class="register__label" for="usuario">Usuario (Único)</label>
         <div class="register__input-group">
           <i class="register__icon bi bi-person-fill"></i>
-          <input class="register__input" type="text" id="username" formControlName="username" placeholder="Ej: supermax33">
+          <input class="register__input" type="text" id="usuario" formControlName="usuario" placeholder="Ej: supermax33">
         </div>
         @if (registerForm.get('username')?.touched && registerForm.get('username')?.invalid) {
           <span class="register__error">Mínimo 4 caracteres</span>
@@ -42,10 +42,10 @@
       </div>
 
       <div class="register__field">
-        <label class="register__label" for="password">Contraseña</label>
+        <label class="register__label" for="passwdUsuario">Contraseña</label>
         <div class="register__input-group">
           <i class="register__icon bi bi-lock-fill"></i>
-          <input class="register__input" type="password" id="password" formControlName="password" placeholder="•••••">
+          <input class="register__input" type="password" id="passwdUsuario" formControlName="passwdUsuario" placeholder="•••••">
         </div>
         @if (registerForm.get('password')?.touched && registerForm.get('password')?.invalid) {
           <span class="register__error">Mínimo 5 caracteres requeridos</span>
