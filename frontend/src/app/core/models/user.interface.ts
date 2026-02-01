@@ -1,5 +1,5 @@
 export interface User {
-  username: string;
-  role: 'ADMIN' | 'TEAM' | 'USER';
+  usuario: string;
+  rol: 'administrador' | 'responsable_equipo' | 'usuario';
   teamId?: number;
 }

@@ -55,10 +55,10 @@ export class CircuitService {
    */
   createCircuit(circuit: Circuit): Observable<boolean> {
     // --- API CALL ---
-    // return this.http.post<boolean>(this.apiUrl, circuit);
+     return this.http.post<boolean>(this.apiUrl, circuit);
 
     // --- MOCK ---
-    return of(true).pipe(delay(600));
+    //return of(true).pipe(delay(600));
   }
 
   /**
@@ -72,15 +72,15 @@ export class CircuitService {
    */
   updateCircuit(id: number, circuit: Partial<Circuit>): Observable<Circuit> {
     // --- API CALL ---
-    // return this.http.put<Circuit>(`${this.apiUrl}/${id}`, circuit);
+     return this.http.put<Circuit>(`${this.apiUrl}/${id}`, circuit);
 
     // --- MOCK ---
-    const index = this.mockCircuits.findIndex(c => c.id === id);
+    /*const index = this.mockCircuits.findIndex(c => c.id === id);
     if (index !== -1) {
       this.mockCircuits[index] = { ...this.mockCircuits[index], ...circuit };
       return of(this.mockCircuits[index]).pipe(delay(600));
     }
-    return throwError(() => new Error('Not found'));
+    return throwError(() => new Error('Not found'));*/
   }
 
   /**
@@ -94,10 +94,10 @@ export class CircuitService {
    */
   deleteCircuit(id: number): Observable<boolean> {
     // --- API CALL ---
-    // return this.http.delete<boolean>(`${this.apiUrl}/${id}`);
+     return this.http.delete<boolean>(`${this.apiUrl}/${id}`);
 
     // --- MOCK ---
-    if (id === 1) return throwError(() => new Error('No se puede borrar un circuito del calendario activo.'));
-    return of(true).pipe(delay(600));
+    /*if (id === 1) return throwError(() => new Error('No se puede borrar un circuito del calendario activo.'));
+    return of(true).pipe(delay(600));*/
   }
 }

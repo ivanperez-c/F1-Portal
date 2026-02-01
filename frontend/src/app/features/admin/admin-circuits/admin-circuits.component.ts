@@ -28,17 +28,17 @@ export class AdminCircuitsComponent implements OnInit {
     private fb: FormBuilder
   ) {
     this.circuitForm = this.fb.group({
-      name: ['', Validators.required],
-      city: ['', Validators.required],
-      country: ['', Validators.required],
-      image: ['', Validators.required],
-      length: [null, [Validators.required, Validators.min(1)]],
-      laps: [null, [Validators.required, Validators.min(1)]],
-      cornersSlow: [null, [Validators.required, Validators.min(0)]],
-      cornersMedium: [null, [Validators.required, Validators.min(0)]],
-      cornersFast: [null, [Validators.required, Validators.min(0)]],
-      isInCalendar: [false],
-      date: ['']
+      nombre: ['', Validators.required],
+      ciudad: ['', Validators.required],
+      pais: ['', Validators.required],
+      trazado: ['', Validators.required],
+      longitud: [null, [Validators.required, Validators.min(1)]],
+      numero_vueltas: [null, [Validators.required, Validators.min(1)]],
+      curvas_lentas: [null, [Validators.required, Validators.min(0)]],
+      curvas_media: [null, [Validators.required, Validators.min(0)]],
+      curvas_rapidas: [null, [Validators.required, Validators.min(0)]],
+      calendario: [false],
+      fechaCarrera: ['']
     });
   }
 
@@ -48,7 +48,7 @@ export class AdminCircuitsComponent implements OnInit {
   }
 
   setupDateValidation() {
-    this.circuitForm.get('isInCalendar')?.valueChanges.subscribe(checked => {
+    this.circuitForm.get('calendario')?.valueChanges.subscribe(checked => {
       const dateControl = this.circuitForm.get('date');
       if (checked) {
         dateControl?.setValidators(Validators.required);
@@ -71,7 +71,7 @@ export class AdminCircuitsComponent implements OnInit {
   openCreate() {
     this.isEditing = false;
     this.editingId = null;
-    this.circuitForm.reset({ isInCalendar: false });
+    this.circuitForm.reset({ calendario: false });
     this.showForm = true;
   }
 
@@ -90,7 +90,7 @@ export class AdminCircuitsComponent implements OnInit {
       curvas_media: circuit.curvas_media,
       curvas_rapidas: circuit.curvas_rapidas,
       calendario: circuit.calendario,
-      date: circuit.fecha_carrera ? this.formatDate(circuit.fecha_carrera) : ''
+      fechaCarrera: circuit.fecha_carrera ? this.formatDate(circuit.fecha_carrera) : ''
     });
 
     this.showForm = true;
@@ -116,14 +116,17 @@ export class AdminCircuitsComponent implements OnInit {
 
     const formVal = this.circuitForm.value;
     const circuitData: any = {
-      ...formVal,
-      length: Number(formVal.length),
-      laps: Number(formVal.laps),
-      cornersSlow: Number(formVal.cornersSlow),
-      cornersMedium: Number(formVal.cornersMedium),
-      cornersFast: Number(formVal.cornersFast),
-      isInCalendar: formVal.isInCalendar,
-      date: formVal.isInCalendar ? formVal.date : undefined
+      nombre: formVal.nombre,
+      ciudad: formVal.ciudad,
+      pais: formVal.pais,
+      trazado: formVal.trazado,
+      longitud: Number(formVal.longitud),
+      numero_vueltas: Number(formVal.numero_vueltas),
+      curvas_lentas: Number(formVal.curvas_lentas),
+      curvas_media: Number(formVal.curvas_media),
+      curvas_rapidas: Number(formVal.curvas_rapidas),
+      calendario: formVal.calendario,
+      fechaCarrera: formVal.calendario ? formVal.date : undefined
     };
 
     if (this.isEditing && this.editingId) {

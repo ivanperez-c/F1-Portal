@@ -18,8 +18,8 @@ export class TeamsService {
       name: 'Scuderia Ferrari HP',
       logo: 'https://media.formula1.com/content/dam/fom-website/teams/2025/ferrari-logo.png.transform/2col/image.png',
       users: [
-        { username: 'fvasseur', role: 'TEAM', teamId: 1 },
-        { username: 'ferrari_strat', role: 'TEAM', teamId: 1 }
+        { usuario: 'fvasseur', rol: 'responsable_equipo', teamId: 1 },
+        { usuario: 'ferrari_strat', rol: 'responsable_equipo', teamId: 1 }
       ],
       drivers: [
         { id: 16, firstname: 'Charles', lastname: 'Leclerc', code: 'LEC', number: 16, country: 'Monaco', photo: 'https://media.formula1.com/content/dam/fom-website/drivers/C/CHALEC01_Charles_Leclerc/chalec01.png.transform/2col/image.png' },
@@ -81,7 +81,7 @@ export class TeamsService {
     // --- MOCK ---
     const team = this.mockTeams.find(t => t.id === teamId);
     if(team) {
-      const newUser: User = { username: username, role: 'TEAM', teamId: teamId };
+      const newUser: User = { usuario: username, rol: 'responsable_equipo', teamId: teamId };
       team.users.push(newUser);
       return of(newUser).pipe(delay(600));
     }
@@ -104,7 +104,7 @@ export class TeamsService {
     // --- MOCK ---
     const team = this.mockTeams.find(t => t.id === teamId);
     if (team) {
-      team.users = team.users.filter(u => u.username !== username);
+      team.users = team.users.filter(u => u.usuario !== username);
       return of(true).pipe(delay(600));
     }
     return of(false);

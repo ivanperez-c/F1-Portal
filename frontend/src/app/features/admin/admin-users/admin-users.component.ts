@@ -32,18 +32,18 @@ export class AdminUsersComponent implements OnInit {
   validateUser(user: AdminUserRequest) {
     Swal.fire({
       title: 'Validar Usuario',
-      text: `¿Qué rol asignar a ${user.username}?`,
+      text: `¿Qué rol asignar a ${user.usuario}?`,
       icon: 'question',
       input: 'radio',
       inputOptions: {
-        'TEAM': 'Responsable de Equipo',
-        'ADMIN': 'Administrador'
+        'responsable_equipo': 'Responsable de Equipo',
+        'administrador': 'Administrador'
       },
-      inputValue: 'TEAM',
+      inputValue: 'responsable_equipo',
       showCancelButton: true,
       confirmButtonText: 'Validar',
       confirmButtonColor: '#e10600',
-      background: '#141414', color: '#fff'
+      background: '#141414', color: '#141414'
     }).then((result) => {
       if (result.isConfirmed) {
         const role = result.value;

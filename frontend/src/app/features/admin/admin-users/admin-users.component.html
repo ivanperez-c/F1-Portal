@@ -18,9 +18,9 @@
         <tbody>
           @for (user of pendingUsers; track user.id) {
             <tr>
-              <td><strong>{{ user.username }}</strong></td>
+              <td><strong>{{ user.usuario }}</strong></td>
               <td>{{ user.email }}</td>
-              <td>{{ user.registrationDate | date:'shortDate' }}</td>
+              <td>{{ user.fecha_registro | date:'shortDate' }}</td>
               <td class="admin-users__actions">
                 <button class="admin-users__btn admin-users__btn--validate" (click)="validateUser(user)">
                   <i class="bi bi-check-lg"></i> Validar

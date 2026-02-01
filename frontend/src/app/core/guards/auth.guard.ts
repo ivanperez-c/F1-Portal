@@ -16,7 +16,7 @@ export const authGuard: CanActivateFn = (route, state) => {
   const url = state.url;
 
   if (url.startsWith('/admin')) {
-    if (user.role === 'ADMIN') {
+    if (user.rol === 'administrador') {
       return true;
     } else {
       router.navigate(['/']);
@@ -25,7 +25,7 @@ export const authGuard: CanActivateFn = (route, state) => {
   }
 
   if (url.startsWith('/equipo')) {
-    if (user.role === 'TEAM' || user.role === 'ADMIN') {
+    if (user.rol === 'responsable_equipo' || user.rol === 'administrador') {
       return true;
     } else {
       router.navigate(['/']);

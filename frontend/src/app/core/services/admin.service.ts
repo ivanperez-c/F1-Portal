@@ -7,14 +7,14 @@ import { AdminUserRequest } from '../models/admin.interface';
 @Injectable({ providedIn: 'root' })
 export class AdminService {
 
-  private apiUrl = 'http://localhost:8080/api/admin';
+  private apiUrl = 'http://localhost:8080/usuarios';
 
   constructor(private http: HttpClient) {}
 
-  private pendingUsers: AdminUserRequest[] = [
+  /* pendingUsers: AdminUserRequest[] = [
     { id: 10, username: 'new_team_manager', email: 'manager@f1.com', isValidated: false, registrationDate: new Date() },
     { id: 11, username: 'fan_boy_99', email: 'fan@gmail.com', isValidated: false, registrationDate: new Date() }
-  ];
+  ];*/
 
   /**
    * OBTENER SOLICITUDES PENDIENTES
@@ -25,10 +25,10 @@ export class AdminService {
    */
   getPendingUsers(): Observable<AdminUserRequest[]> {
     // --- API CALL ---
-    // return this.http.get<AdminUserRequest[]>(`${this.apiUrl}/users/pending`);
+     return this.http.get<AdminUserRequest[]>(`${this.apiUrl}/pendientes`);
 
     // --- MOCK ---
-    return of(this.pendingUsers).pipe(delay(500));
+    //return of(this.pendingUsers).pipe(delay(500));
   }
 
   /**
@@ -40,17 +40,17 @@ export class AdminService {
    * @param role Rol asignado ('ADMIN' | 'TEAM')
    * @returns Observable<boolean> Éxito de la operación.
    */
-  validateUser(id: number, role: 'ADMIN' | 'TEAM'): Observable<boolean> {
+  validateUser(id: number, role: 'administrador' | 'responsable_equipo'): Observable<boolean> {
     // --- API CALL ---
-    // return this.http.post<boolean>(`${this.apiUrl}/users/${id}/validate`, { role });
+     return this.http.put<boolean>(`${this.apiUrl}/${id}/validar`, { role });
 
     // --- MOCK ---
-    const idx = this.pendingUsers.findIndex(u => u.id === id);
+    /*const idx = this.pendingUsers.findIndex(u => u.id === id);
     if (idx !== -1) {
       this.pendingUsers.splice(idx, 1);
       return of(true).pipe(delay(600));
     }
-    return of(false);
+    return of(false);*/
   }
 
   /**
@@ -63,14 +63,14 @@ export class AdminService {
    */
   deleteUser(id: number): Observable<boolean> {
     // --- API CALL ---
-    // return this.http.delete<boolean>(`${this.apiUrl}/users/${id}`);
+     return this.http.delete<boolean>(`${this.apiUrl}/${id}`);
 
     // --- MOCK ---
-    const idx = this.pendingUsers.findIndex(u => u.id === id);
+    /*const idx = this.pendingUsers.findIndex(u => u.id === id);
     if (idx !== -1) {
       this.pendingUsers.splice(idx, 1);
       return of(true).pipe(delay(600));
     }
-    return of(false);
+    return of(false);*/
   }
 }

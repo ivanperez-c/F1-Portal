@@ -1,6 +1,7 @@
 package es.uah.f1.service;
 
 import es.uah.f1.dao.IUsuariosDAO;
+import es.uah.f1.model.Rol;
 import es.uah.f1.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -74,10 +75,12 @@ public class UsuariosServiceImpl implements IUsuariosService {
     }
 
     @Override
-    public void validarUsuario(Integer id) {
+    public void validarUsuario(Integer id, String rol) {
         Usuario u = dao.buscarPorId(id);
         if (u != null) {
+            Rol r = Rol.valueOf(rol);
             u.setValidado(true);
+            u.setRol(r);
             u.setFechaValidacion(LocalDateTime.now());
             dao.actualizar(u);
         }

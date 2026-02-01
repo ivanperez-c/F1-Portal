@@ -78,7 +78,7 @@ public class UsuariosController {
     }
 
     @PutMapping("/{id}/validar")
-    public void validarUsuario(@PathVariable("id") Integer id) {
-        service.validarUsuario(id);
+    public void validarUsuario(@PathVariable("id") Integer id, @RequestBody Map<String, String> rol) {
+        service.validarUsuario(id, rol.get("role"));
     }
 }

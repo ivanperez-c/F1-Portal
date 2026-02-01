@@ -1,5 +1,6 @@
 package es.uah.f1.service;
 
+import es.uah.f1.model.Rol;
 import es.uah.f1.model.Usuario;
 import java.util.List;
 
@@ -14,5 +15,5 @@ public interface IUsuariosService {
     Usuario login(String usuario, String password);
     void registrarUsuario(Usuario usuario);
     List<Usuario> buscarPendientes();
-    void validarUsuario(Integer id);
+    void validarUsuario(Integer id, String rol);
 }

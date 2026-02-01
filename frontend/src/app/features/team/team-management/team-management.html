@@ -18,16 +18,16 @@
       </div>
       
       <div class="mgmt__grid">
-        @for (user of team.users; track user.username) {
+        @for (user of team.users; track user.usuario) {
           <div class="card-simple">
             <div class="card-simple__avatar user-icon">
                <i class="bi bi-shield-lock-fill"></i>
             </div>
             <div class="card-simple__info">
-              <span class="role">Miembros del equipo</span>
-              <span class="name">{{ user.username }}</span>
+              <span class="rol">Miembros del equipo</span>
+              <span class="name">{{ user.usuario }}</span>
             </div>
-            <button class="btn-del" (click)="deleteItem('USER', user.username)"><i class="bi bi-trash"></i></button>
+            <button class="btn-del" (click)="deleteItem('USER', user.usuario)"><i class="bi bi-trash"></i></button>
           </div>
         }
       </div>
@@ -108,7 +108,7 @@
             <form [formGroup]="userForm" (ngSubmit)="submitUser()">
               <div class="form-group">
                 <label>Nombre de Usuario</label>
-                <input type="text" formControlName="username" placeholder="Ej: LawrenceStroll">
+                <input type="text" formControlName="usuario" placeholder="Ej: LawrenceStroll">
               </div>
               <button type="submit" class="btn-submit" [disabled]="userForm.invalid">Dar Acceso</button>
             </form>

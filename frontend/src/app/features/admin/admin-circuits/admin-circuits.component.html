@@ -26,43 +26,43 @@
         <div class="admin-circuits__grid">
           <div class="admin-circuits__field admin-circuits__grid--full">
             <label>Nombre Oficial</label>
-            <input type="text" formControlName="name" placeholder="Ej: Silverstone Circuit">
+            <input type="text" formControlName="nombre" placeholder="Ej: Silverstone Circuit">
           </div>
           <div class="admin-circuits__field admin-circuits__grid--full">
             <label>Imagen (URL)</label>
-            <input type="text" formControlName="image" placeholder="https://...">
+            <input type="text" formControlName="trazado" placeholder="https://...">
           </div>
         </div>
 
         <div class="admin-circuits__grid">
-          <div class="admin-circuits__field"><label>Ciudad</label><input type="text" formControlName="city"></div>
-          <div class="admin-circuits__field"><label>País</label><input type="text" formControlName="country"></div>
+          <div class="admin-circuits__field"><label>Ciudad</label><input type="text" formControlName="ciudad"></div>
+          <div class="admin-circuits__field"><label>País</label><input type="text" formControlName="pais"></div>
         </div>
 
         <h4 class="admin-circuits__editor-subtitle">Telemetría</h4>
         
         <div class="admin-circuits__grid admin-circuits__grid--three-cols">
-          <div class="admin-circuits__field"><label>Vueltas</label><input type="number" formControlName="laps"></div>
-          <div class="admin-circuits__field"><label>Longitud (m)</label><input type="number" formControlName="length"></div>
+          <div class="admin-circuits__field"><label>Vueltas</label><input type="number" formControlName="numero_vueltas"></div>
+          <div class="admin-circuits__field"><label>Longitud (m)</label><input type="number" formControlName="longitud"></div>
         </div>
         
         <div class="admin-circuits__grid admin-circuits__grid--three-cols">
-          <div class="admin-circuits__field"><label>Curvas Lentas</label><input type="number" formControlName="cornersSlow"></div>
-          <div class="admin-circuits__field"><label>Curvas Medias</label><input type="number" formControlName="cornersMedium"></div>
-          <div class="admin-circuits__field"><label>Curvas Rápidas</label><input type="number" formControlName="cornersFast"></div>
+          <div class="admin-circuits__field"><label>Curvas Lentas</label><input type="number" formControlName="curvas_lentas"></div>
+          <div class="admin-circuits__field"><label>Curvas Medias</label><input type="number" formControlName="curvas_media"></div>
+          <div class="admin-circuits__field"><label>Curvas Rápidas</label><input type="number" formControlName="curvas_rapidas"></div>
         </div>
 
         <div class="admin-circuits__calendar-box">
           <label class="admin-circuits__toggle">
-            <input type="checkbox" formControlName="isInCalendar">
+            <input type="checkbox" formControlName="calendario">
             <span class="admin-circuits__toggle-slider"></span>
             <span class="admin-circuits__toggle-label">Incluir en Calendario 2026</span>
           </label>
           
-          @if (circuitForm.get('isInCalendar')?.value) {
+          @if (circuitForm.get('calendario')?.value) {
             <div class="admin-circuits__field date-input">
               <label>Fecha del Gran Premio</label>
-              <input type="date" formControlName="date">
+              <input type="date" formControlName="fechaCarrera">
             </div>
           }
         </div>

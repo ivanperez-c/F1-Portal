@@ -1,7 +1,7 @@
 export interface AdminUserRequest {
   id: number;
-  username: string;
+  usuario: string;
   email: string;
-  isValidated: boolean;
-  registrationDate: Date;
+  validado: boolean;
+  fecha_registro: Date;
 }

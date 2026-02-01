@@ -35,7 +35,7 @@ export class TeamManagement implements OnInit {
     private fb: FormBuilder
   ) {
     this.userForm = this.fb.group({
-      username: ['', [Validators.required]]
+      usuario: ['', [Validators.required]]
     });
 
     this.driverForm = this.fb.group({
@@ -101,7 +101,7 @@ export class TeamManagement implements OnInit {
     if (this.userForm.invalid) return;
     this.isSubmitting = true;
     
-    this.teamsService.addResponsible(this.myTeamId, this.userForm.value.username).subscribe(u => {
+    this.teamsService.addResponsible(this.myTeamId, this.userForm.value.usuario).subscribe(u => {
       this.team.users.push(u);
       this.isSubmitting = false;
       this.closeModal();
@@ -151,7 +151,7 @@ export class TeamManagement implements OnInit {
         
         if (type === 'USER') {
           this.teamsService.deleteResponsible(this.myTeamId, id as string).subscribe(() => {
-            this.team.users = this.team.users.filter(u => u.username !== id);
+            this.team.users = this.team.users.filter(u => u.usuario !== id);
             this.showToast('Acceso eliminado');
           });
         } else if (type === 'DRIVER') {
