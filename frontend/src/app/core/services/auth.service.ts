@@ -62,10 +62,10 @@ export class AuthService {
       delay(1000), 
       map(() => {
         let mockUser: User;
-        if (credentials.email === 'admin'){
-          mockUser = { username: 'AdminUser', role: 'ADMIN', teamId: undefined };
+        if (credentials.usuario === 'admin'){
+          mockUser = { usuario: 'AdminUser', rol: 'administrador', teamId: undefined };
         } else {
-          mockUser = { username: 'TeamUser', role: 'TEAM', teamId: 1 };
+          mockUser = { usuario: 'TeamUser', rol: 'responsable_equipo', teamId: 1 };
         } 
         if (isPlatformBrowser(this.platformId)) {
           localStorage.setItem(this.USER_KEY, JSON.stringify(mockUser));
@@ -122,5 +122,17 @@ export class AuthService {
         return true;
       })
     );*/
+  }
+
+  updateUserTeam(teamId: number): void {
+    const currentUser = this.currentUserSubject.value;
+    if (currentUser) {
+      const updatedUser = { ...currentUser, teamId: teamId };
+      
+      this.currentUserSubject.next(updatedUser);
+      if (isPlatformBrowser(this.platformId)) {
+        localStorage.setItem(this.USER_KEY, JSON.stringify(updatedUser));
+      }
+    }
   }
 }

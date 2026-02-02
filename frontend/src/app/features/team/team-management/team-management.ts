@@ -23,10 +23,13 @@ export class TeamManagement implements OnInit {
   isSubmitting = false;
   myTeamId!: number; 
   currentModal: ModalType = null;
-  
+  createTeamForm: FormGroup;
   userForm: FormGroup;
   driverForm: FormGroup;
   carForm: FormGroup;
+  user: any = null;
+  hasTeam: boolean = false;
+  isCreating = false;
 
   constructor(
     private router: Router,
@@ -55,36 +58,67 @@ export class TeamManagement implements OnInit {
       ersMedium: ['', Validators.required],
       ersFast: ['', Validators.required]
     });
+
+    this.createTeamForm = this.fb.group({
+      name: ['', Validators.required],
+      logo: ['', Validators.required],
+      twitter: ['', Validators.required]
+    });
   }
 
   ngOnInit() {
-    const user = this.authService.getUser();
-    if(user?.teamId != undefined){
-      this.myTeamId = user?.teamId; 
-      this.loadTeam();
-    }else{
-      Swal.fire({
-        title: 'Acceso Restringido',
-        text: 'No tienes un equipo asignado.',
-        icon: 'error',
-        background: '#141414',
-        color: '#fff',
-        confirmButtonColor: '#e10600',
-        confirmButtonText: 'Volver al inicio'
-      }).then(() => {
-        this.router.navigate(['/']);
-      });
-    }
+    this.authService.user$.subscribe(user => {
+      this.user = user;
+      
+      if (user?.teamId) {
+        this.hasTeam = true;
+        this.loadTeam(user.teamId);
+      } else {
+        this.hasTeam = false;
+        this.isLoading = false;
+      }
+    });
   }
 
-  loadTeam() {
+  loadTeam(id: number) {
     this.isLoading = true;
-    this.teamsService.getTeamById(this.myTeamId).subscribe({
+    this.teamsService.getTeamById(id).subscribe({
       next: (data) => {
         this.team = JSON.parse(JSON.stringify(data)); 
         this.isLoading = false;
       },
       error: () => this.isLoading = false
+    });
+  }
+
+  onSubmitCreate() {
+    if (this.createTeamForm.invalid) return;
+
+    this.isCreating = true;
+    const formVal = this.createTeamForm.value;
+
+    const newTeamData = {
+      nombre: formVal.nombre,
+      logo: formVal.logo,
+      twitter: formVal.twitter,
+      id_usuario_creador: this.user.id
+    };
+
+    this.teamsService.createTeam(newTeamData).subscribe({
+      next: (newTeam) => {
+        this.authService.updateUserTeam(newTeam.id);
+        Swal.fire({
+          icon: 'success',
+          title: '¡Escudería Fundada!',
+          text: `Bienvenido al paddock, ${newTeam.nombre}.`,
+          background: '#141414', color: '#fff', confirmButtonColor: '#e10600'
+        });
+        this.isCreating = false;
+      },
+      error: () => {
+        this.isCreating = false;
+        Swal.fire({ icon: 'error', title: 'Error', text: 'No se pudo crear el equipo.' });
+      }
     });
   }
 

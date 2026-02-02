@@ -79,7 +79,7 @@ export class PollsService {
           for (const team of teams) {
             const driver = team.drivers.find(d => d.id === driverId);
             if (driver) {
-              fullDrivers.push({ ...driver, teamName: team.name });
+              fullDrivers.push({ ...driver, teamName: team.nombre });
               break;
             }
           }

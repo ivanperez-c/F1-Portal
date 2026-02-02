@@ -1,12 +1,59 @@
 <div class="mgmt">
   
-  @if (!isLoading && team) {
+  @if (isLoading) {
+    <div class="mgmt__loading">
+      <div class="spinner"></div>
+      <p>Cargando datos...</p>
+    </div>
+  } 
+  
+  @else if (!hasTeam) {
+    <div class="mgmt__create-container">
+      <div class="mgmt__welcome-card">
+        <header class="mgmt__welcome-header">
+          <h1>Bienvenido, Jefe de Equipo</h1>
+          <p>Para comenzar, funda tu escudería en la FIA.</p>
+        </header>
+
+        <form [formGroup]="createTeamForm" (ngSubmit)="onSubmitCreate()" class="mgmt__form">
+          <div class="mgmt__field">
+            <label class="mgmt__label">Nombre de la Escudería</label>
+            <input class="mgmt__input" type="text" formControlName="name" placeholder="Ej: McLaren Mastercard F1">
+          </div>
+
+          <div class="mgmt__field">
+            <label class="mgmt__label">Twitter Oficial (sin @)</label>
+            <div class="mgmt__input-group">
+              <span class="prefix">@</span>
+              <input class="mgmt__input" type="text" formControlName="twitter" placeholder="McLarenF1">
+            </div>
+          </div>
+
+          <div class="mgmt__field">
+            <label class="mgmt__label">URL del Logo</label>
+            <input class="mgmt__input" type="text" formControlName="logo" placeholder="https://...">
+          </div>
+
+          <button type="submit" class="mgmt__btn-submit" [disabled]="isCreating || createTeamForm.invalid">
+            {{ isCreating ? 'Procesando...' : 'FUNDAR EQUIPO' }}
+          </button>
+        </form>
+      </div>
+    </div>
+  } 
+  
+  @else {
     <header class="mgmt__header">
       <div class="mgmt__header__brand">
         <img [src]="team.logo" alt="Logo">
         <div>
           <span class="subtitle">PANEL DE CONTROL</span>
-          <h1>{{ team.name | uppercase }}</h1>
+          <h1>{{ team.nombre | uppercase }}</h1>
+          @if(team.twitter) {
+            <a [href]="'https://twitter.com/' + team.twitter" target="_blank" class="mgmt__twitter-link">
+              <i class="bi bi-twitter-x"></i> @{{ team.twitter }}
+            </a>
+          }
         </div>
       </div>
     </header>
@@ -82,11 +129,6 @@
         }
       </div>
     </section>
-
-  } @else {
-    <div class="loading">
-      <div class="spinner"></div> Cargando datos...
-    </div>
   }
 
   @if (currentModal) {
@@ -103,7 +145,6 @@
         </div>
 
         <div class="modal-window__body">
-          
           @if (currentModal === 'USER') {
             <form [formGroup]="userForm" (ngSubmit)="submitUser()">
               <div class="form-group">
@@ -113,7 +154,6 @@
               <button type="submit" class="btn-submit" [disabled]="userForm.invalid">Dar Acceso</button>
             </form>
           }
-
           @if (currentModal === 'DRIVER') {
             <form [formGroup]="driverForm" (ngSubmit)="submitDriver()">
               <div class="row">

@@ -15,8 +15,10 @@ export class TeamsService {
   private mockTeams: Team[] = [
     {
       id: 1,
-      name: 'Scuderia Ferrari HP',
+      nombre: 'Scuderia Ferrari HP',
       logo: 'https://media.formula1.com/content/dam/fom-website/teams/2025/ferrari-logo.png.transform/2col/image.png',
+      twitter: 'https://twitter.com/ScuderiaFerrari',
+      id_usuario_creador: 2,
       users: [
         { usuario: 'fvasseur', rol: 'responsable_equipo', teamId: 1 },
         { usuario: 'ferrari_strat', rol: 'responsable_equipo', teamId: 1 }
@@ -192,5 +194,10 @@ export class TeamsService {
     const t = this.mockTeams.find(x => x.id === teamId);
     if (t) { t.cars = t.cars.filter(c => c.id !== id); return of(true).pipe(delay(600)); }
     return of(false);
+  }
+
+  createTeam(teamData: { nombre: string, logo: string, twitter: string, id_usuario_creador: number}): Observable<Team> {
+    // --- API CALL ---
+    return this.http.post<Team>(this.apiUrl, teamData);
   }
 }

@@ -4,8 +4,10 @@ import { User } from './user.interface';
 
 export interface Team {
   id: number;
-  name: string;
+  nombre: string;
   logo: string;
+  twitter: string;
+  id_usuario_creador: number;
   drivers: Driver[];
   cars: Car[];
   users: User[];
