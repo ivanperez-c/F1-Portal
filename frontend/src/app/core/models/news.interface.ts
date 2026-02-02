@@ -1,7 +1,7 @@
 export interface NewsItem {
   id: number; 
   permalink: string;
-  title: string;     
-  image: string;    
-  text: string;     
+  titulo: string;     
+  imagen: string;    
+  texto: string;     
 }

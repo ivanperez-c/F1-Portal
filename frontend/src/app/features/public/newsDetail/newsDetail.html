@@ -13,17 +13,17 @@
     </div>
 
     <header class="detail__header">
-      <h1 class="detail__header__title">{{ newsItem.title }}</h1>
+      <h1 class="detail__header__title">{{ newsItem.titulo }}</h1>
       <div class="detail__header__meta">
       </div>
     </header>
 
     <div class="detail__media">
-      <img [src]="newsItem.image" [alt]="newsItem.title" class="detail__media__img">
+      <img [src]="newsItem.imagen" [alt]="newsItem.titulo" class="detail__media__img">
     </div>
 
     <article class="detail__body">
-      <p class="detail__body__text">{{ newsItem.text }}</p>
+      <p class="detail__body__text">{{ newsItem.texto }}</p>
     </article>
 
     <hr class="detail__divider">
@@ -34,9 +34,9 @@
       <div class="related__carousel">
         @for (item of relatedNews; track item.permalink) {
           <a [routerLink]="['/noticias', item.permalink]" class="related__card">
-            <img [src]="item.image" [alt]="item.title" class="related__card__img">
+            <img [src]="item.imagen" [alt]="item.titulo" class="related__card__img">
             <div class="related__card__content">
-              <h4 class="related__card__title">{{ item.title }}</h4>
+              <h4 class="related__card__title">{{ item.titulo }}</h4>
             </div>
           </a>
         }

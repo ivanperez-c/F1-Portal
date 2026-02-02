@@ -10,4 +10,5 @@ public interface INoticiasDAO {
     void guardar(Noticia noticia);
     void eliminar(Integer id);
     void actualizar(Noticia noticia);
+    List<Noticia> buscarRelacionadas(String permalink);
 }

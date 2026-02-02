@@ -24,6 +24,12 @@ public class NoticiasController {
         return service.buscarPorId(id);
     }
 
+    @GetMapping("/permalink/{permalink}")
+    public Noticia buscarPorPermalink(@PathVariable("permalink") String permalink) { return service.buscarPorPermalink(permalink); }
+
+    @GetMapping("/{permalink}/related")
+    public List<Noticia> buscarRelacionadas(@PathVariable("permalink") String permalink) { return service.buscarRelacionadas(permalink); }
+
     @PostMapping
     public void guardar(@RequestBody Noticia noticia) {
         service.guardar(noticia);

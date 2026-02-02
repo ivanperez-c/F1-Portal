@@ -12,7 +12,7 @@ export class TeamsService {
   
   private apiUrl = 'http://localhost:8080/api/teams';
 
-  private mockTeams: Team[] = [
+  /*private mockTeams: Team[] = [
     {
       id: 1,
       nombre: 'Scuderia Ferrari HP',
@@ -31,7 +31,7 @@ export class TeamsService {
         { id: 101, name: 'Ferrari SF-24', code: 'FER-24-A', ersSlow: 0.055, ersMedium: 0.030, ersFast: 0.015, consumption: 34.2 }
       ]
     }
-  ];
+  ];*/
 
   constructor(private http: HttpClient) { }
 
@@ -45,11 +45,11 @@ export class TeamsService {
    */
   getTeamById(id: number): Observable<Team> {
     // --- API CALL ---
-    // return this.http.get<Team>(`${this.apiUrl}/${id}`);
+     return this.http.get<Team>(`${this.apiUrl}/${id}`);
     
     // --- MOCK ---
-    const team = this.mockTeams.find(t => t.id === id);
-    return team ? of(team).pipe(delay(600)) : throwError(() => new Error('Not Found'));
+    //const team = this.mockTeams.find(t => t.id === id);
+    //return team ? of(team).pipe(delay(600)) : throwError(() => new Error('Not Found'));
   }
 
   /**
@@ -61,10 +61,10 @@ export class TeamsService {
    */
   getTeams(): Observable<Team[]> {
     // --- API CALL ---
-    // return this.http.get<Team[]>(this.apiUrl);
+    return this.http.get<Team[]>(this.apiUrl);
     
     // --- MOCK ---
-    return of(this.mockTeams).pipe(delay(500));
+    //return of(this.mockTeams).pipe(delay(500));
   }
 
   /**
@@ -78,16 +78,16 @@ export class TeamsService {
    */
   addResponsible(teamId: number, username: string): Observable<User> {
     // --- API CALL ---
-    // return this.http.post<User>(`${this.apiUrl}/${teamId}/responsibles`, { username });
+     return this.http.post<User>(`${this.apiUrl}/${teamId}/responsibles`, { username });
 
     // --- MOCK ---
-    const team = this.mockTeams.find(t => t.id === teamId);
+    /*const team = this.mockTeams.find(t => t.id === teamId);
     if(team) {
       const newUser: User = { usuario: username, rol: 'responsable_equipo', teamId: teamId };
       team.users.push(newUser);
       return of(newUser).pipe(delay(600));
     }
-    return throwError(() => new Error('Error'));
+    return throwError(() => new Error('Error'));*/
   }
 
   /**
@@ -101,15 +101,15 @@ export class TeamsService {
    */
   deleteResponsible(teamId: number, username: string): Observable<boolean> {
     // --- API CALL ---
-    // return this.http.delete<boolean>(`${this.apiUrl}/${teamId}/responsibles/${username}`);
+     return this.http.delete<boolean>(`${this.apiUrl}/${teamId}/responsibles/${username}`);
 
     // --- MOCK ---
-    const team = this.mockTeams.find(t => t.id === teamId);
+    /*const team = this.mockTeams.find(t => t.id === teamId);
     if (team) {
       team.users = team.users.filter(u => u.usuario !== username);
       return of(true).pipe(delay(600));
     }
-    return of(false);
+    return of(false);*/
   }
 
   /**
@@ -123,16 +123,16 @@ export class TeamsService {
    */
   addDriver(teamId: number, driver: Partial<Driver>): Observable<Driver> {
     // --- API CALL ---
-    // return this.http.post<Driver>(`${this.apiUrl}/${teamId}/drivers`, driver);
+     return this.http.post<Driver>(`${this.apiUrl}/${teamId}/drivers`, driver);
 
     // --- MOCK ---
-    const team = this.mockTeams.find(t => t.id === teamId);
+    /*const team = this.mockTeams.find(t => t.id === teamId);
     if(team) {
       const newD = { ...driver, id: Date.now(), photo: driver.photo || 'assets/default.png' } as Driver;
       team.drivers.push(newD);
       return of(newD).pipe(delay(600));
     }
-    return throwError(() => new Error('Err'));
+    return throwError(() => new Error('Err'));*/
   }
 
   /**
@@ -146,12 +146,12 @@ export class TeamsService {
    */
   deleteDriver(teamId: number, id: number): Observable<boolean> {
     // --- API CALL ---
-    // return this.http.delete<boolean>(`${this.apiUrl}/${teamId}/drivers/${id}`);
+     return this.http.delete<boolean>(`${this.apiUrl}/${teamId}/drivers/${id}`);
 
     // --- MOCK ---
-    const t = this.mockTeams.find(x => x.id === teamId);
+    /*const t = this.mockTeams.find(x => x.id === teamId);
     if (t) { t.drivers = t.drivers.filter(d => d.id !== id); return of(true).pipe(delay(600)); }
-    return of(false);
+    return of(false);*/
   }
 
   /**
@@ -165,16 +165,16 @@ export class TeamsService {
    */
   addCar(teamId: number, car: Partial<Car>): Observable<Car> {
     // --- API CALL ---
-    // return this.http.post<Car>(`${this.apiUrl}/${teamId}/cars`, car);
+     return this.http.post<Car>(`${this.apiUrl}/${teamId}/cars`, car);
 
     // --- MOCK ---
-    const t = this.mockTeams.find(x => x.id === teamId);
+    /*const t = this.mockTeams.find(x => x.id === teamId);
     if(t) {
       const newC = { ...car, id: Date.now() } as Car;
       t.cars.push(newC);
       return of(newC).pipe(delay(600));
     }
-    return throwError(() => new Error('Err'));
+    return throwError(() => new Error('Err'));*/
   }
 
   /**
@@ -188,12 +188,12 @@ export class TeamsService {
    */
   deleteCar(teamId: number, id: number): Observable<boolean> {
     // --- API CALL ---
-    // return this.http.delete<boolean>(`${this.apiUrl}/${teamId}/cars/${id}`);
+    return this.http.delete<boolean>(`${this.apiUrl}/${teamId}/cars/${id}`);
 
     // --- MOCK ---
-    const t = this.mockTeams.find(x => x.id === teamId);
+    /*const t = this.mockTeams.find(x => x.id === teamId);
     if (t) { t.cars = t.cars.filter(c => c.id !== id); return of(true).pipe(delay(600)); }
-    return of(false);
+    return of(false);*/
   }
 
   createTeam(teamData: { nombre: string, logo: string, twitter: string, id_usuario_creador: number}): Observable<Team> {

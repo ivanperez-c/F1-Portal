@@ -9,7 +9,7 @@ import { NewsItem } from '../models/news.interface';
 })
 export class NewsService {
 
-  private apiUrl = 'http://localhost:8080/api/news'; 
+  private apiUrl = 'http://localhost:8080/api/noticias'; 
 
   constructor(private http: HttpClient) { }
 
@@ -20,7 +20,7 @@ export class NewsService {
     Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
   `;
 
-  private mockNews: NewsItem[] = [
+  /*private mockNews: NewsItem[] = [
     {
       id: 1,
       permalink: 'Lorem ipsum dolor sit amet 1',
@@ -126,7 +126,7 @@ export class NewsService {
       image: 'https://tiermaker.com/images/templates/coches-de-fernando-alonso-153555/1535551681941221.png',
       text: this.longText
     }
-  ];
+  ];*/
 
   /**
    * OBTENER TODAS LAS NOTICIAS
@@ -137,10 +137,10 @@ export class NewsService {
    */
   getNews(): Observable<NewsItem[]> {
     // --- API CALL ---
-    // return this.http.get<NewsItem[]>(this.apiUrl);
+    return this.http.get<NewsItem[]>(this.apiUrl);
 
     // --- MOCK ---
-    return of(this.mockNews).pipe(delay(800));
+    //return of(this.mockNews).pipe(delay(800));
   }
 
   /**
@@ -153,11 +153,11 @@ export class NewsService {
    */
   getNewsByPermalink(permalink: string): Observable<NewsItem | undefined> {
     // --- API CALL ---
-    // return this.http.get<NewsItem>(`${this.apiUrl}/permalink/${permalink}`);
+     return this.http.get<NewsItem>(`${this.apiUrl}/permalink/${permalink}`);
 
     // --- MOCK ---
-    const item = this.mockNews.find(n => n.permalink === permalink);
-    return of(item).pipe(delay(500));
+    //const item = this.mockNews.find(n => n.permalink === permalink);
+    //return of(item).pipe(delay(500));
   }
 
   /**
@@ -170,11 +170,11 @@ export class NewsService {
    */
   getRelatedNews(currentPermalink: string): Observable<NewsItem[]> {
     // --- API CALL ---
-    // return this.http.get<NewsItem[]>(`${this.apiUrl}/${currentPermalink}/related`);
+     return this.http.get<NewsItem[]>(`${this.apiUrl}/${currentPermalink}/related`);
 
     // --- MOCK ---
-    const related = this.mockNews.filter(n => n.permalink !== currentPermalink).slice(0, 3);
-    return of(related);
+    //const related = this.mockNews.filter(n => n.permalink !== currentPermalink).slice(0, 3);
+    //return of(related);
   }
 
   /**
@@ -187,12 +187,12 @@ export class NewsService {
    */
   createNews(news: Partial<NewsItem>): Observable<NewsItem> {
     // --- API CALL ---
-    // return this.http.post<NewsItem>(this.apiUrl, news);
+     return this.http.post<NewsItem>(this.apiUrl, news);
     
     // --- MOCK ---
-    const newItem = { ...news, id: Date.now() } as NewsItem;
+    /*const newItem = { ...news, id: Date.now() } as NewsItem;
     this.mockNews.push(newItem);
-    return of(newItem).pipe(delay(600));
+    return of(newItem).pipe(delay(600));*/
   }
 
   /**
@@ -206,15 +206,15 @@ export class NewsService {
    */
   updateNews(id: number, news: Partial<NewsItem>): Observable<NewsItem> {
     // --- API CALL ---
-    // return this.http.put<NewsItem>(`${this.apiUrl}/${id}`, news);
+     return this.http.put<NewsItem>(`${this.apiUrl}/${id}`, news);
 
     // --- MOCK ---
-    const index = this.mockNews.findIndex(n => n.id === id);
+    /*const index = this.mockNews.findIndex(n => n.id === id);
     if (index !== -1) {
       this.mockNews[index] = { ...this.mockNews[index], ...news };
       return of(this.mockNews[index]).pipe(delay(600));
     }
-    return throwError(() => new Error('Not found'));
+    return throwError(() => new Error('Not found'));*/
   }
 
   /**
@@ -227,10 +227,10 @@ export class NewsService {
    */
   deleteNews(id: number): Observable<boolean> {
     // --- API CALL ---
-    // return this.http.delete<boolean>(`${this.apiUrl}/${id}`);
+    return this.http.delete<boolean>(`${this.apiUrl}/${id}`);
 
     // --- MOCK ---
-    this.mockNews = this.mockNews.filter(n => n.id !== id);
-    return of(true).pipe(delay(600));
+    /*this.mockNews = this.mockNews.filter(n => n.id !== id);
+    return of(true).pipe(delay(600));*/
   }
 }

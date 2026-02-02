@@ -4,6 +4,8 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
 import { NewsService } from '../../../core/services/news.service';
 import { NewsItem } from '../../../core/models/news.interface';
 import Swal from 'sweetalert2';
+import { inject } from '@angular/core';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-admin-news',
@@ -16,7 +18,9 @@ export class AdminNewsComponent implements OnInit {
 
   newsList: NewsItem[] = [];
   isLoading = true;
-  
+  authService = inject(AuthService);
+  user = this.authService.getUser();
+
   showForm = false;
   isEditing = false;
   editingId: number | null = null;
@@ -24,10 +28,10 @@ export class AdminNewsComponent implements OnInit {
 
   constructor(private newsService: NewsService, private fb: FormBuilder) {
     this.newsForm = this.fb.group({
-      title: ['', Validators.required],
+      titulo: ['', Validators.required],
       permalink: ['', Validators.required],
-      image: ['', Validators.required],
-      text: ['', Validators.required]
+      imagen: ['', Validators.required],
+      texto: ['', Validators.required]
     });
   }
 
@@ -54,10 +58,10 @@ export class AdminNewsComponent implements OnInit {
     this.isEditing = true;
     this.editingId = news.id;
     this.newsForm.patchValue({
-      title: news.title,
+      titulo: news.titulo,
       permalink: news.permalink,
-      image: news.image,
-      text: news.text
+      imagen: news.imagen,
+      texto: news.texto
     });
     this.showForm = true;
   }
@@ -70,14 +74,23 @@ export class AdminNewsComponent implements OnInit {
   onSubmit() {
     if (this.newsForm.invalid) return;
 
+    const formVal = this.newsForm.value;
+    const newsData: any = {
+      titulo: formVal.titulo,
+      permalink: formVal.permalink,
+      imagen: formVal.imagen,
+      texto: formVal.texto,
+      autor: { id: this.user?.id }
+    };
+
     if (this.isEditing && this.editingId) {
-      this.newsService.updateNews(this.editingId, this.newsForm.value).subscribe(() => {
+      this.newsService.updateNews(this.editingId, newsData).subscribe(() => {
         this.loadNews(); 
         this.cancelForm();
         this.showToast('Noticia actualizada');
       });
     } else {
-      this.newsService.createNews(this.newsForm.value).subscribe(() => {
+      this.newsService.createNews(newsData).subscribe(() => {
         this.loadNews();
         this.cancelForm();
         this.showToast('Noticia publicada');

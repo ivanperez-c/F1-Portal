@@ -25,7 +25,7 @@
         
         <div class="admin-news__field">
           <label>Titular</label>
-          <input type="text" formControlName="title" placeholder="Ej: Verstappen logra la pole">
+          <input type="text" formControlName="titulo" placeholder="Ej: Verstappen logra la pole">
         </div>
 
         <div class="admin-news__row">
@@ -35,13 +35,13 @@
           </div>
           <div class="admin-news__field">
             <label>Imagen URL</label>
-            <input type="text" formControlName="image" placeholder="https://...">
+            <input type="text" formControlName="imagen" placeholder="https://...">
           </div>
         </div>
 
         <div class="admin-news__field">
           <label>Cuerpo de la noticia</label>
-          <textarea formControlName="text" rows="6"></textarea>
+          <textarea formControlName="texto" rows="6"></textarea>
         </div>
 
         <button type="submit" class="admin-news__btn admin-news__btn--submit" [disabled]="newsForm.invalid">
@@ -66,10 +66,10 @@
           @for (item of newsList; track item.id) {
             <tr>
               <td>
-                <img [src]="item.image" class="admin-news__thumb">
+                <img [src]="item.imagen" class="admin-news__thumb">
               </td>
               <td>
-                <span class="admin-news__item-title">{{ item.title }}</span>
+                <span class="admin-news__item-title">{{ item.titulo }}</span>
               </td>
               <td>
                 <span class="admin-news__item-link">/{{ item.permalink }}</span>

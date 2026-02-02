@@ -47,7 +47,7 @@ export class NewsDetail implements OnInit {
 
   loadRelated(currentPermalink: string) {
     this.newsService.getRelatedNews(currentPermalink).subscribe(related => {
-      this.relatedNews = related;
+      this.relatedNews = related.slice(0, 3);
     });
   }
 }

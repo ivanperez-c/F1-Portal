@@ -22,6 +22,9 @@ public class NoticiasServiceImpl implements INoticiasService {
     public Noticia buscarPorPermalink(String permalink) { return dao.buscarPorPermalink(permalink); }
 
     @Override
+    public List<Noticia> buscarRelacionadas(String permalink) { return dao.buscarRelacionadas(permalink); }
+
+    @Override
     public void guardar(Noticia noticia) {
         if (noticia.getTitulo() != null && noticia.getAutor() != null) {
             dao.guardar(noticia);

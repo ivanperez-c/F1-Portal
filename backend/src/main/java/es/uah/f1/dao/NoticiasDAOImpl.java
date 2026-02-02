@@ -8,6 +8,9 @@ import java.util.List;
 @Repository
 public class NoticiasDAOImpl implements INoticiasDAO {
 
+    @Override
+    public List<Noticia> buscarRelacionadas(String permalink) { return noticiasJPA.findByPermalinkNot(permalink); }
+
     @Autowired
     INoticiasJPA noticiasJPA;
 

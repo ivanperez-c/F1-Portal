@@ -66,12 +66,12 @@
         <article class="home__news__grid__card home__news__grid__card--featured">
           <a [routerLink]="['/noticias', latestNews[0].permalink]">
             <div class="home__news__grid__card__media">
-              <img [src]="latestNews[0].image" [alt]="latestNews[0].title" class="home__news__grid__card__media__img">
+              <img [src]="latestNews[0].imagen" [alt]="latestNews[0].titulo" class="home__news__grid__card__media__img">
               <span class="home__news__grid__card__media__tag">DESTACADO</span>
             </div>
             <div class="home__news__grid__card__body">
-              <h3 class="home__news__grid__card__body__title">{{ latestNews[0].title }}</h3>
-              <p class="home__news__grid__card__body__text">{{ latestNews[0].text | slice:0:100 }}...</p>
+              <h3 class="home__news__grid__card__body__title">{{ latestNews[0].titulo }}</h3>
+              <p class="home__news__grid__card__body__text">{{ latestNews[0].texto | slice:0:100 }}...</p>
             </div>
           </a>
         </article>
@@ -81,10 +81,10 @@
             <article class="home__news__grid__card home__news__grid__card--compact">
               <a [routerLink]="['/noticias', news.permalink]">
                 <div class="home__news__grid__card__media">
-                  <img [src]="news.image" [alt]="news.title" class="home__news__grid__card__media__img">
+                  <img [src]="news.imagen" [alt]="news.titulo" class="home__news__grid__card__media__img">
                 </div>
                 <div class="home__news__grid__card__body">
-                  <h4 class="home__news__grid__card__body__subtitle">{{ news.title }}</h4>
+                  <h4 class="home__news__grid__card__body__subtitle">{{ news.titulo }}</h4>
                 </div>
               </a>
             </article>
