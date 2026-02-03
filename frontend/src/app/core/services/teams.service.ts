@@ -10,7 +10,7 @@ import { User } from '../models/user.interface';
 @Injectable({ providedIn: 'root' })
 export class TeamsService {
   
-  private apiUrl = 'http://localhost:8080/api/teams';
+  private apiUrl = 'http://localhost:8080/api/equipos';
 
   /*private mockTeams: Team[] = [
     {

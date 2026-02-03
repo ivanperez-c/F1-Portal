@@ -15,7 +15,7 @@ export interface Vote {
 @Injectable({ providedIn: 'root' })
 export class PollsService {
 
-  private apiUrl = 'http://localhost:8080/api/polls';
+  private apiUrl = 'http://localhost:8080/api/votaciones';
 
   private polls: Poll[] = [
     // ... tus datos mock ...
@@ -50,10 +50,10 @@ export class PollsService {
    */
   getPolls(): Observable<Poll[]> {
     // --- API CALL ---
-    // return this.http.get<Poll[]>(this.apiUrl);
+    return this.http.get<Poll[]>(this.apiUrl);
 
     // --- MOCK ---
-    return of(this.polls).pipe(delay(500));
+    //return of(this.polls).pipe(delay(500));
   }
 
   /**
@@ -66,9 +66,10 @@ export class PollsService {
    */
   getPollDetail(id: number): Observable<any> {
     // --- API CALL ---
-    // return this.http.get<any>(`${this.apiUrl}/${id}`);
+    return this.http.get<any>(`${this.apiUrl}/${id}`);
 
     // --- MOCK (Lógica compleja de cruce de datos en frontend) ---
+    /*
     const poll = this.polls.find(p => p.id === id);
     if (!poll) return throwError(() => new Error('Votación no encontrada'));
 
@@ -94,6 +95,7 @@ export class PollsService {
         observer.complete();
       });
     });
+    */
   }
 
   /**
@@ -106,12 +108,14 @@ export class PollsService {
    */
   createPoll(poll: Partial<Poll>): Observable<Poll> {
     // --- API CALL ---
-    // return this.http.post<Poll>(`${this.apiUrl}/admin`, poll);
+    return this.http.post<Poll>(`${this.apiUrl}/admin`, poll);
 
     // --- MOCK ---
+    /*
     const newPoll = { ...poll, id: Date.now(), votes: {} } as Poll;
     this.polls.push(newPoll);
     return of(newPoll).pipe(delay(600));
+    */
   }
 
   /**
@@ -121,11 +125,13 @@ export class PollsService {
    */
   deletePoll(id: number): Observable<boolean> {
     // --- API CALL ---
-    // return this.http.delete<boolean>(`${this.apiUrl}/admin/${id}`);
+    return this.http.delete<boolean>(`${this.apiUrl}/admin/${id}`);
 
     // --- MOCK ---
+    /*
     this.polls = this.polls.filter(p => p.id !== id);
     return of(true).pipe(delay(500));
+    */
   }
 
   /**
@@ -138,9 +144,10 @@ export class PollsService {
    */
   submitVote(vote: Vote): Observable<boolean> {
     // --- API CALL ---
-    // return this.http.post<boolean>(`${this.apiUrl}/${vote.pollId}/vote`, vote);
+    return this.http.post<boolean>(`${this.apiUrl}/${vote.pollId}/vote`, vote);
 
     // --- MOCK ---
+    /*
     const alreadyVoted = this.castVotes.some(v => v.pollId === vote.pollId && v.voterEmail === vote.voterEmail);
     if (alreadyVoted) return throwError(() => new Error('Este email ya ha sido utilizado.'));
 
@@ -151,6 +158,7 @@ export class PollsService {
       poll.votes[vote.driverId] = (poll.votes[vote.driverId] || 0) + 1;
     }
     return of(true).pipe(delay(800));
+    */
   }
 
   private calculateTotalVotes(votes: any): number {
