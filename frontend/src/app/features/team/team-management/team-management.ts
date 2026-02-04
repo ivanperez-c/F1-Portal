@@ -162,7 +162,7 @@ export class TeamManagement implements OnInit {
     if (this.carForm.invalid) return;
     this.isSubmitting = true;
     this.teamsService.addCar(this.myTeamId, this.carForm.value).subscribe(c => {
-      this.team.cars.push(c);
+      this.team.coches.push(c);
       this.isSubmitting = false;
       this.closeModal();
       this.showToast('Coche registrado');
@@ -196,7 +196,7 @@ export class TeamManagement implements OnInit {
           });
         } else if (type === 'CAR') {
           this.teamsService.deleteCar(this.myTeamId, id as number).subscribe(() => {
-            this.team.cars = this.team.cars.filter(c => c.id !== id);
+            this.team.coches = this.team.coches.filter(c => c.id !== id);
             this.showToast('Coche eliminado');
           });
         }

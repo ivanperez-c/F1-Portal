@@ -49,7 +49,7 @@ export class FuelCalculatorComponent implements OnInit {
   }
 
   loadData() {
-    this.teamSrv.getTeamById(this.currentTeamId).subscribe(t => this.cars = t.cars);
+    this.teamSrv.getTeamById(this.currentTeamId).subscribe(t => this.cars = t.coches);
     this.circuitSrv.getCircuits().subscribe(c => this.circuits = c);
   }
 

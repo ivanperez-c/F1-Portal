@@ -1,7 +1,7 @@
 export interface Car {
   id: number;
-  name: string;
-  code: string;
+  nombre: string;
+  codigo: string;
   ersSlow: number;
   ersMedium: number;
   ersFast: number;

@@ -63,6 +63,7 @@ export class AdminVotesComponent implements OnInit {
     }
   }
 
+  /*
   createPoll(): void {
     const drivers = this.pollForm.get('selectedDrivers')?.value;
     
@@ -84,6 +85,64 @@ export class AdminVotesComponent implements OnInit {
       Swal.fire({ icon: 'success', title: 'Votación creada' });
     });
   }
+  */
+
+  createPoll(): void {
+    const drivers = this.pollForm.get('selectedDrivers')?.value;
+    
+    if (drivers.length < 5) {
+      Swal.fire({ icon: 'error', title: 'Mínimo 5 pilotos requeridos' });
+      return;
+    }
+
+    if (this.pollForm.invalid) return;
+
+    // Convert deadline string to ISO format for backend
+    const deadlineValue = this.pollForm.get('deadline')?.value;
+    const deadlineDate = new Date(deadlineValue);
+    
+    // Build the request in the format your backend expects
+    const request = {
+      votacion: {
+        titulo: this.pollForm.get('title')?.value,
+        descripcion: this.pollForm.get('description')?.value,
+        limite: deadlineDate.toISOString(),  // Backend expects LocalDateTime
+        permalink: this.generatePermalink(this.pollForm.get('title')?.value),
+        activo: true
+        // Note: creador will be set on the backend based on logged-in user
+      },
+      pilotosIds: this.pollForm.get('selectedDrivers')?.value
+    };
+
+    console.log('Sending request:', request);
+
+    this.pollsService.createPoll(request).subscribe({
+      next: (newPoll) => {
+        this.polls.push(newPoll);
+        this.showForm = false;
+        this.pollForm.reset({ selectedDrivers: [] });
+        
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]') as NodeListOf<HTMLInputElement>;
+        checkboxes.forEach(cb => cb.checked = false);
+
+        Swal.fire({ icon: 'success', title: 'Votación creada' });
+      },
+      error: (err) => {
+        console.error('Error creating poll:', err);
+        const errorMsg = err.error?.error || err.error || 'No se pudo crear la votación';
+        Swal.fire({ icon: 'error', title: 'Error', text: errorMsg });
+      }
+    });
+  }
+
+// Helper method to generate permalink from title
+private generatePermalink(title: string): string {
+  return title
+    .toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '') // Remove accents
+    .replace(/[^a-z0-9]+/g, '-') // Replace non-alphanumeric with hyphens
+    .replace(/^-+|-+$/g, ''); // Remove leading/trailing hyphens
+}
 
   deletePoll(id: number) {
     Swal.fire({

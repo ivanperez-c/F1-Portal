@@ -21,17 +21,17 @@ export class PollsService {
     // ... tus datos mock ...
     { 
       id: 1, 
-      title: 'Piloto del Día - GP Bahrein', 
-      description: '¿Quién ha sido el piloto más destacado?', 
-      deadline: new Date('2026-04-01'),
+      titulo: 'Piloto del Día - GP Bahrein', 
+      descripcion: '¿Quién ha sido el piloto más destacado?', 
+      limite: new Date('2026-04-01'),
       driverIds: [16, 44, 1, 14, 55],
       votes: {} 
     },
     { 
       id: 2, 
-      title: 'Mejor Adelantamiento', 
-      description: 'Votación cerrada.', 
-      deadline: new Date('2025-12-31'),
+      titulo: 'Mejor Adelantamiento', 
+      descripcion: 'Votación cerrada.', 
+      limite: new Date('2025-12-31'),
       driverIds: [1, 16, 44],
       votes: { 1: 50, 16: 120, 44: 80 }
     }
@@ -106,9 +106,9 @@ export class PollsService {
    * @param poll Objeto Poll
    * @returns Observable<Poll> Votación creada.
    */
-  createPoll(poll: Partial<Poll>): Observable<Poll> {
+  createPoll(request: any): Observable<Poll> {
     // --- API CALL ---
-    return this.http.post<Poll>(`${this.apiUrl}/admin`, poll);
+    return this.http.post<Poll>(`${this.apiUrl}/crear-con-pilotos`, request);
 
     // --- MOCK ---
     /*

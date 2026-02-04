@@ -109,11 +109,11 @@
         <button class="btn-add" (click)="openModal('CAR')"><i class="bi bi-plus-lg"></i> Añadir</button>
       </div>
       <div class="mgmt__list">
-        @for (car of team.cars; track car.id) {
+        @for (car of team.coches; track car.id) {
           <div class="card-list-item">
             <div class="card-list-item__main">
-              <span class="model">{{ car.name }}</span>
-              <span class="code">{{ car.code }}</span>
+              <span class="model">{{ car.nombre }}</span>
+              <span class="code">{{ car.codigo }}</span>
             </div>
             <div class="card-list-item__stats">
               <div class="stat"><i class="bi bi-fuel-pump-fill"></i> {{ car.consumption }} L</div>

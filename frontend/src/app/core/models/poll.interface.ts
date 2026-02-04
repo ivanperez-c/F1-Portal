@@ -1,8 +1,8 @@
 export interface Poll {
   id: number;
-  title: string;
-  description: string;
-  deadline: Date;
+  titulo: string;
+  descripcion: string;
+  limite: Date;
   driverIds: number[];
   votes?: { [driverId: number]: number };
 }

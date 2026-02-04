@@ -50,7 +50,7 @@
     @for (poll of polls; track poll.id) {
       <div class="admin-votes__card">
         <div class="admin-votes__card-info">
-          <h3>{{ poll.title }}</h3>
+          <h3>{{ poll.titulo }}</h3>
           <p>Cierra: {{ poll.deadline | date }}</p>
           <span class="badge">{{ poll.driverIds.length }} Pilotos</span>
         </div>
