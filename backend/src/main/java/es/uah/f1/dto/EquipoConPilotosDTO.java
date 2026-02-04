@@ -1,5 +1,6 @@
 package es.uah.f1.dto;
 
+import es.uah.f1.model.Coche;
 import es.uah.f1.model.Equipo;
 import es.uah.f1.model.Piloto;
 import java.util.List;
@@ -10,6 +11,7 @@ public class EquipoConPilotosDTO {
     private String logo;
     private String twitter;
     private List<Piloto> pilotos;
+    private List<Coche> coches;
 
     public EquipoConPilotosDTO(Equipo equipo) {
         this.id = equipo.getId();
@@ -17,6 +19,7 @@ public class EquipoConPilotosDTO {
         this.logo = equipo.getLogo();
         this.twitter = equipo.getTwitter();
         this.pilotos = equipo.getPilotos();
+        this.coches = equipo.getCoches();
     }
 
     // Getters and setters
@@ -30,4 +33,6 @@ public class EquipoConPilotosDTO {
     public void setTwitter(String twitter) { this.twitter = twitter; }
     public List<Piloto> getPilotos() { return pilotos; }
     public void setPilotos(List<Piloto> pilotos) { this.pilotos = pilotos; }
+    public List<Coche> getCoches() { return coches; }
+    public void setCoches(List<Coche> coches) {  this.coches = coches; }
 }

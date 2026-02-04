@@ -26,7 +26,10 @@ public class EquiposController {
     }
 
     @GetMapping("/{id}")
-    public Equipo buscarPorId(@PathVariable Integer id) { return service.buscarPorId(id); }
+    public EquipoConPilotosDTO buscarPorId(@PathVariable Integer id) {
+        Equipo equipo = service.buscarPorId(id);
+        return equipo != null ? new EquipoConPilotosDTO(equipo) : null;
+    }
 
     @PostMapping
     public void guardar(@RequestBody Equipo equipo) { service.guardar(equipo); }

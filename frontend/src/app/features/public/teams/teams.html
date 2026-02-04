@@ -16,28 +16,28 @@
           </div>
 
           <div class="teams__grid__card__drivers">
-            @for (driver of team.drivers; track driver.id) {
+            @for (driver of team.pilotos; track driver.id) {
               
               <div class="teams__grid__card__drivers__pilot">
                 
                 <div class="teams__grid__card__drivers__pilot__visual">
-                  <img [src]="driver.photo" [alt]="driver.lastname" class="teams__grid__card__drivers__pilot__visual__img">
+                  <img [src]="driver.foto" [alt]="driver.apellidos" class="teams__grid__card__drivers__pilot__visual__img">
                 </div>
 
                 <div class="teams__grid__card__drivers__pilot__data">
                   
                   <div class="teams__grid__card__drivers__pilot__data__tv">
-                    <span class="teams__grid__card__drivers__pilot__data__tv__number">{{ driver.number }}</span>
+                    <span class="teams__grid__card__drivers__pilot__data__tv__number">{{ driver.dorsal }}</span>
                     <div class="teams__grid__card__drivers__pilot__data__tv__separator"></div>
-                    <span class="teams__grid__card__drivers__pilot__data__tv__code">{{ driver.code }}</span>
+                    <span class="teams__grid__card__drivers__pilot__data__tv__code">{{ driver.id }}</span>
                   </div>
 
                   <div class="teams__grid__card__drivers__pilot__data__name">
-                    <span class="teams__grid__card__drivers__pilot__data__name__first">{{ driver.firstname }}</span>
-                    <span class="teams__grid__card__drivers__pilot__data__name__last">{{ driver.lastname }}</span>
+                    <span class="teams__grid__card__drivers__pilot__data__name__first">{{ driver.nombre }}</span>
+                    <span class="teams__grid__card__drivers__pilot__data__name__last">{{ driver.apellidos }}</span>
                   </div>
 
-                  <span class="teams__grid__card__drivers__pilot__data__country">{{ driver.country }}</span>
+                  <span class="teams__grid__card__drivers__pilot__data__country">{{ driver.pais }}</span>
                 </div>
 
               </div>
