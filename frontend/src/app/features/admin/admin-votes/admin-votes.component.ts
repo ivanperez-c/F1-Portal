@@ -19,7 +19,7 @@ export class AdminVotesComponent implements OnInit {
   
   polls: Poll[] = [];
   allDrivers: Driver[] = [];
-  
+  isLoading = true;
   showForm = false;
   pollForm: FormGroup;
 
@@ -42,17 +42,35 @@ export class AdminVotesComponent implements OnInit {
   }
 
   loadData() {
-    this.pollsService.getPolls().subscribe(p => this.polls = p);
+    this.isLoading = true;
+    this.pollsService.getPolls().subscribe({
+      next: p => this.polls = p,
+      error: err => console.error('Polls error:', err)
+    });
     
+    this.teamService.getTeams().subscribe({
+      next: teams => {
+        console.log('Teams loaded:', teams);
+        this.allDrivers = teams.flatMap(t => t.drivers || []);
+        console.log('Total drivers:', this.allDrivers.length);
+        this.isLoading = false;
+      },
+      error: err => {
+        console.error('Teams error:', err);
+        this.isLoading = false;
+      }
+    });
+    
+    /*
     this.teamService.getTeams().subscribe(teams => {
       this.allDrivers = teams.flatMap(t => t.drivers);
     });
+    */
   }
-
 
   toggleDriverSelection(driverId: number, event: any): void { 
     const current = this.pollForm.get('selectedDrivers')?.value as number[];
-    
+    console.log(this.allDrivers)
     if (event.target.checked) {
       if (current.length >= 10) {
         event.target.checked = false;

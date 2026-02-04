@@ -10,7 +10,8 @@ import { User } from '../models/user.interface';
 @Injectable({ providedIn: 'root' })
 export class TeamsService {
   
-  private apiUrl = 'http://localhost:8080/api/equipos';
+  private apiUrlEquipos = 'http://localhost:8080/api/equipos';
+  private apiUrlPilotos = 'http://localhost:8080/api/pilotos';
 
   /*private mockTeams: Team[] = [
     {
@@ -45,7 +46,7 @@ export class TeamsService {
    */
   getTeamById(id: number): Observable<Team> {
     // --- API CALL ---
-     return this.http.get<Team>(`${this.apiUrl}/${id}`);
+     return this.http.get<Team>(`${this.apiUrlEquipos}/${id}`);
     
     // --- MOCK ---
     //const team = this.mockTeams.find(t => t.id === id);
@@ -61,7 +62,7 @@ export class TeamsService {
    */
   getTeams(): Observable<Team[]> {
     // --- API CALL ---
-    return this.http.get<Team[]>(this.apiUrl);
+    return this.http.get<Team[]>(this.apiUrlEquipos);
     
     // --- MOCK ---
     //return of(this.mockTeams).pipe(delay(500));
@@ -78,7 +79,7 @@ export class TeamsService {
    */
   addResponsible(teamId: number, username: string): Observable<User> {
     // --- API CALL ---
-     return this.http.post<User>(`${this.apiUrl}/${teamId}/responsibles`, { username });
+     return this.http.post<User>(`${this.apiUrlEquipos}/${teamId}/responsibles`, { username });
 
     // --- MOCK ---
     /*const team = this.mockTeams.find(t => t.id === teamId);
@@ -101,7 +102,7 @@ export class TeamsService {
    */
   deleteResponsible(teamId: number, username: string): Observable<boolean> {
     // --- API CALL ---
-     return this.http.delete<boolean>(`${this.apiUrl}/${teamId}/responsibles/${username}`);
+     return this.http.delete<boolean>(`${this.apiUrlEquipos}/${teamId}/responsibles/${username}`);
 
     // --- MOCK ---
     /*const team = this.mockTeams.find(t => t.id === teamId);
@@ -123,7 +124,7 @@ export class TeamsService {
    */
   addDriver(teamId: number, driver: Partial<Driver>): Observable<Driver> {
     // --- API CALL ---
-     return this.http.post<Driver>(`${this.apiUrl}/${teamId}/drivers`, driver);
+     return this.http.post<Driver>(`${this.apiUrlPilotos}/${teamId}/drivers`, driver);
 
     // --- MOCK ---
     /*const team = this.mockTeams.find(t => t.id === teamId);
@@ -146,7 +147,7 @@ export class TeamsService {
    */
   deleteDriver(teamId: number, id: number): Observable<boolean> {
     // --- API CALL ---
-     return this.http.delete<boolean>(`${this.apiUrl}/${teamId}/drivers/${id}`);
+     return this.http.delete<boolean>(`${this.apiUrlPilotos}/${teamId}/drivers/${id}`);
 
     // --- MOCK ---
     /*const t = this.mockTeams.find(x => x.id === teamId);
@@ -165,7 +166,7 @@ export class TeamsService {
    */
   addCar(teamId: number, car: Partial<Car>): Observable<Car> {
     // --- API CALL ---
-     return this.http.post<Car>(`${this.apiUrl}/${teamId}/cars`, car);
+     return this.http.post<Car>(`${this.apiUrlEquipos}/${teamId}/cars`, car);
 
     // --- MOCK ---
     /*const t = this.mockTeams.find(x => x.id === teamId);
@@ -188,7 +189,7 @@ export class TeamsService {
    */
   deleteCar(teamId: number, id: number): Observable<boolean> {
     // --- API CALL ---
-    return this.http.delete<boolean>(`${this.apiUrl}/${teamId}/cars/${id}`);
+    return this.http.delete<boolean>(`${this.apiUrlEquipos}/${teamId}/cars/${id}`);
 
     // --- MOCK ---
     /*const t = this.mockTeams.find(x => x.id === teamId);
@@ -198,6 +199,6 @@ export class TeamsService {
 
   createTeam(teamData: { nombre: string, logo: string, twitter: string, id_usuario_creador: number}): Observable<Team> {
     // --- API CALL ---
-    return this.http.post<Team>(this.apiUrl, teamData);
+    return this.http.post<Team>(this.apiUrlEquipos, teamData);
   }
 }

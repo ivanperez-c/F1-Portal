@@ -7,7 +7,11 @@
     </button>
   </header>
 
-  @if (showForm) {
+  @if (isLoading) {
+    <p>Cargando pilotos...</p>
+  }
+
+  @if (!isLoading && showForm) {
     <form [formGroup]="pollForm" (ngSubmit)="createPoll()" class="admin-votes__form">
       
       <div class="admin-votes__field">
@@ -27,7 +31,6 @@
       
       <div class="admin-votes__field">
         <label>Seleccionar Pilotos (5-10)</label>
-        
         <div class="admin-votes__drivers-grid">
           @for (driver of allDrivers; track driver.id) {
             <label class="admin-votes__driver-item">
