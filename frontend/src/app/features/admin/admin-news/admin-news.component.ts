@@ -6,11 +6,12 @@ import { NewsItem } from '../../../core/models/news.interface';
 import Swal from 'sweetalert2';
 import { inject } from '@angular/core';
 import { AuthService } from '../../../core/services/auth.service';
+import { ImageUploaderComponent } from '../../../shared/image-uploader/image-uploader';
 
 @Component({
   selector: 'app-admin-news',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, ImageUploaderComponent],
   templateUrl: './admin-news.component.html',
   styleUrls: ['./admin-news.component.scss']
 })

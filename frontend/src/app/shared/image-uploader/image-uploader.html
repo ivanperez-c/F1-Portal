@@ -1,0 +1,25 @@
+<div class="uploader-container" [class.has-image]="!!previewUrl">
+  
+  <input 
+    type="file" 
+    accept="image/*" 
+    (change)="onFileSelected($event)" 
+    #fileInput 
+    hidden>
+
+  @if (previewUrl) {
+    <div class="preview-area" (click)="fileInput.click()">
+      <img [src]="previewUrl" alt="Vista previa">
+      <div class="overlay">
+        <i class="bi bi-pencil-fill"></i> Cambiar
+      </div>
+    </div>
+  } 
+
+  @else {
+    <button type="button" class="btn-upload" (click)="fileInput.click()" [disabled]="isDisabled">
+      <i class="bi bi-cloud-arrow-up-fill"></i>
+      <span>Subir Imagen</span>
+    </button>
+  }
+</div>

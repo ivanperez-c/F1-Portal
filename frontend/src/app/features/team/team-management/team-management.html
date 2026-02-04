@@ -30,8 +30,8 @@
           </div>
 
           <div class="mgmt__field">
-            <label class="mgmt__label">URL del Logo</label>
-            <input class="mgmt__input" type="text" formControlName="logo" placeholder="https://...">
+            <label class="mgmt__label">Logo</label>
+            <app-image-uploader formControlName="logo"></app-image-uploader>
           </div>
 
           <button type="submit" class="mgmt__btn-submit" [disabled]="isCreating || createTeamForm.invalid">
@@ -165,7 +165,7 @@
                 <div class="form-group"><label>Número</label><input type="number" formControlName="number"></div>
               </div>
               <div class="form-group"><label>País</label><input type="text" formControlName="country"></div>
-              <div class="form-group"><label>Foto</label><input type="text" formControlName="photo"></div>
+              <div class="form-group"><label>Foto</label><app-image-uploader formControlName="photo"></app-image-uploader></div>
               <button type="submit" class="btn-submit" [disabled]="driverForm.invalid">Guardar</button>
             </form>
           }

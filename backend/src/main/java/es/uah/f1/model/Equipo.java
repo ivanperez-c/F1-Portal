@@ -16,6 +16,8 @@ public class Equipo {
     @Column(nullable = false, length = 100, unique = true)
     private String nombre;
 
+    @Lob
+    @Column(columnDefinition = "LONGTEXT")
     private String logo;
 
     @Column(length = 50)
