@@ -5,14 +5,25 @@ import es.uah.f1.service.IEquiposService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import es.uah.f1.dto.EquipoConPilotosDTO;
 
 @RestController
 @RequestMapping("/api/equipos")
 public class EquiposController {
     @Autowired IEquiposService service;
 
+    /*
     @GetMapping
     public List<Equipo> buscarTodos() { return service.buscarTodos(); }
+     */
+
+    @GetMapping
+    public List<EquipoConPilotosDTO> buscarTodos() {
+        return service.buscarTodos()
+                .stream()
+                .map(EquipoConPilotosDTO::new)
+                .toList();
+    }
 
     @GetMapping("/{id}")
     public Equipo buscarPorId(@PathVariable Integer id) { return service.buscarPorId(id); }

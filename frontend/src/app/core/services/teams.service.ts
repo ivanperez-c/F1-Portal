@@ -11,7 +11,6 @@ import { User } from '../models/user.interface';
 export class TeamsService {
   
   private apiUrlEquipos = 'http://localhost:8080/api/equipos';
-  private apiUrlPilotos = 'http://localhost:8080/api/pilotos';
 
   /*private mockTeams: Team[] = [
     {
@@ -124,7 +123,7 @@ export class TeamsService {
    */
   addDriver(teamId: number, driver: Partial<Driver>): Observable<Driver> {
     // --- API CALL ---
-     return this.http.post<Driver>(`${this.apiUrlPilotos}/${teamId}/drivers`, driver);
+     return this.http.post<Driver>(`${this.apiUrlEquipos}/${teamId}/drivers`, driver);
 
     // --- MOCK ---
     /*const team = this.mockTeams.find(t => t.id === teamId);
@@ -147,7 +146,7 @@ export class TeamsService {
    */
   deleteDriver(teamId: number, id: number): Observable<boolean> {
     // --- API CALL ---
-     return this.http.delete<boolean>(`${this.apiUrlPilotos}/${teamId}/drivers/${id}`);
+     return this.http.delete<boolean>(`${this.apiUrlEquipos}/${teamId}/drivers/${id}`);
 
     // --- MOCK ---
     /*const t = this.mockTeams.find(x => x.id === teamId);

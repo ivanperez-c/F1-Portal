@@ -9,7 +9,7 @@ import java.util.List;
 public class EquiposDAOImpl implements IEquiposDAO {
     @Autowired IEquiposJPA repo;
 
-    @Override public List<Equipo> buscarTodos() { return repo.findAll(); }
+    @Override public List<Equipo> buscarTodos() { return repo.findAllWithPilotos(); }
     @Override public Equipo buscarPorId(Integer id) { return repo.findById(id).orElse(null); }
     @Override public void guardar(Equipo equipo) { repo.save(equipo); }
     @Override public void eliminar(Integer id) { repo.deleteById(id); }
