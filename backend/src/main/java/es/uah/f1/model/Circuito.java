@@ -21,6 +21,8 @@ public class Circuito {
     private String pais;
 
     private Boolean calendario;
+    @Lob
+    @Column(columnDefinition = "LONGTEXT")
     private String trazado;
 
     @Column(name = "numero_vueltas", nullable = false)

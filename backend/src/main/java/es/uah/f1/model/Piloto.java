@@ -23,6 +23,8 @@ public class Piloto {
     @Column(nullable = false)
     private Integer dorsal;
 
+    @Lob
+    @Column(columnDefinition = "LONGTEXT")
     private String foto;
 
     @Column(nullable = false, length = 100)

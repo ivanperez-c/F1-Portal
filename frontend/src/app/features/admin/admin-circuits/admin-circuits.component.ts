@@ -4,11 +4,12 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
 import { CircuitService } from '../../../core/services/circuit.service';
 import { Circuit } from '../../../core/models/circuit.interface';
 import Swal from 'sweetalert2';
+import { ImageUploaderComponent } from '../../../shared/image-uploader/image-uploader';
 
 @Component({
   selector: 'app-admin-circuits',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, ImageUploaderComponent],
   templateUrl: './admin-circuits.component.html',
   styleUrls: ['./admin-circuits.component.scss']
 })

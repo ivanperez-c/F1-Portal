@@ -6,13 +6,14 @@ import { AuthService } from '../../../core/services/auth.service';
 import { Team } from '../../../core/models/team.interface';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { ImageUploaderComponent } from '../../../shared/image-uploader/image-uploader';
 
 type ModalType = 'USER' | 'DRIVER' | 'CAR' | null;
 
 @Component({
   selector: 'app-team-management',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, ImageUploaderComponent],
   templateUrl: './team-management.html',
   styleUrls: ['./team-management.scss']
 })
