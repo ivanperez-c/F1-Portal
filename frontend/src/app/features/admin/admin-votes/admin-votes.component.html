@@ -7,11 +7,7 @@
     </button>
   </header>
 
-  @if (isLoading) {
-    <p>Cargando pilotos...</p>
-  }
-
-  @if (!isLoading && showForm) {
+  @if (showForm) {
     <form [formGroup]="pollForm" (ngSubmit)="createPoll()" class="admin-votes__form">
       
       <div class="admin-votes__field">
@@ -36,8 +32,8 @@
             <label class="admin-votes__driver-item">
               <input type="checkbox" [value]="driver.id" (change)="toggleDriverSelection(driver.id, $event)">
               <div class="admin-votes__driver-content">
-                <img [src]="driver.photo" class="face">
-                <span class="name">{{ driver.lastname }}</span>
+                <img [src]="driver.foto" class="face">
+                <span class="name">{{ driver.apellidos }}</span>
               </div>
             </label>
           }

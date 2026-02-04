@@ -86,16 +86,16 @@
         <button class="btn-add" (click)="openModal('DRIVER')"><i class="bi bi-plus-lg"></i> Añadir</button>
       </div>
       <div class="mgmt__grid">
-        @for (driver of team.drivers; track driver.id) {
+        @for (driver of team.pilotos; track driver.id) {
           <div class="card-driver">
             <div class="card-driver__top">
-              <span class="number">{{ driver.number }}</span>
-              <img [src]="driver.photo || 'assets/default.png'" class="photo">
+              <span class="number">{{ driver.dorsal }}</span>
+              <img [src]="driver.foto || 'assets/default.png'" class="photo">
             </div>
             <div class="card-driver__info">
-              <span class="code">{{ driver.code }}</span>
-              <span class="name">{{ driver.firstname }} {{ driver.lastname }}</span>
-              <small class="country">{{ driver.country }}</small>
+              <span class="code">{{ driver.siglas }}</span>
+              <span class="name">{{ driver.nombre }} {{ driver.apellidos }}</span>
+              <small class="country">{{ driver.pais }}</small>
             </div>
             <button class="btn-del" (click)="deleteItem('DRIVER', driver.id)"><i class="bi bi-trash"></i></button>
           </div>

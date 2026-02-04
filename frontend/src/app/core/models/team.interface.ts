@@ -8,7 +8,7 @@ export interface Team {
   logo: string;
   twitter: string;
   id_usuario_creador: number;
-  drivers: Driver[];
+  pilotos: Driver[];
   cars: Car[];
   users: User[];
 }

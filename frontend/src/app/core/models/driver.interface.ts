@@ -1,9 +1,12 @@
 export interface Driver {
   id: number;
-  firstname: string;
-  lastname: string;
-  code: string;
-  number: number;
-  photo: string;
-  country: string;
+  nombre: string;
+  apellidos: string;
+  siglas: string;
+  dorsal: number;
+  foto: string;
+  pais: string;
+  twitter: string;
+  id_equipo: number;
+  activo: boolean;
 }

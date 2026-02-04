@@ -151,7 +151,7 @@ export class TeamManagement implements OnInit {
     val.code = val.code.toUpperCase();
 
     this.teamsService.addDriver(this.myTeamId, val).subscribe(d => {
-      this.team.drivers.push(d);
+      this.team.pilotos.push(d);
       this.isSubmitting = false;
       this.closeModal();
       this.showToast('Piloto fichado');
@@ -191,7 +191,7 @@ export class TeamManagement implements OnInit {
           });
         } else if (type === 'DRIVER') {
           this.teamsService.deleteDriver(this.myTeamId, id as number).subscribe(() => {
-            this.team.drivers = this.team.drivers.filter(d => d.id !== id);
+            this.team.pilotos = this.team.pilotos.filter(d => d.id !== id);
             this.showToast('Piloto eliminado');
           });
         } else if (type === 'CAR') {
