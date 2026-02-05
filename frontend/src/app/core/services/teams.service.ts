@@ -42,7 +42,7 @@ export class TeamsService {
   }
 
   deleteDriver(id: number): Observable<boolean> {
-     return this.http.delete<boolean>(`${this.apiUrl}/${id}`);
+    return this.http.delete<boolean>(`${this.apiUrlPilotos}/${id}`);
   }
 
   addCar(teamId: number, car: Partial<Car>): Observable<Car> {
