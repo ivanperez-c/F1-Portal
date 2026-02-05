@@ -205,31 +205,43 @@ export class TeamManagement implements OnInit {
     const val = this.carForm.value;
 
     if (this.editingId) {
-      this.teamsService.updateCar(this.team.id, this.editingId, val).subscribe({
+      this.teamsService.updateCar(this.team.id, this.editingId as number, val).subscribe({
         next: (updatedCar) => {
           const index = this.team.coches.findIndex((c: any) => c.id === this.editingId);
-          if (index !== -1) {
+          
+          if (index !== -1 && updatedCar) {
             this.team.coches[index] = updatedCar;
+          } else {
+            this.loadTeam(this.team.id);
           }
+
           this.isSubmitting = false;
           this.closeModal();
           this.showToast('Coche actualizado');
         },
         error: () => {
           this.isSubmitting = false;
-          Swal.fire('Error', 'No se pudo actualizar', 'error');
+          Swal.fire('Error', 'No se pudo actualizar el coche', 'error');
         }
       });
 
     } else {
       this.teamsService.addCar(this.team.id, val).subscribe({
         next: (newCar) => {
-          this.team.coches.push(newCar);
+          if (newCar && newCar.id) {
+            this.team.coches.push(newCar);
+          } else {
+            this.loadTeam(this.team.id);
+          }
+
           this.isSubmitting = false;
           this.closeModal();
           this.showToast('Coche fabricado');
         },
-        error: () => this.isSubmitting = false
+        error: () => {
+          this.isSubmitting = false;
+          Swal.fire('Error', 'No se pudo crear el coche', 'error');
+        }
       });
     }
   }
@@ -260,7 +272,7 @@ export class TeamManagement implements OnInit {
             this.showToast('Piloto eliminado');
           });
         } else if (type === 'CAR') {
-          this.teamsService.deleteCar(this.myTeamId, id as number).subscribe(() => {
+          this.teamsService.deleteCar(id as number).subscribe(() => {
             this.team.coches = this.team.coches.filter(c => c.id !== id);
             this.showToast('Coche eliminado');
           });

@@ -11,21 +11,24 @@ export class TeamsService {
   
   private apiUrl = 'http://localhost:8080/api/equipos';
   private apiUrlPilotos = 'http://localhost:8080/api/pilotos';
+  private apiUrlCoches = 'http://localhost:8080/api/coches';
 
   constructor(private http: HttpClient) { }
 
   getTeamById(id: number): Observable<Team> {
-     return this.http.get<Team>(`${this.apiUrl}/${id}`);
+    return this.http.get<Team>(`${this.apiUrl}/${id}`);
   }
 
   getTeams(): Observable<Team[]> {
     return this.http.get<Team[]>(this.apiUrl);
   }
 
+  // Sin probar
   addResponsible(teamId: number, username: string): Observable<User> {
      return this.http.post<User>(`${this.apiUrl}/${teamId}/responsibles`, { username });
   }
-
+  
+  // Sin probar
   deleteResponsible(teamId: number, username: string): Observable<boolean> {
      return this.http.delete<boolean>(`${this.apiUrl}/${teamId}/responsibles/${username}`);
   }
@@ -37,7 +40,6 @@ export class TeamsService {
             id: teamId
         }
     };
-    console.log('Adding driver with data:', driverData);
     return this.http.post<Driver>(`${this.apiUrlPilotos}`,  driverData );
   }
 
@@ -56,21 +58,33 @@ export class TeamsService {
     return this.http.delete<boolean>(`${this.apiUrlPilotos}/${id}`);
   }
 
+  updateCar(teamId: number, carId: number, carData: any): Observable<Car> {
+    const coche = {
+        ...carData,
+        equipo: {
+            id: teamId
+        },
+        id: carId
+    };
+    return this.http.put<Car>(`${this.apiUrlCoches}`, coche);
+  }
+
   addCar(teamId: number, car: Partial<Car>): Observable<Car> {
-     return this.http.post<Car>(`${this.apiUrl}/${teamId}/cars`, car);
+    const coche = {
+        ...car,
+        equipo: {
+            id: teamId
+        }
+    };
+    return this.http.post<Car>(`${this.apiUrlCoches}`, coche);
   }
 
-  deleteCar(teamId: number, id: number): Observable<boolean> {
-    return this.http.delete<boolean>(`${this.apiUrl}/${teamId}/cars/${id}`);
+  deleteCar(id: number): Observable<boolean> {
+    return this.http.delete<boolean>(`${this.apiUrlCoches}/${id}`);
   }
 
+  // Sin probar
   createTeam(teamData: { nombre: string, logo: string, twitter: string, id_usuario_creador: number}): Observable<Team> {
     return this.http.post<Team>(this.apiUrl, teamData);
-  }
-
-  
-
-  updateCar(teamId: number, carId: number, carData: any): Observable<Car> {
-    return this.http.put<Car>(`${this.apiUrl}/${teamId}/cars/${carId}`, carData);
   }
 }
