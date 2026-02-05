@@ -1,5 +1,6 @@
 package es.uah.f1.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
@@ -17,12 +18,15 @@ public class VotoEmitido {
     @JoinColumn(name = "id_votacion", nullable = false)
     private Votacion votacion;
 
+    @JsonProperty("nombreAficionado")
     @Column(name = "nombre_aficionado", nullable = false, length = 100)
     private String nombreAficionado;
 
+    @JsonProperty("emailAficionado")
     @Column(name = "email_aficionado", nullable = false, length = 100)
     private String emailAficionado;
 
+    @JsonProperty("pilotoVotado")
     @ManyToOne
     @JoinColumn(name = "id_piloto_votado", nullable = false)
     private Piloto pilotoVotado;

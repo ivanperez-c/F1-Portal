@@ -73,8 +73,22 @@ export class PollsService {
     return this.http.delete<boolean>(`${this.apiUrl}/${id}`);
   }
 
+  /*
   submitVote(vote: Vote): Observable<boolean> {
     return this.http.post<boolean>(`${this.apiUrl}/${vote.pollId}/vote`, vote);
+  }
+  */
+
+  submitVote(vote: Vote): Observable<any> {
+    // Map Vote interface to backend VotoEmitido model
+    const payload = {
+      votacion: { id: vote.pollId },  // backend expects votacion object
+      pilotoVotado: { id: vote.driverId },  // backend expects piloto object
+      nombreAficionado: vote.voterName,
+      emailAficionado: vote.voterEmail
+    };
+
+    return this.http.post(`${this.apiUrl.replace('votaciones', 'votos-emitidos')}/votar`, payload);
   }
 
   private calculateTotalVotes(votes: any): number {
