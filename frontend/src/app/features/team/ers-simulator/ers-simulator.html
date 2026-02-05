@@ -5,7 +5,7 @@
       <label>Coche</label>
       <select formControlName="carId">
         <option [ngValue]="null">-- Seleccionar --</option>
-        @for (c of cars; track c.id) { <option [value]="c.id">{{c.name}}</option> }
+        @for (c of cars; track c.id) { <option [value]="c.id">{{c.nombre}}</option> }
       </select>
     </div>
     <div class="group">
@@ -18,9 +18,9 @@
     <div class="group">
       <label>TIPO DE CONDUCCIÓN</label>
       <div class="radios">
-        <label><input type="radio" formControlName="mode" value="SAVING"><span>Ahorrador</span></label>
+        <label><input type="radio" formControlName="mode" value="AHORRADOR"><span>Ahorrador</span></label>
         <label><input type="radio" formControlName="mode" value="NORMAL"><span>Normal</span></label>
-        <label><input type="radio" formControlName="mode" value="HOTLAP"><span>Deportivo</span></label>
+        <label><input type="radio" formControlName="mode" value="DEPORTIVO"><span>Deportivo</span></label>
       </div>
     </div>
     <button type="submit" [disabled]="form.invalid || loading">{{ loading ? '...' : 'SIMULAR' }}</button>
@@ -29,12 +29,12 @@
   @if(result) {
     <div class="calc-box__res ers">
       <div class="battery-vis">
-        <div class="level" [style.height.%]="result.batteryPercent"></div>
-        <span class="txt">{{result.batteryPercent}}%</span>
+        <div class="level" [style.height.%]="result.porcentaje_recuperado"></div>
+        <span class="txt">{{result.porcentaje_recuperado}}%</span>
       </div>
       <div class="stats">
-        <div class="item"><span>RECUPERADO</span><strong>{{result.energyMj}} MJ</strong></div>
-        <div class="item"><span>VUELTAS DE CARGA</span><strong>{{result.lapsToFull}}</strong></div>
+        <div class="item"><span>RECUPERADO</span><strong>{{result.energia_recuperada_por_vuelta}} MJ</strong></div>
+        <div class="item"><span>VUELTAS DE CARGA</span><strong>{{result.vueltas_para_carga_completa}}</strong></div>
       </div>
     </div>
   }

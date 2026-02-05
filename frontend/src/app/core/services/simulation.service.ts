@@ -19,6 +19,11 @@ export class SimulationService {
   }
 
   calculateErs(data: { carId: number, circuitId: number, mode: string }): Observable<any> {
-    return this.http.post(`${this.apiUrl}/ers`, data);
+    const params = {
+      idCoche: data.carId,
+      idCircuito: data.circuitId,
+      modo: data.mode
+    };
+    return this.http.get(`${this.apiUrl}/ers`, { params });
   }
 }
