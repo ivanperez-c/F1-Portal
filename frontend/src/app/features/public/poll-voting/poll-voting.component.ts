@@ -81,13 +81,6 @@ export class PollVotingComponent implements OnInit {
           this.handleSuccess();
         } else {
           this.isSubmitting = false;
-          console.error(err);
-          Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'No se pudo registrar el voto. Inténtalo de nuevo.',
-            background: '#141414', color: '#fff', confirmButtonColor: '#e10600'
-          });
         }
       }
     });

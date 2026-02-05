@@ -29,7 +29,6 @@ export class Teams implements OnInit {
         this.loading = false;
       },
       error: (err) => {
-        console.error('Error cargando equipos', err);
         this.loading = false;
       }
     });

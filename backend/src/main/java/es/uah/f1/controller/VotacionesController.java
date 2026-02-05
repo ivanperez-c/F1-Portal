@@ -49,20 +49,14 @@ public class VotacionesController {
     @PostMapping("/crear-con-pilotos")
     public ResponseEntity<?> crearCompleta(@RequestBody VotacionRequest request) {
 
-        try {
-            Votacion votacion = service.crearVotacion(
-                    request.getVotacion(),
-                    request.getPilotosIds(),
-                    request.getIdUsuarioCreador()
-            );
+        Votacion votacion = service.crearVotacion(
+                request.getVotacion(),
+                request.getPilotosIds(),
+                request.getIdUsuarioCreador()
+        );
 
-            VotacionDetalleDTO dto = service.buscarPorId(votacion.getId());
+        VotacionDetalleDTO dto = service.buscarPorId(votacion.getId());
 
-            return ResponseEntity.ok(dto);
-
-        } catch (IllegalArgumentException | IllegalStateException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+        return ResponseEntity.ok(dto);
     }
-
 }

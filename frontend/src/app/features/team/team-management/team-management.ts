@@ -144,16 +144,7 @@ export class TeamManagement implements OnInit {
         }
       },
       error: (err) => {
-        console.error('ERROR AL CREAR EQUIPO:', err);
         this.isCreating = false;
-        Swal.fire({ 
-          icon: 'error', 
-          title: 'Error', 
-          text: 'Ha ocurrido un error al contactar con el servidor.' ,
-          background: '#141414', 
-          color: '#fff', 
-          confirmButtonColor: '#e10600'
-        });
       }
     });
   }
@@ -254,7 +245,6 @@ export class TeamManagement implements OnInit {
         },
         error: () => {
           this.isSubmitting = false;
-          Swal.fire('Error', 'No se pudo actualizar el coche', 'error');
         }
       });
 
@@ -273,7 +263,6 @@ export class TeamManagement implements OnInit {
         },
         error: () => {
           this.isSubmitting = false;
-          Swal.fire('Error', 'No se pudo crear el coche', 'error');
         }
       });
     }

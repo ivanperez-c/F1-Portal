@@ -72,12 +72,7 @@ export class Register {
       },
       error: (err) => {
         this.isSubmitting = false;
-        Swal.fire({
-          icon: 'error',
-          title: 'Error de Registro',
-          text: err.message || 'No se pudo crear la cuenta.',
-          background: '#141414', color: '#fff', confirmButtonColor: '#e10600'
-        });
+       
       }
     });
   }

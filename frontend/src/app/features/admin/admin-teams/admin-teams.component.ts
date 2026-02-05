@@ -30,7 +30,6 @@ export class AdminTeamsComponent implements OnInit {
         this.isLoading = false;
       },
       error: (err) => {
-        console.error(err);
         this.isLoading = false;
       }
     });

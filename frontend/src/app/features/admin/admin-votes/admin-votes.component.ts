@@ -104,12 +104,6 @@ export class AdminVotesComponent implements OnInit {
 
         Swal.fire({ icon: 'success', title: 'Votación creada', confirmButtonColor: '#e10600',
       background: '#141414', color: '#fff', });
-      },
-      error: (err) => {
-        console.error('Error creating poll:', err);
-        const errorMsg = err.error?.error || err.error || 'No se pudo crear la votación';
-        Swal.fire({ icon: 'error', title: 'Error', text: errorMsg, confirmButtonColor: '#e10600',
-      background: '#141414', color: '#fff', });
       }
     });
   }

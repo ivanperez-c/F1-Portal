@@ -36,9 +36,7 @@ export class Login {
         this.router.navigate(['/']); 
       },
       error: (error) => {
-        console.error('Error en login:', error);
         this.isLoading = false;
-        this.errorMessage = 'Usuario o contraseña incorrectos';
       }
     });
   }

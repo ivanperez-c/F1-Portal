@@ -165,14 +165,6 @@ export class AdminCircuitsComponent implements OnInit {
             this.circuits = this.circuits.filter(c => c.id !== circuit.id);
             this.showToast('Circuito eliminado');
           },
-          error: (err) => {
-            Swal.fire({
-              icon: 'error',
-              title: 'Error',
-              text: 'No se puede borrar un circuito activo en el calendario.',
-              background: '#141414', color: '#fff', confirmButtonColor: '#e10600'
-            });
-          }
         });
       }
     });
