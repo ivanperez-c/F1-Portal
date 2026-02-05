@@ -33,7 +33,7 @@ public class SimulacionServiceImpl implements ISimulacionService {
 
         double consumoTotal = consumoPorVuelta * totalVueltas;
 
-        return new ResultadoCombustible(redondear(consumoPorVuelta), redondear(consumoTotal));
+        return new ResultadoCombustible(redondear(consumoPorVuelta), redondear(consumoTotal), totalVueltas);
     }
 
     @Override
@@ -84,6 +84,6 @@ public class SimulacionServiceImpl implements ISimulacionService {
     }
 
     private double redondear(double valor) {
-        return Math.round(valor * 10000.0) / 10000.0;
+        return Math.round(valor * 100.0) / 100.0;
     }
 }

@@ -5,7 +5,7 @@
       <label>Coche</label>
       <select formControlName="carId">
         <option [ngValue]="null">-- Seleccionar --</option>
-        @for (c of cars; track c.id) { <option [value]="c.id">{{c.name}} ({{c.consumo}} L/100)</option> }
+        @for (c of cars; track c.id) { <option [value]="c.id">{{c.nombre}} ({{c.consumo}} L/100)</option> }
       </select>
     </div>
     <div class="group">
@@ -20,9 +20,9 @@
 
   @if(result) {
     <div class="calc-box__res">
-      <div class="item"><span>POR VUELTA</span><strong>{{result.consumptionPerLap}} kg</strong></div>
-      <div class="item highlight"><span>TOTAL</span><strong>{{result.totalFuelNeeded}} kg</strong></div>
-      <div class="item"><span>VUELTAS</span><strong>{{result.laps}}</strong></div>
+      <div class="item"><span>POR VUELTA</span><strong>{{result.consumo_por_vuelta}} kg</strong></div>
+      <div class="item highlight"><span>TOTAL</span><strong>{{result.consumo_total}} kg</strong></div>
+      <div class="item"><span>VUELTAS</span><strong>{{result.vueltas}}</strong></div>
     </div>
   }
 </div>

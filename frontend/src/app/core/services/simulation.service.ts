@@ -9,8 +9,13 @@ export class SimulationService {
 
   constructor(private http: HttpClient) {}
 
-  calculateFuel(data: { carId: number, circuitId: number }): Observable<any> {
-    return this.http.post(`${this.apiUrl}/combustible`, data);
+  calculateFuel(data: { carId: number; circuitId: number }): Observable<any> {
+    const params = {
+      idCoche: data.carId,
+      idCircuito: data.circuitId
+    };
+
+    return this.http.get(`${this.apiUrl}/combustible`, { params });
   }
 
   calculateErs(data: { carId: number, circuitId: number, mode: string }): Observable<any> {
