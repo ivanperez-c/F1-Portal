@@ -61,7 +61,7 @@ export class PollVotingComponent implements OnInit {
       return;
     }
     if (!this.selectedDriverId) {
-      Swal.fire({ icon: 'warning', title: 'Debes elegir un piloto', toast: true });
+      Swal.fire({ icon: 'warning', title: 'Debes elegir un piloto', toast: true, background: '#141414', color: '#fff', confirmButtonColor: '#e10600' });
       return;
     }
 
