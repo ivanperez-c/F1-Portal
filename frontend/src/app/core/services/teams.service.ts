@@ -23,12 +23,10 @@ export class TeamsService {
     return this.http.get<Team[]>(this.apiUrl);
   }
 
-  // Sin probar
   addResponsible(teamId: number, username: string): Observable<User> {
      return this.http.post<User>(`${this.apiUrl}/${teamId}/responsibles`, { username });
   }
   
-  // Sin probar
   deleteResponsible(teamId: number, username: string): Observable<boolean> {
      return this.http.delete<boolean>(`${this.apiUrl}/${teamId}/responsibles/${username}`);
   }
@@ -83,7 +81,6 @@ export class TeamsService {
     return this.http.delete<boolean>(`${this.apiUrlCoches}/${id}`);
   }
 
-  // Sin probar
   createTeam(teamData: { nombre: string, logo: string, twitter: string, id_usuario_creador: number}): Observable<Team> {
     return this.http.post<Team>(this.apiUrl, teamData);
   }
