@@ -12,6 +12,9 @@ public class VotacionRequest {
     @JsonProperty("pilotosIds")
     private List<Integer> pilotosIds;
 
+    @JsonProperty("idUsuarioCreador")
+    private Integer idUsuarioCreador;
+
     public Votacion getVotacion() {
         return votacion;
     }
@@ -27,4 +30,8 @@ public class VotacionRequest {
     public void setPilotosIds(List<Integer> pilotosIds) {
         this.pilotosIds = pilotosIds;
     }
+
+    public Integer getIdUsuarioCreador() { return idUsuarioCreador; }
+
+    public void setIdUsuarioCreador(Integer idUsuarioCreador) { this.idUsuarioCreador = idUsuarioCreador; }
 }

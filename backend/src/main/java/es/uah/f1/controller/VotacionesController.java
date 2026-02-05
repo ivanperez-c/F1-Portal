@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import es.uah.f1.dto.VotacionDetalleDTO;
 import es.uah.f1.dto.VotacionRequest;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/votaciones")
@@ -47,38 +46,22 @@ public class VotacionesController {
         service.eliminar(id);
     }
 
-    /*
-    public static class VotacionRequest {
-        public Votacion votacion;
-        public List<Integer> pilotosIds;
-    }
-
     @PostMapping("/crear-con-pilotos")
     public ResponseEntity<?> crearCompleta(@RequestBody VotacionRequest request) {
-        String resultado = service.crearVotacion(request.votacion, request.pilotosIds);
-        if ("OK".equals(resultado)) {
-            return ResponseEntity.ok("Votación creada con éxito.");
-        } else {
-            return ResponseEntity.badRequest().body(resultado);
-        }
-    }
-     */
-
-    @PostMapping("/crear-con-pilotos")
-    public ResponseEntity<VotacionDetalleDTO> crearCompleta(
-            @RequestBody VotacionRequest request) {
 
         try {
             Votacion votacion = service.crearVotacion(
                     request.getVotacion(),
-                    request.getPilotosIds()
+                    request.getPilotosIds(),
+                    request.getIdUsuarioCreador()
             );
 
             VotacionDetalleDTO dto = service.buscarPorId(votacion.getId());
+
             return ResponseEntity.ok(dto);
 
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().build();
+        } catch (IllegalArgumentException | IllegalStateException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 

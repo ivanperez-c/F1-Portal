@@ -64,19 +64,13 @@ export class PollsService {
       )
     );
   }
-  
-  /*
-  createPoll(poll: Partial<Poll>): Observable<Poll> {
-    return this.http.post<Poll>(`${this.apiUrl}/admin`, poll);
-  }
-  */
 
   createPoll(request: any): Observable<Poll> {
     return this.http.post<Poll>(`${this.apiUrl}/crear-con-pilotos`, request);
   }
 
   deletePoll(id: number): Observable<boolean> {
-    return this.http.delete<boolean>(`${this.apiUrl}/admin/${id}`);
+    return this.http.delete<boolean>(`${this.apiUrl}/${id}`);
   }
 
   submitVote(vote: Vote): Observable<boolean> {

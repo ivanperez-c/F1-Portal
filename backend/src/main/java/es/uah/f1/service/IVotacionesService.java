@@ -10,5 +10,5 @@ public interface IVotacionesService {
     void guardar(Votacion votacion);
     void eliminar(Integer id);
     void actualizar(Votacion votacion);
-    Votacion crearVotacion(Votacion votacion, List<Integer> idsPilotos);
+    Votacion crearVotacion(Votacion votacion, List<Integer> idsPilotos, Integer idCreador);
 }
