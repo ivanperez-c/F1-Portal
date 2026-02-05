@@ -74,27 +74,36 @@ export class PollVotingComponent implements OnInit {
 
     this.pollsService.submitVote(voteData).subscribe({
       next: () => {
-        this.isSubmitting = false;
-        Swal.fire({
-          icon: 'success',
-          title: '¡Voto registrado!',
-          text: 'Gracias por participar.',
-          background: '#141414', color: '#fff', confirmButtonColor: '#e10600'
-        });
-
-        this.selectedDriverId = null;
-        this.voteForm.reset();
+        this.handleSuccess();
       },
       error: (err) => {
-        this.isSubmitting = false;
-        Swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: err.message,
-          background: '#141414', color: '#fff', confirmButtonColor: '#e10600'
-        });
+        if (err.status === 200) {
+          this.handleSuccess();
+        } else {
+          this.isSubmitting = false;
+          console.error(err);
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'No se pudo registrar el voto. Inténtalo de nuevo.',
+            background: '#141414', color: '#fff', confirmButtonColor: '#e10600'
+          });
+        }
       }
     });
+  }
+
+  private handleSuccess() {
+    this.isSubmitting = false;
+    Swal.fire({
+      icon: 'success',
+      title: '¡Voto registrado!',
+      text: 'Gracias por participar.',
+      background: '#141414', color: '#fff', confirmButtonColor: '#e10600'
+    });
+
+    this.selectedDriverId = null;
+    this.voteForm.reset();
   }
 
   getPercent(votes: number): number {
