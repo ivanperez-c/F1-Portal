@@ -16,6 +16,10 @@ export class CircuitService {
     return this.http.get<Circuit[]>(this.apiUrl);
   }
 
+  getCircuitsInCalendar(): Observable<Circuit[]> {
+    return this.http.get<Circuit[]>(`${this.apiUrl}/calendario`);
+  }
+
   createCircuit(circuit: Circuit): Observable<boolean> {
      return this.http.post<boolean>(this.apiUrl, circuit);
   }
