@@ -91,7 +91,7 @@ export class AdminCircuitsComponent implements OnInit {
       curvas_media: circuit.curvas_media,
       curvas_rapidas: circuit.curvas_rapidas,
       calendario: circuit.calendario,
-      fechaCarrera: circuit.fecha_carrera ? this.formatDate(circuit.fecha_carrera) : ''
+      fechaCarrera: circuit.fecha_carrera
     });
 
     this.showForm = true;
@@ -127,7 +127,7 @@ export class AdminCircuitsComponent implements OnInit {
       curvas_media: Number(formVal.curvas_media),
       curvas_rapidas: Number(formVal.curvas_rapidas),
       calendario: formVal.calendario,
-      fechaCarrera: formVal.calendario ? formVal.date : undefined
+      fecha_carrera: formVal.fechaCarrera
     };
 
     if (this.isEditing && this.editingId) {

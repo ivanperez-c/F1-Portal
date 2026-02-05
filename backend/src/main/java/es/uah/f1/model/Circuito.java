@@ -1,6 +1,8 @@
 package es.uah.f1.model;
 
 import jakarta.persistence.*;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -44,7 +46,7 @@ public class Circuito {
     private LocalDateTime fechaCreacion;
 
     @Column(name = "fecha_carrera")
-    private LocalDateTime fechaCarrera;
+    private LocalDate fechaCarrera;
 
     public Integer getId() { return id; }
     public void setId(Integer id) { this.id = id; }
@@ -70,6 +72,6 @@ public class Circuito {
     public void setCurvasRapidas(Integer curvasRapidas) { this.curvasRapidas = curvasRapidas; }
     public LocalDateTime getFechaCreacion() { return fechaCreacion; }
     public void setFechaCreacion(LocalDateTime fechaCreacion) { this.fechaCreacion = fechaCreacion; }
-    public LocalDateTime getFechaCarrera() { return fechaCarrera; }
-    public void setFechaCarrera(LocalDateTime fechaCarrera) { this.fechaCarrera = fechaCarrera; }
+    public LocalDate getFechaCarrera() { return fechaCarrera; }
+    public void setFechaCarrera(LocalDate fechaCarrera) { this.fechaCarrera = fechaCarrera; }
 }

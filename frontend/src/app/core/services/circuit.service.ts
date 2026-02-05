@@ -21,7 +21,11 @@ export class CircuitService {
   }
 
   updateCircuit(id: number, circuit: Partial<Circuit>): Observable<Circuit> {
-     return this.http.put<Circuit>(`${this.apiUrl}/${id}`, circuit);
+    const circuito = {
+        ...circuit,
+        id: id
+    };
+     return this.http.put<Circuit>(`${this.apiUrl}`, circuito);
   }
 
   deleteCircuit(id: number): Observable<boolean> {
