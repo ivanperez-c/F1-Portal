@@ -4,9 +4,11 @@
       <h3>TEAM HUB</h3>
     </div>
     <nav class="team-layout__sidebar__nav">
-      <a routerLink="gestion" routerLinkActive="active" class="team-layout__sidebar__nav__link">
-        <i class="bi bi-speedometer2"></i> Gestión de equipo
-      </a>
+      @if (isTeamManager) {
+        <a routerLink="gestion" routerLinkActive="active" class="team-layout__sidebar__nav__link">
+          <i class="bi bi-speedometer2"></i> Gestión de equipo
+        </a>
+      }
       <a routerLink="gasolina" routerLinkActive="active" class="team-layout__sidebar__nav__link">
         <i class="bi bi-fuel-pump"></i> Calculadora combustible
       </a>
