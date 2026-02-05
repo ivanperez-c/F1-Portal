@@ -10,4 +10,5 @@ public interface IPilotosDAO {
     void eliminarPiloto(Integer id);
     void actualizarPiloto(Piloto piloto);
     List<Piloto> buscarPorEquipo(Integer idEquipo);
+    Piloto buscarPorSiglas(String siglas);
 }

@@ -49,7 +49,8 @@ export class TeamManagement implements OnInit {
       siglas: ['', [Validators.required, Validators.maxLength(3)]],
       dorsal: ['', Validators.required],
       pais: ['', Validators.required],
-      foto: ['', Validators.required]
+      foto: ['', Validators.required],
+      twitter: ['', Validators.required]
     });
 
     this.carForm = this.fb.group({
@@ -162,29 +163,33 @@ export class TeamManagement implements OnInit {
     this.isSubmitting = true;
     
     const val = this.driverForm.value;
-    val.code = val.code.toUpperCase();
+    val.siglas = val.siglas.toUpperCase();
 
     if (this.editingId) {
-      this.teamsService.updateDriver(this.team.id, this.editingId, val).subscribe({
+      this.teamsService.updateDriver(this.team.id, this.editingId as number, val).subscribe({
         next: (updatedDriver) => {
           const index = this.team.pilotos.findIndex((d: any) => d.id === this.editingId);
-          if (index !== -1) {
-            this.team.pilotos[index] = updatedDriver;
+          if (index !== -1 && updatedDriver) {
+             this.team.pilotos[index] = updatedDriver;
+          } else {
+             this.loadTeam(this.team.id);
           }
           this.isSubmitting = false;
           this.closeModal();
           this.showToast('Piloto actualizado');
         },
-        error: () => {
-          this.isSubmitting = false;
-          Swal.fire('Error', 'No se pudo actualizar', 'error');
-        }
+        error: () => this.isSubmitting = false
       });
 
     } else {
       this.teamsService.addDriver(this.team.id, val).subscribe({
         next: (newDriver) => {
-          this.team.pilotos.push(newDriver);
+          if (newDriver && newDriver.id) {
+            this.team.pilotos.push(newDriver);
+          } else {
+            this.loadTeam(this.team.id);
+          }
+          
           this.isSubmitting = false;
           this.closeModal();
           this.showToast('Piloto fichado');
@@ -250,7 +255,7 @@ export class TeamManagement implements OnInit {
             this.showToast('Acceso eliminado');
           });
         } else if (type === 'DRIVER') {
-          this.teamsService.deleteDriver(this.myTeamId, id as number).subscribe(() => {
+          this.teamsService.deleteDriver(id as number).subscribe(() => {
             this.team.pilotos = this.team.pilotos.filter(d => d.id !== id);
             this.showToast('Piloto eliminado');
           });

@@ -10,6 +10,7 @@ import { User } from '../models/user.interface';
 export class TeamsService {
   
   private apiUrl = 'http://localhost:8080/api/equipos';
+  private apiUrlPilotos = 'http://localhost:8080/api/pilotos';
 
   constructor(private http: HttpClient) { }
 
@@ -30,11 +31,18 @@ export class TeamsService {
   }
 
   addDriver(teamId: number, driver: Partial<Driver>): Observable<Driver> {
-     return this.http.post<Driver>(`${this.apiUrl}/${teamId}/drivers`, driver);
+    const driverData = {
+        ...driver,
+        equipo: {
+            id: teamId
+        }
+    };
+    console.log('Adding driver with data:', driverData);
+    return this.http.post<Driver>(`${this.apiUrlPilotos}`,  driverData );
   }
 
-  deleteDriver(teamId: number, id: number): Observable<boolean> {
-     return this.http.delete<boolean>(`${this.apiUrl}/${teamId}/drivers/${id}`);
+  deleteDriver(id: number): Observable<boolean> {
+     return this.http.delete<boolean>(`${this.apiUrl}/${id}`);
   }
 
   addCar(teamId: number, car: Partial<Car>): Observable<Car> {

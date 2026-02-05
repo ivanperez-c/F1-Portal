@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface IPilotosJPA extends JpaRepository<Piloto, Integer> {
     List<Piloto> findByEquipoId(Integer idEquipo);
+    Piloto findBySiglas(String siglas);
 }

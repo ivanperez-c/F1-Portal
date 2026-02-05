@@ -3,7 +3,9 @@ package es.uah.f1.service;
 import es.uah.f1.dao.IPilotosDAO;
 import es.uah.f1.model.Piloto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -25,9 +27,18 @@ public class PilotosServiceImpl implements IPilotosService {
 
     @Override
     public void guardarPiloto(Piloto piloto) {
-        if (piloto.getNombre() != null && piloto.getSiglas() != null) {
-            pilotosDAO.guardarPiloto(piloto);
+        Piloto existente = pilotosDAO.buscarPorSiglas(piloto.getSiglas());
+
+        if (existente != null) {
+            if (piloto.getId() == null || !piloto.getId().equals(existente.getId())) {
+                throw new ResponseStatusException(
+                        HttpStatus.CONFLICT,
+                        "Error: Las siglas '" + piloto.getSiglas() + "' ya están en uso por otro piloto."
+                );
+            }
         }
+
+        pilotosDAO.guardarPiloto(piloto);
     }
 
     @Override

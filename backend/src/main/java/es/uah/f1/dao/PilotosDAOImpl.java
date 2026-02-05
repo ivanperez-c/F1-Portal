@@ -43,4 +43,9 @@ public class PilotosDAOImpl implements IPilotosDAO {
     public List<Piloto> buscarPorEquipo(Integer idEquipo) {
         return pilotosJPA.findByEquipoId(idEquipo);
     }
+
+    @Override
+    public Piloto buscarPorSiglas(String siglas) {
+        return pilotosJPA.findBySiglas(siglas);
+    }
 }
