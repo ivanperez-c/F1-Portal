@@ -97,7 +97,16 @@
               <span class="name">{{ driver.nombre }} {{ driver.apellidos }}</span>
               <small class="country">{{ driver.pais }}</small>
             </div>
-            <button class="btn-del" (click)="deleteItem('DRIVER', driver.id)"><i class="bi bi-trash"></i></button>
+            
+            <div class="card-actions">
+              <button class="btn-icon edit" (click)="openModal('DRIVER', driver)" title="Editar">
+                <i class="bi bi-pencil-fill"></i>
+              </button>
+              <button class="btn-icon del" (click)="deleteItem('DRIVER', driver.id)" title="Eliminar">
+                <i class="bi bi-trash-fill"></i>
+              </button>
+            </div>
+            
           </div>
         }
       </div>
@@ -117,14 +126,23 @@
             </div>
             <div class="card-list-item__stats">
               <div class="stat"><i class="bi bi-fuel-pump-fill"></i> {{ car.consumo }} L</div>
-              <div class="stat ers">
+              <div class="stat ers-group">
                 <i class="bi bi-lightning-charge-fill"></i>
                 <span>L:{{ car.ers_curva_lenta }}</span>
                 <span>M:{{ car.ers_curva_media }}</span>
                 <span>R:{{ car.ers_curva_rapida }}</span>
               </div>
             </div>
-            <button class="btn-del" (click)="deleteItem('CAR', car.id)"><i class="bi bi-trash"></i></button>
+            
+            <div class="list-actions">
+              <button class="btn-icon edit" (click)="openModal('CAR', car)" title="Editar">
+                <i class="bi bi-pencil-fill"></i>
+              </button>
+              <button class="btn-icon del" (click)="deleteItem('CAR', car.id)" title="Eliminar">
+                <i class="bi bi-trash-fill"></i>
+              </button>
+            </div>
+
           </div>
         }
       </div>
@@ -157,23 +175,23 @@
           @if (currentModal === 'DRIVER') {
             <form [formGroup]="driverForm" (ngSubmit)="submitDriver()">
               <div class="row">
-                <div class="form-group"><label>Nombre</label><input type="text" formControlName="firstname"></div>
-                <div class="form-group"><label>Apellidos</label><input type="text" formControlName="lastname"></div>
+                <div class="form-group"><label>Nombre</label><input type="text" formControlName="nombre"></div>
+                <div class="form-group"><label>Apellidos</label><input type="text" formControlName="apellidos"></div>
               </div>
               <div class="row">
-                <div class="form-group"><label>Siglas (3 letras)</label><input type="text" formControlName="code"></div>
-                <div class="form-group"><label>Número</label><input type="number" formControlName="number"></div>
+                <div class="form-group"><label>Siglas (3 letras)</label><input type="text" formControlName="siglas"></div>
+                <div class="form-group"><label>Número</label><input type="number" formControlName="dorsal"></div>
               </div>
-              <div class="form-group"><label>País</label><input type="text" formControlName="country"></div>
-              <div class="form-group"><label>Foto</label><app-image-uploader formControlName="photo"></app-image-uploader></div>
+              <div class="form-group"><label>País</label><input type="text" formControlName="pais"></div>
+              <div class="form-group"><label>Foto</label><app-image-uploader formControlName="foto"></app-image-uploader></div>
               <button type="submit" class="btn-submit" [disabled]="driverForm.invalid">Guardar</button>
             </form>
           }
 
           @if (currentModal === 'CAR') {
             <form [formGroup]="carForm" (ngSubmit)="submitCar()">
-              <div class="form-group"><label>Nombre</label><input type="text" formControlName="name"></div>
-              <div class="form-group"><label>Código</label><input type="text" formControlName="code"></div>
+              <div class="form-group"><label>Nombre</label><input type="text" formControlName="nombre"></div>
+              <div class="form-group"><label>Código</label><input type="text" formControlName="codigo"></div>
               <div class="form-group"><label>Consumo</label><input type="number" formControlName="consumo"></div>
               <div class="row">
                 <div class="form-group"><label>ERS Curva Lenta</label><input type="number" formControlName="ers_curva_lenta" step="0.001"></div>

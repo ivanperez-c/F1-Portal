@@ -31,6 +31,7 @@ export class TeamManagement implements OnInit {
   user: any = null;
   hasTeam: boolean = false;
   isCreating = false;
+  editingId: number | null = null;
 
   constructor(
     private router: Router,
@@ -43,17 +44,17 @@ export class TeamManagement implements OnInit {
     });
 
     this.driverForm = this.fb.group({
-      firstname: ['', Validators.required],
-      lastname: ['', Validators.required],
-      code: ['', [Validators.required, Validators.maxLength(3)]],
-      number: ['', Validators.required],
-      country: ['', Validators.required],
-      photo: ['', Validators.required]
+      nombre: ['', Validators.required],
+      apellidos: ['', Validators.required],
+      siglas: ['', [Validators.required, Validators.maxLength(3)]],
+      dorsal: ['', Validators.required],
+      pais: ['', Validators.required],
+      foto: ['', Validators.required]
     });
 
     this.carForm = this.fb.group({
-      name: ['', Validators.required], 
-      code: ['', Validators.required],
+      nombre: ['', Validators.required], 
+      codigo: ['', Validators.required],
       consumo: ['', Validators.required],
       ers_curva_lenta: ['', Validators.required],
       ers_curva_media: ['', Validators.required],
@@ -61,7 +62,7 @@ export class TeamManagement implements OnInit {
     });
 
     this.createTeamForm = this.fb.group({
-      name: ['', Validators.required],
+      nombre: ['', Validators.required],
       logo: ['', Validators.required],
       twitter: ['', Validators.required]
     });
@@ -123,14 +124,26 @@ export class TeamManagement implements OnInit {
     });
   }
 
-  openModal(type: ModalType) {
+  openModal(type: ModalType, item: any = null) {
     this.currentModal = type;
     this.userForm.reset();
     this.driverForm.reset();
     this.carForm.reset();
+
+    if (item) {
+      this.editingId = item.id;
+      if (type === 'DRIVER') this.driverForm.patchValue(item);
+      if (type === 'CAR') this.carForm.patchValue(item);
+      if (type === 'USER') this.userForm.patchValue({ usuario: item.usuario });
+    } else {
+      this.editingId = null;
+    }
   }
 
-  closeModal() { this.currentModal = null; }
+  closeModal() {
+    this.currentModal = null;
+    this.editingId = null;
+  }
 
   submitUser() {
     if (this.userForm.invalid) return;
@@ -147,26 +160,73 @@ export class TeamManagement implements OnInit {
   submitDriver() {
     if (this.driverForm.invalid) return;
     this.isSubmitting = true;
+    
     const val = this.driverForm.value;
     val.code = val.code.toUpperCase();
 
-    this.teamsService.addDriver(this.myTeamId, val).subscribe(d => {
-      this.team.pilotos.push(d);
-      this.isSubmitting = false;
-      this.closeModal();
-      this.showToast('Piloto fichado');
-    });
+    if (this.editingId) {
+      this.teamsService.updateDriver(this.team.id, this.editingId, val).subscribe({
+        next: (updatedDriver) => {
+          const index = this.team.pilotos.findIndex((d: any) => d.id === this.editingId);
+          if (index !== -1) {
+            this.team.pilotos[index] = updatedDriver;
+          }
+          this.isSubmitting = false;
+          this.closeModal();
+          this.showToast('Piloto actualizado');
+        },
+        error: () => {
+          this.isSubmitting = false;
+          Swal.fire('Error', 'No se pudo actualizar', 'error');
+        }
+      });
+
+    } else {
+      this.teamsService.addDriver(this.team.id, val).subscribe({
+        next: (newDriver) => {
+          this.team.pilotos.push(newDriver);
+          this.isSubmitting = false;
+          this.closeModal();
+          this.showToast('Piloto fichado');
+        },
+        error: () => this.isSubmitting = false
+      });
+    }
   }
 
   submitCar() {
     if (this.carForm.invalid) return;
     this.isSubmitting = true;
-    this.teamsService.addCar(this.myTeamId, this.carForm.value).subscribe(c => {
-      this.team.coches.push(c);
-      this.isSubmitting = false;
-      this.closeModal();
-      this.showToast('Coche registrado');
-    });
+    const val = this.carForm.value;
+
+    if (this.editingId) {
+      this.teamsService.updateCar(this.team.id, this.editingId, val).subscribe({
+        next: (updatedCar) => {
+          const index = this.team.coches.findIndex((c: any) => c.id === this.editingId);
+          if (index !== -1) {
+            this.team.coches[index] = updatedCar;
+          }
+          this.isSubmitting = false;
+          this.closeModal();
+          this.showToast('Coche actualizado');
+        },
+        error: () => {
+          this.isSubmitting = false;
+          Swal.fire('Error', 'No se pudo actualizar', 'error');
+        }
+      });
+
+    } else {
+      this.teamsService.addCar(this.team.id, val).subscribe({
+        next: (newCar) => {
+          this.team.coches.push(newCar);
+          this.isSubmitting = false;
+          this.closeModal();
+          this.showToast('Coche fabricado');
+        },
+        error: () => this.isSubmitting = false
+      });
+    }
   }
 
   deleteItem(type: 'USER' | 'DRIVER' | 'CAR', id: number | string) { 
@@ -176,7 +236,7 @@ export class TeamManagement implements OnInit {
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#e10600',
-      cancelButtonColor: '$c-border',
+      cancelButtonColor: '#7a7479',
       confirmButtonText: 'Sí, eliminar',
       cancelButtonText: 'Cancelar',
       background: '#141414',
