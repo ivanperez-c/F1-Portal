@@ -36,20 +36,38 @@ export class AdminUsersComponent implements OnInit {
       icon: 'question',
       input: 'radio',
       inputOptions: {
-        'responsable_equipo': 'Responsable de Equipo',
-        'administrador': 'Administrador'
+        responsable_equipo: 'Responsable de Equipo',
+        administrador: 'Administrador'
       },
       inputValue: 'responsable_equipo',
       showCancelButton: true,
       confirmButtonText: 'Validar',
       confirmButtonColor: '#e10600',
-      background: '#141414', color: '#141414'
+      background: '#141414',
+      color: '#FFF',
+      didOpen: () => {
+        const radio = document.querySelector('.swal2-radio') as HTMLElement;
+        if (radio) {
+          radio.style.background = 'transparent';
+        }
+      }
     }).then((result) => {
       if (result.isConfirmed) {
         const role = result.value;
         this.adminService.validateUser(user.id, role).subscribe(() => {
           this.pendingUsers = this.pendingUsers.filter(u => u.id !== user.id);
-          Swal.fire({ icon: 'success', title: 'Usuario validado', toast: true, position: 'top-end', timer: 3000, showConfirmButton: false });
+
+          Swal.fire({
+            icon: 'success',
+            title: 'Usuario validado',
+            toast: true,
+            position: 'top-end',
+            timer: 3000,
+            showConfirmButton: false,
+            background: '#141414', 
+            color: '#fff', 
+            iconColor: '#e10600'
+          });
         });
       }
     });
