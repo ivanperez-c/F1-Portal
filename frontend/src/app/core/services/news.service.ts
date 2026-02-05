@@ -29,7 +29,11 @@ export class NewsService {
   }
 
   updateNews(id: number, news: Partial<NewsItem>): Observable<NewsItem> {
-     return this.http.put<NewsItem>(`${this.apiUrl}/${id}`, news);
+    const noticia = {
+        ...news,
+        id: id
+    };
+    return this.http.put<NewsItem>(`${this.apiUrl}`, noticia);
   }
 
   deleteNews(id: number): Observable<boolean> {

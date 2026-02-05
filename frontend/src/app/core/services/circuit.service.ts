@@ -25,7 +25,7 @@ export class CircuitService {
         ...circuit,
         id: id
     };
-     return this.http.put<Circuit>(`${this.apiUrl}`, circuito);
+    return this.http.put<Circuit>(`${this.apiUrl}`, circuito);
   }
 
   deleteCircuit(id: number): Observable<boolean> {
