@@ -41,6 +41,17 @@ export class TeamsService {
     return this.http.post<Driver>(`${this.apiUrlPilotos}`,  driverData );
   }
 
+  updateDriver(teamId: number, driverId: number, driverData: any): Observable<Driver> {
+    const piloto = {
+        ...driverData,
+        equipo: {
+            id: teamId
+        },
+        id: driverId
+    };
+    return this.http.put<Driver>(`${this.apiUrlPilotos}`, piloto);
+  }
+  
   deleteDriver(id: number): Observable<boolean> {
     return this.http.delete<boolean>(`${this.apiUrlPilotos}/${id}`);
   }
@@ -57,9 +68,7 @@ export class TeamsService {
     return this.http.post<Team>(this.apiUrl, teamData);
   }
 
-  updateDriver(teamId: number, driverId: number, driverData: any): Observable<Driver> {
-    return this.http.put<Driver>(`${this.apiUrl}/${teamId}/drivers/${driverId}`, driverData);
-  }
+  
 
   updateCar(teamId: number, carId: number, carData: any): Observable<Car> {
     return this.http.put<Car>(`${this.apiUrl}/${teamId}/cars/${carId}`, carData);
