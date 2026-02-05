@@ -30,7 +30,7 @@
         <div class="admin-votes__drivers-grid">
           @for (driver of allDrivers; track driver.id) {
             <label class="admin-votes__driver-item">
-              <input type="checkbox" [value]="driver.id" (change)="toggleDriverSelection(driver.id, $event)">
+              <input type="checkbox" [value]="driver.id" [checked]="isDriverSelected(driver.id)"  (change)="toggleDriverSelection(driver.id, $event)">
               <div class="admin-votes__driver-content">
                 <img [src]="driver.foto" class="face">
                 <span class="name">{{ driver.apellidos }}</span>

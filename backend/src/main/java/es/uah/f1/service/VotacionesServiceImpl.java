@@ -1,6 +1,8 @@
 package es.uah.f1.service;
 
 import es.uah.f1.model.Votacion;
+import es.uah.f1.model.Usuario;
+import es.uah.f1.dao.IUsuariosDAO;
 import es.uah.f1.model.VotacionPiloto;
 import es.uah.f1.dao.IVotacionesDAO;
 import es.uah.f1.dao.IVotacionPilotosDAO;
@@ -30,6 +32,9 @@ public class VotacionesServiceImpl implements IVotacionesService {
 
     @Autowired
     IVotosEmitidosDAO votosEmitidosDAO;
+
+    @Autowired
+    IUsuariosDAO usuariosDAO;
 
     @Override
     public List<VotacionDetalleDTO> buscarTodas() {
@@ -101,6 +106,7 @@ public class VotacionesServiceImpl implements IVotacionesService {
         }
     }
 
+    /*
     @Override
     public String crearVotacion(Votacion votacion, List<Integer> idsPilotos) {
         if (idsPilotos == null || idsPilotos.size() < 5 || idsPilotos.size() > 10) {
@@ -120,4 +126,38 @@ public class VotacionesServiceImpl implements IVotacionesService {
 
         return "OK";
     }
+     */
+
+    // solucion
+    @Override
+    public Votacion crearVotacion(Votacion votacion, List<Integer> idsPilotos) {
+
+        if (idsPilotos == null || idsPilotos.size() < 5 || idsPilotos.size() > 10) {
+            throw new IllegalArgumentException(
+                    "Una votación debe tener entre 5 y 10 pilotos candidatos."
+            );
+        }
+
+        Usuario admin = usuariosDAO.buscarPorId(1);
+        if (admin == null) {
+            throw new IllegalStateException("Usuario administrador no encontrado.");
+        }
+
+        votacion.setCreador(admin);
+        votacion.setFechaCreacion(LocalDateTime.now());
+        votacion.setActivo(true);
+
+        dao.guardar(votacion);
+
+        for (Integer idPiloto : idsPilotos) {
+            VotacionPiloto vp = new VotacionPiloto();
+            vp.setVotacion(votacion);
+            vp.setPiloto(pilotosDAO.buscarPilotoPorId(idPiloto));
+            votacionPilotosDAO.guardar(vp);
+        }
+
+        return votacion;
+    }
+
+
 }

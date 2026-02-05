@@ -62,6 +62,7 @@ export class AdminVotesComponent implements OnInit {
     }
   }
 
+  /*
   createPoll(): void {
     const drivers = this.pollForm.get('selectedDrivers')?.value;
     
@@ -82,6 +83,76 @@ export class AdminVotesComponent implements OnInit {
 
       Swal.fire({ icon: 'success', title: 'Votación creada' });
     });
+  }
+  */
+
+  createPoll(): void {
+    const drivers = this.pollForm.get('selectedDrivers')?.value;
+    
+    console.log('=== DEBUG INFO ===');
+    console.log('Form valid?', this.pollForm.valid);
+    console.log('Form value:', this.pollForm.value);
+    console.log('Selected drivers:', drivers);
+    console.log('Driver count:', drivers?.length);
+    console.log('==================');
+
+    if (drivers.length < 5) {
+      Swal.fire({ icon: 'error', title: 'Mínimo 5 pilotos requeridos' });
+      return;
+    }
+
+    if (this.pollForm.invalid) return;
+
+    // Convert deadline string to ISO format for backend
+    const deadlineValue = this.pollForm.get('deadline')?.value;  // ← FIXED
+    const deadlineDate = new Date(deadlineValue);
+    
+    // Build the request in the format your backend expects
+    const request = {
+      votacion: {
+        titulo: this.pollForm.get('title')?.value,  // ← FIXED
+        descripcion: this.pollForm.get('description')?.value,  // ← FIXED
+        limite: deadlineDate.toISOString(),
+        permalink: this.generatePermalink(this.pollForm.get('title')?.value),  // ← FIXED
+        activo: true
+      },
+      pilotosIds: this.pollForm.get('selectedDrivers')?.value
+    };
+
+    console.log('Sending request:', request);
+
+    this.pollsService.createPoll(request).subscribe({
+      next: (newPoll) => {
+        this.polls.push(newPoll);
+        this.showForm = false;
+        this.pollForm.reset({ selectedDrivers: [] });
+        
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]') as NodeListOf<HTMLInputElement>;
+        checkboxes.forEach(cb => cb.checked = false);
+
+        Swal.fire({ icon: 'success', title: 'Votación creada' });
+      },
+      error: (err) => {
+        console.error('Error creating poll:', err);
+        const errorMsg = err.error?.error || err.error || 'No se pudo crear la votación';
+        Swal.fire({ icon: 'error', title: 'Error', text: errorMsg });
+      }
+    });
+  }
+
+  private generatePermalink(title: string): string {
+    return title
+      .toLowerCase()
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '');
+  }
+
+
+  // MÉTODO DE PRUEBA
+    isDriverSelected(driverId: number): boolean {
+    const selected = this.pollForm.get('selectedDrivers')?.value || [];
+    return selected.includes(driverId);
   }
 
   deletePoll(id: number) {

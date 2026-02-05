@@ -6,8 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import es.uah.f1.dto.VotacionDetalleDTO;
-
+import es.uah.f1.dto.VotacionRequest;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/votaciones")
@@ -46,6 +47,7 @@ public class VotacionesController {
         service.eliminar(id);
     }
 
+    /*
     public static class VotacionRequest {
         public Votacion votacion;
         public List<Integer> pilotosIds;
@@ -60,4 +62,24 @@ public class VotacionesController {
             return ResponseEntity.badRequest().body(resultado);
         }
     }
+     */
+
+    @PostMapping("/crear-con-pilotos")
+    public ResponseEntity<VotacionDetalleDTO> crearCompleta(
+            @RequestBody VotacionRequest request) {
+
+        try {
+            Votacion votacion = service.crearVotacion(
+                    request.getVotacion(),
+                    request.getPilotosIds()
+            );
+
+            VotacionDetalleDTO dto = service.buscarPorId(votacion.getId());
+            return ResponseEntity.ok(dto);
+
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
 }
