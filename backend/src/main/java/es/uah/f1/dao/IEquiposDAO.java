@@ -9,4 +9,5 @@ public interface IEquiposDAO {
     void guardar(Equipo equipo);
     void eliminar(Integer id);
     void actualizar(Equipo equipo);
+    Equipo buscarPorUsuarioCreador(Integer idUsuario);
 }

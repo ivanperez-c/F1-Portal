@@ -1,6 +1,11 @@
 package es.uah.f1.service;
 
 import es.uah.f1.dao.IUsuariosDAO;
+import es.uah.f1.dao.IEquiposDAO;
+import es.uah.f1.dao.IEquipoResponsablesDAO;
+import es.uah.f1.dto.UsuarioLoginDTO;
+import es.uah.f1.model.Equipo;
+import es.uah.f1.model.EquipoResponsable;
 import es.uah.f1.model.Rol;
 import es.uah.f1.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,11 +13,18 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.time.LocalDateTime;
 
+
 @Service
 public class UsuariosServiceImpl implements IUsuariosService {
 
     @Autowired
     IUsuariosDAO dao;
+
+    @Autowired
+    IEquiposDAO equiposDAO;
+
+    @Autowired
+    IEquipoResponsablesDAO equipoResponsablesDAO;
 
     @Override
     public List<Usuario> buscarTodos() {
@@ -51,10 +63,38 @@ public class UsuariosServiceImpl implements IUsuariosService {
     }
 
     @Override
-    public Usuario login(String usuario, String password) {
+    public UsuarioLoginDTO login(String usuario, String password) {
         Usuario u = dao.buscarPorNombreUsuario(usuario);
+
         if (u != null && u.getPasswdUsuario().equals(password)) {
-            return u;
+            UsuarioLoginDTO dto = new UsuarioLoginDTO();
+            dto.setId(u.getId());
+            dto.setNombre(u.getNombre());
+            dto.setUsuario(u.getUsuario());
+            dto.setEmail(u.getEmail());
+            dto.setRol(u.getRol().toString());
+            dto.setValidado(u.getValidado());
+
+            if ("responsable_equipo".equals(dto.getRol())) {
+                Integer idEquipoEncontrado = null;
+
+
+                Equipo equipoCreado = equiposDAO.buscarPorUsuarioCreador(u.getId());
+                if (equipoCreado != null) {
+                    idEquipoEncontrado = equipoCreado.getId();
+                }
+
+                else {
+                    EquipoResponsable asignacion = equipoResponsablesDAO.buscarPorUsuario(u.getId());
+                    if (asignacion != null) {
+                        idEquipoEncontrado = asignacion.getEquipo().getId();
+                    }
+                }
+
+                dto.setIdEquipo(idEquipoEncontrado);
+            }
+
+            return dto;
         }
         return null;
     }

@@ -24,4 +24,9 @@ public class EquiposDAOImpl implements IEquiposDAO {
     @Override public void guardar(Equipo equipo) { repo.save(equipo); }
     @Override public void eliminar(Integer id) { repo.deleteById(id); }
     @Override public void actualizar(Equipo equipo) { repo.save(equipo); }
+
+    @Override
+    public Equipo buscarPorUsuarioCreador(Integer idUsuario) {
+        return repo.findByUsuarioCreadorId(idUsuario);
+    }
 }

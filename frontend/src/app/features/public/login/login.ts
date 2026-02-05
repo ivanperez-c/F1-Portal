@@ -32,7 +32,6 @@ export class Login {
 
     this.authService.login(this.loginData).subscribe({
       next: (response) => {
-        console.log('Login exitoso:', response);
         this.isLoading = false;
         this.router.navigate(['/']); 
       },

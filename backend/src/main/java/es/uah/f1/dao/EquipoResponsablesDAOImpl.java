@@ -35,4 +35,9 @@ public class EquipoResponsablesDAOImpl implements IEquipoResponsablesDAO {
     public void actualizar(EquipoResponsable equipoResponsable) {
         jpa.save(equipoResponsable);
     }
+
+    @Override
+    public EquipoResponsable buscarPorUsuario(Integer idUsuario) {
+        return jpa.findByUsuarioId(idUsuario);
+    }
 }

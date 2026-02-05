@@ -1,5 +1,6 @@
 package es.uah.f1.controller;
 
+import es.uah.f1.dto.UsuarioLoginDTO;
 import es.uah.f1.model.Rol;
 import es.uah.f1.model.Usuario;
 import es.uah.f1.service.IUsuariosService;
@@ -48,12 +49,12 @@ public class UsuariosController {
         String usuario = credenciales.get("usuario");
         String pass = credenciales.get("password");
 
-        Usuario u = service.login(usuario, pass);
+        UsuarioLoginDTO u = service.login(usuario, pass);
 
         if (u != null) {
             if (!u.getValidado()) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN)
-                        .body("Usuario registrado pero pendiente de validación por un administrador.");
+                        .body("Usuario registrado pero pendiente de validación.");
             }
             return ResponseEntity.ok(u);
         } else {

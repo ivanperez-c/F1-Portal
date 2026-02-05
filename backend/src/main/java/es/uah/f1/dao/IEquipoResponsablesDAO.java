@@ -9,4 +9,5 @@ public interface IEquipoResponsablesDAO {
     void guardar(EquipoResponsable equipoResponsable);
     void eliminar(Integer id);
     void actualizar(EquipoResponsable equipoResponsable);
+    EquipoResponsable buscarPorUsuario(Integer idUsuario);
 }

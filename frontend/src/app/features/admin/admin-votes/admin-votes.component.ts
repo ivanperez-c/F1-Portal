@@ -50,7 +50,6 @@ export class AdminVotesComponent implements OnInit {
 
   toggleDriverSelection(driverId: number, event: any): void { 
     const current = this.pollForm.get('selectedDrivers')?.value as number[];
-    console.log(this.allDrivers)
     if (event.target.checked) {
       if (current.length >= 10) {
         event.target.checked = false;

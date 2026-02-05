@@ -45,5 +45,6 @@ public interface IEquiposJPA extends JpaRepository<Equipo, Integer> {
     """)
     Equipo fetchUsuariosForEquipo(@Param("equipo") Equipo equipo);
 
+    Equipo findByUsuarioCreadorId(Integer idUsuario);
 
 }
