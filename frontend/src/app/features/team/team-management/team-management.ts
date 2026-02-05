@@ -54,10 +54,10 @@ export class TeamManagement implements OnInit {
     this.carForm = this.fb.group({
       name: ['', Validators.required], 
       code: ['', Validators.required],
-      consumption: ['', Validators.required],
-      ersSlow: ['', Validators.required],
-      ersMedium: ['', Validators.required],
-      ersFast: ['', Validators.required]
+      consumo: ['', Validators.required],
+      ers_curva_lenta: ['', Validators.required],
+      ers_curva_media: ['', Validators.required],
+      ers_curva_rapida: ['', Validators.required]
     });
 
     this.createTeamForm = this.fb.group({
@@ -71,9 +71,9 @@ export class TeamManagement implements OnInit {
     this.authService.user$.subscribe(user => {
       this.user = user;
       
-      if (user?.teamId) {
+      if (user?.id_equipo) {
         this.hasTeam = true;
-        this.loadTeam(user.teamId);
+        this.loadTeam(user.id_equipo);
       } else {
         this.hasTeam = false;
         this.isLoading = false;
@@ -137,7 +137,7 @@ export class TeamManagement implements OnInit {
     this.isSubmitting = true;
     
     this.teamsService.addResponsible(this.myTeamId, this.userForm.value.usuario).subscribe(u => {
-      this.team.users.push(u);
+      this.team.usuarios.push(u);
       this.isSubmitting = false;
       this.closeModal();
       this.showToast('Usuario autorizado');
@@ -186,7 +186,7 @@ export class TeamManagement implements OnInit {
         
         if (type === 'USER') {
           this.teamsService.deleteResponsible(this.myTeamId, id as string).subscribe(() => {
-            this.team.users = this.team.users.filter(u => u.usuario !== id);
+            this.team.usuarios = this.team.usuarios.filter(u => u.usuario !== id);
             this.showToast('Acceso eliminado');
           });
         } else if (type === 'DRIVER') {

@@ -42,7 +42,7 @@ export class ErsSimulatorComponent implements OnInit {
       if (params['teamId']) {
         this.currentTeamId = Number(params['teamId']);
       } else {
-        this.currentTeamId = this.authSrv.getUser()?.teamId || 1;
+        this.currentTeamId = this.authSrv.getUser()?.id_equipo || 1;
       }
       this.loadData();
     });

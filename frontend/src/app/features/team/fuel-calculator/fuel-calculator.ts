@@ -41,7 +41,7 @@ export class FuelCalculatorComponent implements OnInit {
         this.currentTeamId = Number(adminTeamId);
       } else {
         const user = this.authSrv.getUser();
-        this.currentTeamId = user?.teamId || 1;
+        this.currentTeamId = user?.id_equipo || 1;
       }
 
       this.loadData();

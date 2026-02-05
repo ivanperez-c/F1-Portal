@@ -7,14 +7,14 @@
         <button class="poll-voting__nav-item" 
                 [class.poll-voting__nav-item--active]="activePoll?.poll?.id === p.id"
                 (click)="selectPoll(p.id)">
-          <div class="title">{{ p.title }}</div>
+          <div class="title">{{ p.titulo }}</div>
           <div class="meta">
-            @if (p.deadline < now) { 
+            @if (p.limite < now) { 
               <span class="badge badge--closed">Cerrada</span> 
             } @else { 
               <span class="badge badge--open">Activa</span> 
             }
-            <span class="date">{{ p.deadline | date:'dd/MM/yyyy' }}</span>
+            <span class="date">{{ p.limite | date:'dd/MM/yyyy' }}</span>
           </div>
         </button>
       }
@@ -25,14 +25,14 @@
     
     @if (activePoll) {
       <header class="poll-voting__header">
-        <h1 class="poll-voting__title">{{ activePoll.poll.title }}</h1>
-        <p class="poll-voting__desc">{{ activePoll.poll.description }}</p>
+        <h1 class="poll-voting__title">{{ activePoll.poll.titulo }}</h1>
+        <p class="poll-voting__desc">{{ activePoll.poll.descripcion }}</p>
         
         <div class="poll-voting__status-bar">
           @if (activePoll.isExpired) {
             <span class="status status--closed"><i class="bi bi-lock-fill"></i> Votación finalizada</span>
           } @else {
-            <span class="status status--open"><i class="bi bi-clock-history"></i> Cierra el {{ activePoll.poll.deadline | date }}</span>
+            <span class="status status--open"><i class="bi bi-clock-history"></i> Cierra el {{ activePoll.poll.limite | date }}</span>
           }
         </div>
       </header>
@@ -47,10 +47,10 @@
                    [class.poll-voting__card--selected]="selectedDriverId === driver.id"
                    (click)="selectDriver(driver.id)">
                 
-                <img [src]="driver.photo" class="poll-voting__card-photo">
+                <img [src]="driver.foto" class="poll-voting__card-photo">
                 
                 <div class="poll-voting__card-info">
-                  <span class="name">{{ driver.firstname }} {{ driver.lastname }}</span>
+                  <span class="name">{{ driver.nombre }} {{ driver.apellidos }}</span>
                   <span class="team">{{ driver.teamName }}</span>
                 </div>
                 
@@ -84,14 +84,14 @@
           <h3 class="poll-voting__section-title">Resultados Finales</h3>
           <div class="poll-voting__results">
             @for (driver of activePoll.drivers; track driver.id) {
-              @let votes = activePoll.poll.votes[driver.id] || 0;
+              @let votes = activePoll.poll.votos[driver.id] || 0;
               @let percent = getPercent(votes);
               
               <div class="poll-voting__result-row">
-                <img [src]="driver.photo" class="mini-face">
+                <img [src]="driver.foto" class="mini-face">
                 <div class="bar-container">
                   <div class="info">
-                    <strong>{{ driver.lastname }}</strong>
+                    <strong>{{ driver.nombre }}, {{ driver.apellidos }}</strong>
                     <span>{{ votes }} votos ({{ percent }}%)</span>
                   </div>
                   <div class="progress-bar">

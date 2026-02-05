@@ -65,7 +65,7 @@
       </div>
       
       <div class="mgmt__grid">
-        @for (user of team.users; track user.usuario) {
+        @for (user of team.usuarios; track user.usuario) {
           <div class="card-simple">
             <div class="card-simple__avatar user-icon">
                <i class="bi bi-shield-lock-fill"></i>
@@ -116,12 +116,12 @@
               <span class="code">{{ car.codigo }}</span>
             </div>
             <div class="card-list-item__stats">
-              <div class="stat"><i class="bi bi-fuel-pump-fill"></i> {{ car.consumption }} L</div>
+              <div class="stat"><i class="bi bi-fuel-pump-fill"></i> {{ car.consumo }} L</div>
               <div class="stat ers">
                 <i class="bi bi-lightning-charge-fill"></i>
-                <span>L:{{ car.ersSlow }}</span>
-                <span>M:{{ car.ersMedium }}</span>
-                <span>R:{{ car.ersFast }}</span>
+                <span>L:{{ car.ers_curva_lenta }}</span>
+                <span>M:{{ car.ers_curva_media }}</span>
+                <span>R:{{ car.ers_curva_rapida }}</span>
               </div>
             </div>
             <button class="btn-del" (click)="deleteItem('CAR', car.id)"><i class="bi bi-trash"></i></button>
@@ -174,11 +174,11 @@
             <form [formGroup]="carForm" (ngSubmit)="submitCar()">
               <div class="form-group"><label>Nombre</label><input type="text" formControlName="name"></div>
               <div class="form-group"><label>Código</label><input type="text" formControlName="code"></div>
-              <div class="form-group"><label>Consumo</label><input type="number" formControlName="consumption"></div>
+              <div class="form-group"><label>Consumo</label><input type="number" formControlName="consumo"></div>
               <div class="row">
-                <div class="form-group"><label>ERS Curva Lenta</label><input type="number" formControlName="ersSlow" step="0.001"></div>
-                <div class="form-group"><label>ERS Curva Media</label><input type="number" formControlName="ersMedium" step="0.001"></div>
-                <div class="form-group"><label>ERS Curva Rápida</label><input type="number" formControlName="ersFast" step="0.001"></div>
+                <div class="form-group"><label>ERS Curva Lenta</label><input type="number" formControlName="ers_curva_lenta" step="0.001"></div>
+                <div class="form-group"><label>ERS Curva Media</label><input type="number" formControlName="ers_curva_media" step="0.001"></div>
+                <div class="form-group"><label>ERS Curva Rápida</label><input type="number" formControlName="ers_curva_rapida" step="0.001"></div>
               </div>
               <button type="submit" class="btn-submit" [disabled]="carForm.invalid">Guardar</button>
             </form>

@@ -2,8 +2,8 @@ export interface Car {
   id: number;
   nombre: string;
   codigo: string;
-  ersSlow: number;
-  ersMedium: number;
-  ersFast: number;
-  consumption: number;
+  ers_curva_lenta: number;
+  ers_curva_media: number;
+  ers_curva_rapida: number;
+  consumo: number;
 }

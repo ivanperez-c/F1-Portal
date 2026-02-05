@@ -16,4 +16,7 @@ public interface IVotosEmitidosJPA extends JpaRepository<VotoEmitido, Integer> {
             "WHERE v.votacion.id = :idVotacion " +
             "GROUP BY v.pilotoVotado.siglas")
     List<Object[]> contarVotosPorVotacion(@Param("idVotacion") Integer idVotacion);
+
+    @Query("SELECT v.pilotoVotado.id, COUNT(v) FROM VotoEmitido v WHERE v.votacion.id = :idVotacion GROUP BY v.pilotoVotado.id")
+    List<Object[]> contarVotosPorPilotoId(@Param("idVotacion") Integer idVotacion);
 }

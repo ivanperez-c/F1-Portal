@@ -11,4 +11,5 @@ public interface IVotosEmitidosDAO {
     void actualizar(VotoEmitido votoEmitido);
     boolean yaHaVotado(String email, Integer idVotacion);
     List<Object[]> obtenerResultados(Integer idVotacion);
+    List<Object[]> contarVotosPorPilotoId(Integer idVotacion);
 }

@@ -9,4 +9,5 @@ public interface IVotacionPilotosDAO {
     void guardar(VotacionPiloto votacionPiloto);
     void eliminar(Integer id);
     void actualizar(VotacionPiloto votacionPiloto);
+    List<VotacionPiloto> buscarPorVotacion(Integer idVotacion);
 }

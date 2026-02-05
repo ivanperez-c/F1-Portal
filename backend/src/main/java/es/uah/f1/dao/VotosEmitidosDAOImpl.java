@@ -45,4 +45,9 @@ public class VotosEmitidosDAOImpl implements IVotosEmitidosDAO {
     public List<Object[]> obtenerResultados(Integer idVotacion) {
         return jpa.contarVotosPorVotacion(idVotacion);
     }
+
+    @Override
+    public List<Object[]> contarVotosPorPilotoId(Integer idVotacion) {
+        return jpa.contarVotosPorPilotoId(idVotacion);
+    }
 }

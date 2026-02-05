@@ -51,7 +51,7 @@
       <div class="admin-votes__card">
         <div class="admin-votes__card-info">
           <h3>{{ poll.titulo }}</h3>
-          <p>Cierra: {{ poll.deadline | date }}</p>
+          <p>Cierra: {{ poll.limite | date }}</p>
           <span class="badge">{{ poll.driverIds.length }} Pilotos</span>
         </div>
         <button class="admin-votes__btn-delete" (click)="deletePoll(poll.id)">

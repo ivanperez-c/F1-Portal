@@ -35,4 +35,9 @@ public class VotacionPilotosDAOImpl implements IVotacionPilotosDAO {
     public void actualizar(VotacionPiloto votacionPiloto) {
         jpa.save(votacionPiloto);
     }
+
+    @Override
+    public List<VotacionPiloto> buscarPorVotacion(Integer idVotacion) {
+        return jpa.findByVotacionId(idVotacion);
+    }
 }

@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of, throwError } from 'rxjs';
-import { delay } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 import { Poll } from '../models/poll.interface';
 import { TeamsService } from './teams.service';
+
 
 export interface Vote {
   pollId: number;
@@ -17,148 +18,63 @@ export class PollsService {
 
   private apiUrl = 'http://localhost:8080/api/votaciones';
 
-  private polls: Poll[] = [
-    // ... tus datos mock ...
-    { 
-      id: 1, 
-      titulo: 'Piloto del Día - GP Bahrein', 
-      descripcion: '¿Quién ha sido el piloto más destacado?', 
-      limite: new Date('2026-04-01'),
-      driverIds: [16, 44, 1, 14, 55],
-      votes: {} 
-    },
-    { 
-      id: 2, 
-      titulo: 'Mejor Adelantamiento', 
-      descripcion: 'Votación cerrada.', 
-      limite: new Date('2025-12-31'),
-      driverIds: [1, 16, 44],
-      votes: { 1: 50, 16: 120, 44: 80 }
-    }
-  ];
-
-  private castVotes: Vote[] = [];
-
   constructor(private http: HttpClient, private teamsService: TeamsService) {}
 
-  /**
-   * OBTENER VOTACIONES
-   * -------------------------------------------------------------------------
-   * Operación: Lista las votaciones públicas disponibles.
-   * Endpoint: GET /api/polls
-   * @returns Observable<Poll[]> Lista de votaciones.
-   */
   getPolls(): Observable<Poll[]> {
-    // --- API CALL ---
-    return this.http.get<Poll[]>(this.apiUrl);
-
-    // --- MOCK ---
-    //return of(this.polls).pipe(delay(500));
+    return this.http.get<any[]>(this.apiUrl).pipe(
+    map(polls =>
+      polls.map(p => ({
+        ...p,
+        limite: new Date(p.limite)
+      }))
+    )
+  );
   }
 
-  /**
-   * DETALLE DE VOTACIÓN
-   * -------------------------------------------------------------------------
-   * Operación: Obtiene info de una votación (Backend debería devolver pilotos ya poblados).
-   * Endpoint: GET /api/polls/{id}
-   * @param id ID de la votación
-   * @returns Observable<any> Objeto votación enriquecido.
-   */
   getPollDetail(id: number): Observable<any> {
-    // --- API CALL ---
-    return this.http.get<any>(`${this.apiUrl}/${id}`);
+    return this.http.get<any>(`${this.apiUrl}/${id}`).pipe(
+      switchMap(poll =>
+        this.teamsService.getTeams().pipe(
+          map(teams => {
+            const fullDrivers = [];
 
-    // --- MOCK (Lógica compleja de cruce de datos en frontend) ---
-    /*
-    const poll = this.polls.find(p => p.id === id);
-    if (!poll) return throwError(() => new Error('Votación no encontrada'));
-
-    return new Observable(observer => {
-      this.teamsService.getTeams().subscribe(teams => {
-        const fullDrivers = [];
-        for (const driverId of poll.driverIds) {
-          for (const team of teams) {
-            const driver = team.drivers.find(d => d.id === driverId);
-            if (driver) {
-              fullDrivers.push({ ...driver, teamName: team.nombre });
-              break;
+            for (const driverId of poll.id_pilotos) {
+              for (const team of teams) {
+                const driver = team.pilotos.find(d => d.id === driverId);
+                if (driver) {
+                  fullDrivers.push({ ...driver, teamName: team.nombre });
+                  break;
+                }
+              }
             }
-          }
-        }
-        const isExpired = new Date() > new Date(poll.deadline);
-        observer.next({
-          poll: poll,
-          drivers: fullDrivers,
-          isExpired: isExpired,
-          totalVotes: this.calculateTotalVotes(poll.votes || {})
-        });
-        observer.complete();
-      });
-    });
-    */
+
+            const limite = new Date(poll.limite);
+
+            return {
+              poll: {
+                ...poll,
+                limite
+              },
+              drivers: fullDrivers,
+              isExpired: new Date() > limite,
+              totalVotes: this.calculateTotalVotes(poll.votos || {})
+            };
+          })
+        )
+      )
+    );
   }
 
-  /**
-   * CREAR VOTACIÓN (ADMIN)
-   * -------------------------------------------------------------------------
-   * Operación: Admin crea una nueva encuesta.
-   * Endpoint: POST /api/admin/polls
-   * @param poll Objeto Poll
-   * @returns Observable<Poll> Votación creada.
-   */
-  createPoll(request: any): Observable<Poll> {
-    // --- API CALL ---
-    return this.http.post<Poll>(`${this.apiUrl}/crear-con-pilotos`, request);
-
-    // --- MOCK ---
-    /*
-    const newPoll = { ...poll, id: Date.now(), votes: {} } as Poll;
-    this.polls.push(newPoll);
-    return of(newPoll).pipe(delay(600));
-    */
+  createPoll(poll: Partial<Poll>): Observable<Poll> {
+    return this.http.post<Poll>(`${this.apiUrl}/admin`, poll);
   }
 
-  /**
-   * BORRAR VOTACIÓN (ADMIN)
-   * -------------------------------------------------------------------------
-   * Endpoint: DELETE /api/admin/polls/{id}
-   */
   deletePoll(id: number): Observable<boolean> {
-    // --- API CALL ---
     return this.http.delete<boolean>(`${this.apiUrl}/admin/${id}`);
-
-    // --- MOCK ---
-    /*
-    this.polls = this.polls.filter(p => p.id !== id);
-    return of(true).pipe(delay(500));
-    */
   }
 
-  /**
-   * EMITIR VOTO
-   * -------------------------------------------------------------------------
-   * Operación: Usuario anónimo vota. Backend debe validar email único por Poll.
-   * Endpoint: POST /api/polls/{id}/vote
-   * @param vote Objeto Vote { pollId, driverId, email, name }
-   * @returns Observable<boolean> Éxito.
-   */
   submitVote(vote: Vote): Observable<boolean> {
-    // --- API CALL ---
     return this.http.post<boolean>(`${this.apiUrl}/${vote.pollId}/vote`, vote);
-
-    // --- MOCK ---
-    /*
-    const alreadyVoted = this.castVotes.some(v => v.pollId === vote.pollId && v.voterEmail === vote.voterEmail);
-    if (alreadyVoted) return throwError(() => new Error('Este email ya ha sido utilizado.'));
-
-    this.castVotes.push(vote);
-    const poll = this.polls.find(p => p.id === vote.pollId);
-    if (poll) {
-      if (!poll.votes) poll.votes = {};
-      poll.votes[vote.driverId] = (poll.votes[vote.driverId] || 0) + 1;
-    }
-    return of(true).pipe(delay(800));
-    */
   }
 
   private calculateTotalVotes(votes: any): number {

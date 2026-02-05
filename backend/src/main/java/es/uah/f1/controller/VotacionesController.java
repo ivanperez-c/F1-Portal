@@ -5,6 +5,7 @@ import es.uah.f1.service.IVotacionesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
+import es.uah.f1.dto.VotacionDetalleDTO;
 
 import java.util.List;
 
@@ -16,13 +17,18 @@ public class VotacionesController {
     IVotacionesService service;
 
     @GetMapping
-    public List<Votacion> buscarTodas() {
+    public List<VotacionDetalleDTO> buscarTodas() {
         return service.buscarTodas();
     }
 
     @GetMapping("/{id}")
-    public Votacion buscarPorId(@PathVariable("id") Integer id) {
-        return service.buscarPorId(id);
+    public ResponseEntity<VotacionDetalleDTO> buscarPorId(@PathVariable("id") Integer id) {
+        VotacionDetalleDTO dto = service.buscarPorId(id);
+        if (dto != null) {
+            return ResponseEntity.ok(dto);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping

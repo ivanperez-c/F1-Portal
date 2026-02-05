@@ -3,6 +3,6 @@ export interface Poll {
   titulo: string;
   descripcion: string;
   limite: Date;
-  driverIds: number[];
-  votes?: { [driverId: number]: number };
+  id_pilotos: number[];
+  votos?: { [id_pilotos: number]: number };
 }

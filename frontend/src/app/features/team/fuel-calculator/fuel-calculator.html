@@ -5,7 +5,7 @@
       <label>Coche</label>
       <select formControlName="carId">
         <option [ngValue]="null">-- Seleccionar --</option>
-        @for (c of cars; track c.id) { <option [value]="c.id">{{c.name}} ({{c.consumption}} L/100)</option> }
+        @for (c of cars; track c.id) { <option [value]="c.id">{{c.name}} ({{c.consumo}} L/100)</option> }
       </select>
     </div>
     <div class="group">
