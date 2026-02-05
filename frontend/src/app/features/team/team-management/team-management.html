@@ -50,7 +50,7 @@
           <span class="subtitle">PANEL DE CONTROL</span>
           <h1>{{ team.nombre | uppercase }}</h1>
           @if(team.twitter) {
-            <a [href]="'https://twitter.com/' + team.twitter" target="_blank" class="mgmt__twitter-link">
+            <a [href]="'https://x.com/' + team.twitter" target="_blank" class="mgmt__twitter-link">
               <i class="bi bi-twitter-x"></i> @{{ team.twitter }}
             </a>
           }
@@ -96,7 +96,7 @@
               <span class="code">{{ driver.siglas }}</span>
               <span class="name">{{ driver.nombre }} {{ driver.apellidos }}</span>
               <small class="pais">{{ driver.pais }}</small>
-              <a [href]="'https://twitter.com/' + driver.twitter" target="_blank" class="twitter-link">
+              <a [href]="'https://x.com/' + driver.twitter" target="_blank" class="twitter-link">
                 <i class="bi bi-twitter-x"></i> @{{ driver.twitter }}
               </a>
             </div>

@@ -100,6 +100,8 @@
               border: 3px solid $c-red;
               padding: 2px;
               background: $c-text;
+              object-fit: cover;
+              object-position: top
             }
           }
 
