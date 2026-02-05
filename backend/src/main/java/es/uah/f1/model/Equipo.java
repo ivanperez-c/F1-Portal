@@ -1,7 +1,10 @@
 package es.uah.f1.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -25,9 +28,11 @@ public class Equipo {
 
     @ManyToOne
     @JoinColumn(name = "id_usuario_creador", nullable = false)
+    @JsonIgnore
     private Usuario usuarioCreador;
 
-    @Column(name = "fecha_creacion", insertable = false, updatable = false)
+    @Column(name = "fecha_creacion", updatable = false)
+    @CreationTimestamp
     private LocalDateTime fechaCreacion;
 
     @OneToMany(mappedBy = "equipo")
@@ -54,4 +59,13 @@ public class Equipo {
     public void setPilotos(List<Piloto> pilotos) { this.pilotos = pilotos; }
     public List<Coche> getCoches() { return coches; }
     public void setCoches(List<Coche> coches) { this.coches = coches; }
+
+
+    @JsonProperty("id_usuario_creador")
+    public void setIdUsuarioCreadorInt(Integer id) {
+        if (id != null) {
+            this.usuarioCreador = new Usuario();
+            this.usuarioCreador.setId(id);
+        }
+    }
 }

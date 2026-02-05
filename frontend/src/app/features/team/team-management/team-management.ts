@@ -96,31 +96,64 @@ export class TeamManagement implements OnInit {
 
   onSubmitCreate() {
     if (this.createTeamForm.invalid) return;
-
     this.isCreating = true;
-    const formVal = this.createTeamForm.value;
-
+    
     const newTeamData = {
-      nombre: formVal.nombre,
-      logo: formVal.logo,
-      twitter: formVal.twitter,
+      nombre: this.createTeamForm.value.nombre,
+      logo: this.createTeamForm.value.logo,
+      twitter: this.createTeamForm.value.twitter,
       id_usuario_creador: this.user.id
     };
 
     this.teamsService.createTeam(newTeamData).subscribe({
-      next: (newTeam) => {
-        this.authService.updateUserTeam(newTeam.id);
-        Swal.fire({
-          icon: 'success',
-          title: '¡Escudería Fundada!',
-          text: `Bienvenido al paddock, ${newTeam.nombre}.`,
-          background: '#141414', color: '#fff', confirmButtonColor: '#e10600'
-        });
+      next: (newTeam: Team) => { 
+
         this.isCreating = false;
+
+        if (newTeam && newTeam.id) {
+          
+          this.authService.updateUserTeam(newTeam.id);
+          
+          this.team = newTeam;
+          
+          if (!this.team.pilotos) this.team.pilotos = [];
+          if (!this.team.coches) this.team.coches = [];
+          if (!this.team.usuarios) this.team.usuarios = [];
+
+          Swal.fire({
+            icon: 'success',
+            title: '¡Escudería Fundada!',
+            text: `Bienvenido al paddock, ${newTeam.nombre}.`,
+            background: '#141414', 
+            color: '#fff', 
+            confirmButtonColor: '#e10600'
+          });
+
+        } else {
+          console.warn('El backend respondió 200 OK pero el cuerpo está vacío o sin ID:', newTeam);
+          
+          Swal.fire({
+            icon: 'warning',
+            title: 'Respuesta inesperada',
+            text: 'El equipo parece haberse creado, pero no hemos recibido los datos de vuelta. Mira la consola (F12).',
+            confirmButtonText: 'Recargar página',
+            background: '#141414', 
+            color: '#fff', 
+            confirmButtonColor: '#e10600'
+          }).then(() => window.location.reload());
+        }
       },
-      error: () => {
+      error: (err) => {
+        console.error('ERROR AL CREAR EQUIPO:', err);
         this.isCreating = false;
-        Swal.fire({ icon: 'error', title: 'Error', text: 'No se pudo crear el equipo.' });
+        Swal.fire({ 
+          icon: 'error', 
+          title: 'Error', 
+          text: 'Ha ocurrido un error al contactar con el servidor.' ,
+          background: '#141414', 
+          color: '#fff', 
+          confirmButtonColor: '#e10600'
+        });
       }
     });
   }

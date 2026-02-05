@@ -21,7 +21,7 @@ public class EquiposDAOImpl implements IEquiposDAO {
         repo.fetchUsuariosForEquipo(equipo);
         return equipo;
     }
-    @Override public void guardar(Equipo equipo) { repo.save(equipo); }
+    @Override public Equipo guardar(Equipo equipo) { return repo.save(equipo); }
     @Override public void eliminar(Integer id) { repo.deleteById(id); }
     @Override public void actualizar(Equipo equipo) { repo.save(equipo); }
 

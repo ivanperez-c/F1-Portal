@@ -57,7 +57,7 @@ export class AuthService {
   updateUserTeam(teamId: number): void {
     const currentUser = this.currentUserSubject.value;
     if (currentUser) {
-      const updatedUser = { ...currentUser, teamId: teamId };
+      const updatedUser = { ...currentUser, id_equipo: teamId };
       
       this.currentUserSubject.next(updatedUser);
       if (isPlatformBrowser(this.platformId)) {

@@ -3,6 +3,8 @@ package es.uah.f1.controller;
 import es.uah.f1.model.Equipo;
 import es.uah.f1.service.IEquiposService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import es.uah.f1.dto.EquipoConPilotosDTO;
@@ -32,7 +34,10 @@ public class EquiposController {
     }
 
     @PostMapping
-    public void guardar(@RequestBody Equipo equipo) { service.guardar(equipo); }
+    public ResponseEntity<Equipo> guardar(@RequestBody Equipo equipo) {
+        Equipo nuevoEquipo = service.guardar(equipo);
+        return ResponseEntity.status(HttpStatus.CREATED).body(nuevoEquipo);
+    }
 
     @PutMapping
     public void actualizar(@RequestBody Equipo equipo) { service.actualizar(equipo); }

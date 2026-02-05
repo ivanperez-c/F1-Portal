@@ -6,7 +6,7 @@ import java.util.List;
 public interface IEquiposService {
     List<Equipo> buscarTodos();
     Equipo buscarPorId(Integer id);
-    void guardar(Equipo equipo);
+    Equipo guardar(Equipo equipo);
     void eliminar(Integer id);
     void actualizar(Equipo equipo);
 }
