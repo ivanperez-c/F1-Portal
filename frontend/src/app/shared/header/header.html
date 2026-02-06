@@ -17,8 +17,10 @@
           </a>
           <ul class="header__menu__links__dropdown__menu">
             <li><a routerLink="/equipo/gestion">Gestión</a></li>
-            <li><a routerLink="/equipo/gasolina">Estrategia de combustible</a></li>
-            <li><a routerLink="/equipo/ers">Simulador ERS</a></li>
+            @if (hasTeam) {
+              <li><a routerLink="/equipo/gasolina">Estrategia de combustible</a></li>
+              <li><a routerLink="/equipo/ers">Simulador ERS</a></li>
+            }
           </ul>
         </li>
       }

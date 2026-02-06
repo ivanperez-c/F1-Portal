@@ -9,12 +9,14 @@
           <i class="bi bi-speedometer2"></i> Gestión de equipo
         </a>
       }
-      <a routerLink="gasolina" routerLinkActive="active" class="team-layout__sidebar__nav__link">
-        <i class="bi bi-fuel-pump"></i> Calculadora combustible
-      </a>
-      <a routerLink="ers" routerLinkActive="active" class="team-layout__sidebar__nav__link">
-        <i class="bi bi-battery-charging"></i> Simulador ERS
-      </a>
+      @if (hasTeam) {
+        <a routerLink="gasolina" routerLinkActive="active" class="team-layout__sidebar__nav__link">
+          <i class="bi bi-fuel-pump"></i> Calculadora combustible
+        </a>
+        <a routerLink="ers" routerLinkActive="active" class="team-layout__sidebar__nav__link">
+          <i class="bi bi-battery-charging"></i> Simulador ERS
+        </a>
+      }
     </nav>
   </aside>
   <main class="team-layout__content">

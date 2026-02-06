@@ -28,6 +28,11 @@ export class Header implements OnInit {
     });
   }
 
+  get hasTeam(): boolean {
+    const user = this.authService.getUser();
+    return user?.id_equipo != null || user?.rol === 'administrador'; 
+  }
+
   logout() {
     Swal.fire({
       title: '¿Abandonar el Paddock?',

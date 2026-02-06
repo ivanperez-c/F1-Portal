@@ -16,4 +16,9 @@ export class TeamLayoutComponent {
     const user = this.authService.getUser();
     return user?.rol === 'responsable_equipo'; 
   }
+
+  get hasTeam(): boolean {
+    const user = this.authService.getUser();
+    return user?.id_equipo != null || user?.rol === 'administrador'; 
+  }
 }
