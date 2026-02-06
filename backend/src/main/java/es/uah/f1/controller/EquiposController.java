@@ -14,11 +14,6 @@ import es.uah.f1.dto.EquipoConPilotosDTO;
 public class EquiposController {
     @Autowired IEquiposService service;
 
-    /*
-    @GetMapping
-    public List<Equipo> buscarTodos() { return service.buscarTodos(); }
-     */
-
     @GetMapping
     public List<EquipoConPilotosDTO> buscarTodos() {
         return service.buscarTodos()

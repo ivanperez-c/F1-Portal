@@ -10,6 +10,6 @@ export interface Team {
   id_usuario_creador: number;
   pilotos: Driver[];
   coches: Car[];
-  usuarios: User[];
+  responsables: User[];
 }
 

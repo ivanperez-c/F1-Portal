@@ -47,4 +47,23 @@ public interface IEquiposJPA extends JpaRepository<Equipo, Integer> {
 
     Equipo findByUsuarioCreadorId(Integer idUsuario);
 
+    // PRUEBAS FETCH RESPONSABLES
+
+    @Query("""
+        SELECT DISTINCT e
+        FROM Equipo e
+        LEFT JOIN FETCH e.responsables r
+        LEFT JOIN FETCH r.usuario
+        WHERE e IN :equipos
+    """)
+    List<Equipo> fetchResponsablesForEquipos(@Param("equipos") List<Equipo> equipos);
+
+    @Query("""
+        SELECT DISTINCT e
+        FROM Equipo e
+        LEFT JOIN FETCH e.responsables r
+        LEFT JOIN FETCH r.usuario
+        WHERE e = :equipo
+    """)
+    Equipo fetchResponsablesForEquipo(@Param("equipo") Equipo equipo);
 }

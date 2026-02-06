@@ -118,7 +118,7 @@ export class TeamManagement implements OnInit {
           
           if (!this.team.pilotos) this.team.pilotos = [];
           if (!this.team.coches) this.team.coches = [];
-          if (!this.team.usuarios) this.team.usuarios = [];
+          if (!this.team.responsables) this.team.responsables = [];
 
           Swal.fire({
             icon: 'success',
@@ -175,7 +175,7 @@ export class TeamManagement implements OnInit {
     this.isSubmitting = true;
     
     this.teamsService.addResponsible(this.myTeamId, this.userForm.value.usuario).subscribe(u => {
-      this.team.usuarios.push(u);
+      this.team.responsables.push(u);
       this.isSubmitting = false;
       this.closeModal();
       this.showToast('Usuario autorizado');
@@ -285,7 +285,7 @@ export class TeamManagement implements OnInit {
         
         if (type === 'USER') {
           this.teamsService.deleteResponsible(this.myTeamId, id as string).subscribe(() => {
-            this.team.usuarios = this.team.usuarios.filter(u => u.usuario !== id);
+            this.team.responsables = this.team.responsables.filter(u => u.usuario !== id);
             this.showToast('Acceso eliminado');
           });
         } else if (type === 'DRIVER') {

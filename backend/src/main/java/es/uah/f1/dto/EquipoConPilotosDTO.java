@@ -2,8 +2,10 @@ package es.uah.f1.dto;
 
 import es.uah.f1.model.Coche;
 import es.uah.f1.model.Equipo;
+import es.uah.f1.model.EquipoResponsable;
 import es.uah.f1.model.Piloto;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class EquipoConPilotosDTO {
     private Integer id;
@@ -12,6 +14,7 @@ public class EquipoConPilotosDTO {
     private String twitter;
     private List<Piloto> pilotos;
     private List<Coche> coches;
+    private  List<ResponsableDTO> responsables;
 
     public EquipoConPilotosDTO(Equipo equipo) {
         this.id = equipo.getId();
@@ -20,9 +23,23 @@ public class EquipoConPilotosDTO {
         this.twitter = equipo.getTwitter();
         this.pilotos = equipo.getPilotos();
         this.coches = equipo.getCoches();
+        this.responsables = equipo.getResponsables() != null
+            ? equipo.getResponsables().stream()
+                .map(ResponsableDTO::new)
+                .collect(Collectors.toList())
+            : List.of();
     }
 
     // Getters and setters
+
+    public List<ResponsableDTO> getResponsables() {
+        return responsables;
+    }
+
+    public void setResponsables(List<ResponsableDTO> responsables) {
+        this.responsables = responsables;
+    }
+
     public Integer getId() { return id; }
     public void setId(Integer id) { this.id = id; }
     public String getNombre() { return nombre; }
