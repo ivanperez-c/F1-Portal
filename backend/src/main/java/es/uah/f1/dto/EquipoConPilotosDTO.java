@@ -16,18 +16,22 @@ public class EquipoConPilotosDTO {
     private List<Coche> coches;
     private  List<ResponsableDTO> responsables;
 
-    public EquipoConPilotosDTO(Equipo equipo) {
+    // New constructor with user filtering
+    public EquipoConPilotosDTO(Equipo equipo, Integer currentUserId) {
         this.id = equipo.getId();
         this.nombre = equipo.getNombre();
         this.logo = equipo.getLogo();
         this.twitter = equipo.getTwitter();
         this.pilotos = equipo.getPilotos();
         this.coches = equipo.getCoches();
+
+        // Filter out the current user
         this.responsables = equipo.getResponsables() != null
-            ? equipo.getResponsables().stream()
+                ? equipo.getResponsables().stream()
+                .filter(r -> currentUserId == null || !r.getUsuario().getId().equals(currentUserId))
                 .map(ResponsableDTO::new)
                 .collect(Collectors.toList())
-            : List.of();
+                : List.of();
     }
 
     // Getters and setters

@@ -82,12 +82,18 @@ export class TeamManagement implements OnInit {
       }
     });
   }
+  
 
   loadTeam(id: number) {
     this.isLoading = true;
-    this.teamsService.getTeamById(id).subscribe({
+    this.teamsService.getTeamById(id, this.user?.id).subscribe({
       next: (data) => {
         this.team = JSON.parse(JSON.stringify(data)); 
+        
+        if (!this.team.pilotos) this.team.pilotos = [];
+        if (!this.team.coches) this.team.coches = [];
+        if (!this.team.responsables) this.team.responsables = [];
+        
         this.isLoading = false;
       },
       error: () => this.isLoading = false

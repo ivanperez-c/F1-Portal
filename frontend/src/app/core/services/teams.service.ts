@@ -15,8 +15,12 @@ export class TeamsService {
 
   constructor(private http: HttpClient) { }
 
-  getTeamById(id: number): Observable<Team> {
-    return this.http.get<Team>(`${this.apiUrl}/${id}`);
+  getTeamById(id: number, excludeUserId?: number): Observable<Team> {
+    let url = `${this.apiUrl}/${id}`;
+    if (excludeUserId) {
+      url += `?excludeUserId=${excludeUserId}`;
+    }
+    return this.http.get<Team>(url);
   }
 
   getTeams(): Observable<Team[]> {
