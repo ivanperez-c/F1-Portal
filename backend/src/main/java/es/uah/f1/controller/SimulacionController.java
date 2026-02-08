@@ -14,7 +14,6 @@ public class SimulacionController {
     @Autowired
     ISimulacionService service;
 
-    // Ejemplo llamada: GET /api/simulacion/combustible?idCoche=1&idCircuito=5
     @GetMapping("/combustible")
     public ResponseEntity<?> calcularCombustible(
             @RequestParam Integer idCoche,
@@ -25,7 +24,6 @@ public class SimulacionController {
         return ResponseEntity.ok(res);
     }
 
-    // Ejemplo llamada: GET /api/simulacion/ers?idCoche=1&idCircuito=5&modo=DEPORTIVO
     @GetMapping("/ers")
     public ResponseEntity<?> calcularERS(
             @RequestParam Integer idCoche,

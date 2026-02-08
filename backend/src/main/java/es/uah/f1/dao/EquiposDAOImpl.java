@@ -13,7 +13,7 @@ public class EquiposDAOImpl implements IEquiposDAO {
     public List<Equipo> buscarTodos() {
         List<Equipo> equipos = repo.findAllWithPilotos();
         equipos = repo.fetchCochesForEquipos(equipos);
-        equipos = repo.fetchResponsablesForEquipos(equipos);  // ADD THIS
+        equipos = repo.fetchResponsablesForEquipos(equipos);
         return equipos;
     }
 
@@ -21,7 +21,7 @@ public class EquiposDAOImpl implements IEquiposDAO {
     public Equipo buscarPorId(Integer id) {
         Equipo equipo = repo.findByIdWithPilotos(id);
         equipo = repo.fetchCochesForEquipo(equipo);
-        equipo = repo.fetchResponsablesForEquipo(equipo);  // ADD THIS
+        equipo = repo.fetchResponsablesForEquipo(equipo);
         return equipo;
     }
 

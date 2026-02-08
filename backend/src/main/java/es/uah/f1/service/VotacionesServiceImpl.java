@@ -58,18 +58,14 @@ public class VotacionesServiceImpl implements IVotacionesService {
         dto.setDescripcion(votacion.getDescripcion());
         dto.setLimite(votacion.getLimite());
 
-        // 1. Obtener IDs de pilotos candidatos
         List<VotacionPiloto> candidatos = votacionPilotosDAO.buscarPorVotacion(votacion.getId());
-        // Nota: Asegúrate de tener implementado buscarPorVotacion en tu DAO
         List<Integer> idsPilotos = candidatos.stream()
                 .map(vp -> vp.getPiloto().getId())
                 .collect(Collectors.toList());
         dto.setIdPilotos(idsPilotos);
 
-        // 2. Calcular Votos (Solo si ya pasó la fecha)
         Map<Integer, Long> mapaVotos = new HashMap<>();
 
-        // Inicializar a 0
         for(Integer idPiloto : idsPilotos) {
             mapaVotos.put(idPiloto, 0L);
         }

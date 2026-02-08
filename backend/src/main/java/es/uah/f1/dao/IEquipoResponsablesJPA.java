@@ -5,4 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface IEquipoResponsablesJPA extends JpaRepository<EquipoResponsable, Integer> {
     EquipoResponsable findByUsuarioId(Integer idUsuario);
+    EquipoResponsable findByEquipoIdAndUsuarioId(Integer idEquipo, Integer idUsuario);
 }

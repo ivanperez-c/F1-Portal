@@ -1,6 +1,7 @@
 package es.uah.f1.dto;
 
 import es.uah.f1.model.EquipoResponsable;
+import es.uah.f1.model.Usuario;
 
 public class ResponsableDTO {
     private Integer id;
@@ -8,14 +9,15 @@ public class ResponsableDTO {
     private String nombreUsuario;
     private String emailUsuario;
 
-    public ResponsableDTO(EquipoResponsable responsable) {
-        this.id = responsable.getId();
-        this.idUsuario = responsable.getUsuario().getId();
-        this.nombreUsuario = responsable.getUsuario().getNombre(); // Assuming Usuario has nombre
-        this.emailUsuario = responsable.getUsuario().getEmail(); // Assuming Usuario has email
+    public ResponsableDTO(Usuario usuario) {
+        if (usuario != null) {
+            this.id = usuario.getId();
+            this.idUsuario = usuario.getId();
+            this.nombreUsuario = usuario.getNombre();
+            this.emailUsuario = usuario.getEmail();
+        }
     }
 
-    // Getters and setters
     public Integer getId() { return id; }
     public void setId(Integer id) { this.id = id; }
     public Integer getIdUsuario() { return idUsuario; }

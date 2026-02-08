@@ -40,4 +40,9 @@ public class EquipoResponsablesDAOImpl implements IEquipoResponsablesDAO {
     public EquipoResponsable buscarPorUsuario(Integer idUsuario) {
         return jpa.findByUsuarioId(idUsuario);
     }
+
+    @Override
+    public EquipoResponsable buscarPorEquipoYUsuario(Integer idEquipo, Integer idUsuario) {
+        return jpa.findByEquipoIdAndUsuarioId(idEquipo, idUsuario);
+    }
 }

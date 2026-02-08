@@ -10,4 +10,5 @@ public interface IEquipoResponsablesDAO {
     void eliminar(Integer id);
     void actualizar(EquipoResponsable equipoResponsable);
     EquipoResponsable buscarPorUsuario(Integer idUsuario);
+    EquipoResponsable buscarPorEquipoYUsuario(Integer idEquipo, Integer idUsuario);
 }

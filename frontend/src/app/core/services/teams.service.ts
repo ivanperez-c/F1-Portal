@@ -27,12 +27,23 @@ export class TeamsService {
     return this.http.get<Team[]>(this.apiUrl);
   }
 
-  addResponsible(teamId: number, username: string): Observable<User> {
-     return this.http.post<User>(`${this.apiUrl}/${teamId}/responsibles`, { username });
+  addResponsible(teamId: number, username: string): Observable<any> {
+      const url = `${this.apiUrl}/${teamId}/responsables?username=${username}`;
+
+      return this.http.post(
+          url,
+          {}
+      );
   }
-  
-  deleteResponsible(teamId: number, username: string): Observable<boolean> {
-     return this.http.delete<boolean>(`${this.apiUrl}/${teamId}/responsibles/${username}`);
+
+  deleteResponsible(teamId: number, id: number): Observable<any> {
+      console.log('Eliminando responsable', { teamId, id });
+      const url = `${this.apiUrl}/${teamId}/responsables?idUsuario=${id}`;
+
+      return this.http.delete(
+          url,
+          { responseType: 'text' }
+      );
   }
 
   addDriver(teamId: number, driver: Partial<Driver>): Observable<Driver> {

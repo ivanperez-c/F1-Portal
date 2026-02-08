@@ -47,8 +47,6 @@ public interface IEquiposJPA extends JpaRepository<Equipo, Integer> {
 
     Equipo findByUsuarioCreadorId(Integer idUsuario);
 
-    // PRUEBAS FETCH RESPONSABLES
-
     @Query("""
         SELECT DISTINCT e
         FROM Equipo e

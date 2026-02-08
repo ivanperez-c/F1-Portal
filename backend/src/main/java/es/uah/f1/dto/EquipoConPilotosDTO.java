@@ -4,7 +4,10 @@ import es.uah.f1.model.Coche;
 import es.uah.f1.model.Equipo;
 import es.uah.f1.model.EquipoResponsable;
 import es.uah.f1.model.Piloto;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class EquipoConPilotosDTO {
@@ -16,7 +19,6 @@ public class EquipoConPilotosDTO {
     private List<Coche> coches;
     private  List<ResponsableDTO> responsables;
 
-    // New constructor with user filtering
     public EquipoConPilotosDTO(Equipo equipo, Integer currentUserId) {
         this.id = equipo.getId();
         this.nombre = equipo.getNombre();
@@ -25,16 +27,18 @@ public class EquipoConPilotosDTO {
         this.pilotos = equipo.getPilotos();
         this.coches = equipo.getCoches();
 
-        // Filter out the current user
-        this.responsables = equipo.getResponsables() != null
-                ? equipo.getResponsables().stream()
-                .filter(r -> currentUserId == null || !r.getUsuario().getId().equals(currentUserId))
-                .map(ResponsableDTO::new)
-                .collect(Collectors.toList())
-                : List.of();
+        if (equipo.getResponsables() != null) {
+            this.responsables = equipo.getResponsables().stream()
+                    .filter(Objects::nonNull)
+                    .map(EquipoResponsable::getUsuario)
+                    .filter(Objects::nonNull)
+                    .filter(u -> currentUserId == null || !u.getId().equals(currentUserId))
+                    .map(ResponsableDTO::new)
+                    .collect(Collectors.toList());
+        } else {
+            this.responsables = new ArrayList<>();
+        }
     }
-
-    // Getters and setters
 
     public List<ResponsableDTO> getResponsables() {
         return responsables;

@@ -22,7 +22,6 @@ export class TeamManagement implements OnInit {
   team!: Team;
   isLoading = true;
   isSubmitting = false;
-  myTeamId!: number; 
   currentModal: ModalType = null;
   createTeamForm: FormGroup;
   userForm: FormGroup;
@@ -180,7 +179,7 @@ export class TeamManagement implements OnInit {
     if (this.userForm.invalid) return;
     this.isSubmitting = true;
     
-    this.teamsService.addResponsible(this.myTeamId, this.userForm.value.usuario).subscribe(u => {
+    this.teamsService.addResponsible(this.user.id_equipo, this.userForm.value.usuario).subscribe(u => {
       this.team.responsables.push(u);
       this.isSubmitting = false;
       this.closeModal();
@@ -290,8 +289,8 @@ export class TeamManagement implements OnInit {
       if (result.isConfirmed) {
         
         if (type === 'USER') {
-          this.teamsService.deleteResponsible(this.myTeamId, id as string).subscribe(() => {
-            this.team.responsables = this.team.responsables.filter(u => u.usuario !== id);
+          this.teamsService.deleteResponsible(this.user.id_equipo, id).subscribe(() => {
+            this.team.responsables = this.team.responsables.filter(u => u.id !== id);
             this.showToast('Acceso eliminado');
           });
         } else if (type === 'DRIVER') {

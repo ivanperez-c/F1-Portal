@@ -21,7 +21,7 @@ public class Noticia {
     @Column(columnDefinition = "LONGTEXT")
     private String imagen;
 
-    @Lob // Para tipos TEXT
+    @Lob
     @Column(nullable = false, columnDefinition = "TEXT")
     private String texto;
 

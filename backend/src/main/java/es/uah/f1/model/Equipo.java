@@ -44,10 +44,9 @@ public class Equipo {
     private List<Coche> coches;
 
     @OneToMany(mappedBy = "equipo")
-    @JsonIgnore  // Add this initially, we'll handle serialization in DTO
+    @JsonIgnore 
     private List<EquipoResponsable> responsables;
 
-    // Add getter/setter
     public List<EquipoResponsable> getResponsables() { return responsables; }
     public void setResponsables(List<EquipoResponsable> responsables) { this.responsables = responsables; }
 

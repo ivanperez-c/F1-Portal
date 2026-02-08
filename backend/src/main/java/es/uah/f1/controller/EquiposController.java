@@ -1,5 +1,6 @@
 package es.uah.f1.controller;
 
+import es.uah.f1.dto.ResponsableDTO;
 import es.uah.f1.model.Equipo;
 import es.uah.f1.model.Usuario;
 import es.uah.f1.service.IEquiposService;
@@ -56,11 +57,41 @@ public class EquiposController {
 
         if (auth != null && auth.isAuthenticated() && !"anonymousUser".equals(auth.getPrincipal())) {
             String username = auth.getName();
-            Usuario usuario = usuariosService.buscarPorNombreUsuario(username); // You need this method
+            Usuario usuario = usuariosService.buscarPorNombreUsuario(username);
             return usuario != null ? usuario.getId() : null;
         }
 
         return null;
+    }
+
+    @PostMapping("/{id}/responsables")
+    public ResponseEntity<?> anadirResponsable(
+            @PathVariable Integer id,
+            @RequestParam String username) {
+
+        try {
+            
+            Usuario usuarioGuardado = service.anadirResponsable(id, username);
+
+            return ResponseEntity.ok(new ResponsableDTO(usuarioGuardado));
+
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage()); 
+        }
+    }
+
+    @DeleteMapping("/{id}/responsables")
+    public ResponseEntity<?> quitarResponsable(
+            @PathVariable Integer id,
+            @RequestParam Integer idUsuario
+    ) {
+
+        try {
+            service.quitarResponsable(id, idUsuario);
+            return ResponseEntity.ok("Responsable eliminado correctamente.");
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
 }
