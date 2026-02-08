@@ -57,9 +57,9 @@ INSERT INTO equipos (nombre, logo, twitter, id_usuario_creador) VALUES
 -- ============================================
 INSERT INTO equipo_responsables (id_equipo, id_usuario) VALUES
 (1, 2),  -- McLaren - Stella
-(1, 3),  -- Mercedes - Wolff
-(1, 4),  -- Red Bull - Horner
-(1, 5),  -- Ferrari - Vasseur
+(2, 3),  -- Mercedes - Wolff
+(3, 4),  -- Red Bull - Horner
+(4, 5),  -- Ferrari - Vasseur
 (5, 6),  -- Williams - Vowles
 (6, 7),  -- RB - Mekies
 (7, 8),  -- Aston Martin - Krack
