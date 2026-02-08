@@ -65,16 +65,16 @@
       </div>
       
       <div class="mgmt__grid">
-        @for (user of team.responsables; track user.usuario) {
+        @for (user of team.responsables; track user.nombre_usuario) {
           <div class="card-simple">
             <div class="card-simple__avatar user-icon">
                <i class="bi bi-shield-lock-fill"></i>
             </div>
             <div class="card-simple__info">
               <span class="rol">Miembros del equipo</span>
-              <span class="name">{{ user.usuario }}</span>
+              <span class="name">{{ user.nombre_usuario }}</span>
             </div>
-            <button class="btn-del" (click)="deleteItem('USER', user.usuario)"><i class="bi bi-trash"></i></button>
+            <button class="btn-del" (click)="deleteItem('USER', user.nombre_usuario)"><i class="bi bi-trash"></i></button>
           </div>
         }
       </div>

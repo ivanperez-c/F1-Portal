@@ -268,7 +268,7 @@ export class TeamManagement implements OnInit {
     }
   }
 
-  deleteItem(type: 'USER' | 'DRIVER' | 'CAR', id: number | string) { 
+  deleteItem(type: 'USER' | 'DRIVER' | 'CAR', id: number | string | any) { 
     Swal.fire({
       title: '¿Estás seguro?',
       text: "Esta acción es irreversible",
