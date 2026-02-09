@@ -4,8 +4,8 @@
 
 DROP SCHEMA IF EXISTS f1_portal;
 CREATE DATABASE IF NOT EXISTS f1_portal 
-CHARACTER SET utf8mb4 
-COLLATE utf8mb4_unicode_ci;
+CHARACTER SET utf8 
+COLLATE utf8_spanish_ci;
 
 USE f1_portal;
 

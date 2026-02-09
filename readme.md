@@ -80,8 +80,6 @@ src/app/
 
 ## Cómo Ejecutar el Proyecto
 
-### Opción A: Modo Desarrollo (Separado)
-
 Si quieres modificar el código, abre dos terminales:
 
 1. **Backend**: Ve a la carpeta `backend` y ejecuta:
@@ -96,30 +94,4 @@ Si quieres modificar el código, abre dos terminales:
 
 La web estará en `http://localhost:4200` y usará un proxy para conectar con el backend en el puerto 8080.
 
-### Opción B: Generar el Entregable único (Producciún)
-
-Para fusionar Angular dentro de Spring Boot y tener un solo archivo:
-
-1. **Compila el Frontend**: Desde `frontend`:
-   ```bash
-   ng build --configuration production
-   ```
-   Esto crea una carpeta `dist/frontend` con archivos optimizados.
-
-2. **Mueve los archivos al Backend**: Copia el contenido de `dist/frontend/browser` (o similar) a `backend/src/main/resources/static/`.
-
-3. **Empaqueta el Backend**: Desde `backend`:
-   ```bash
-   mvn clean package
-   ```
-   Genera un `.jar` en `backend/target/`.
-
-### Comando Final para Ejecutar Todo
-
-Para arrancar la aplicación completa (frontend + backend + BD) con un solo comando:
-```bash
-java -jar backend/target/f1-backend-0.0.1-SNAPSHOT.jar
-```
-
-Abre tu navegador en `http://localhost:8080` y listo! Verás la interfaz de Angular servida por Spring Boot.
 
