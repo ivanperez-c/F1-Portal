@@ -9,7 +9,7 @@ import { environment } from '../../../environments/environment';
 })
 export class CircuitService {
 
-  private apiUrl = `${environment.apiUrl}/api/circuitos`;
+  private apiUrl = `${environment.apiUrl}/circuitos`;
 
   constructor(private http: HttpClient) { }
 

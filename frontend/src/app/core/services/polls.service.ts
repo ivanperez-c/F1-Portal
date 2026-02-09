@@ -17,7 +17,7 @@ export interface Vote {
 @Injectable({ providedIn: 'root' })
 export class PollsService {
 
-  private apiUrl = `${environment.apiUrl}/api/votaciones`;
+  private apiUrl = `${environment.apiUrl}/votaciones`;
 
   constructor(private http: HttpClient, private teamsService: TeamsService) {}
 

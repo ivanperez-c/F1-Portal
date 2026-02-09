@@ -10,9 +10,9 @@ import { environment } from '../../../environments/environment';
 @Injectable({ providedIn: 'root' })
 export class TeamsService {
   
-  private apiUrl = `${environment.apiUrl}/api/equipos`;
-  private apiUrlPilotos = `${environment.apiUrl}/api/pilotos`;
-  private apiUrlCoches = `${environment.apiUrl}/api/coches`;
+  private apiUrl = `${environment.apiUrl}/equipos`;
+  private apiUrlPilotos = `${environment.apiUrl}/pilotos`;
+  private apiUrlCoches = `${environment.apiUrl}/coches`;
 
   constructor(private http: HttpClient) { }
 
