@@ -80,6 +80,19 @@ export class AdminVotesComponent implements OnInit {
 
     const deadlineValue = this.pollForm.get('deadline')?.value;
     const deadlineDate = new Date(deadlineValue);
+    const now = new Date();
+
+    if (deadlineDate < now) {
+      Swal.fire({ 
+        icon: 'error', 
+        title: 'La fecha límite no puede ser anterior a hoy', 
+        text: 'Por favor, selecciona una fecha futura.',
+        confirmButtonColor: '#e10600',
+        background: '#141414', 
+        color: '#fff' 
+      });
+      return;
+    }
     
     const request = {
       votacion: {
