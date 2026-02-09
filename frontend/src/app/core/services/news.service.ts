@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { NewsItem } from '../models/news.interface';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NewsService {
 
-  private apiUrl = 'http://localhost:8080/api/noticias'; 
+  private apiUrl = `${environment.apiUrl}/api/noticias`; 
 
   constructor(private http: HttpClient) { }
 

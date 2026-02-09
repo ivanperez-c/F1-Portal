@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { Poll } from '../models/poll.interface';
 import { TeamsService } from './teams.service';
+import { environment } from '../../../environments/environment';
 
 
 export interface Vote {
@@ -16,7 +17,7 @@ export interface Vote {
 @Injectable({ providedIn: 'root' })
 export class PollsService {
 
-  private apiUrl = 'http://localhost:8080/api/votaciones';
+  private apiUrl = `${environment.apiUrl}/api/votaciones`;
 
   constructor(private http: HttpClient, private teamsService: TeamsService) {}
 

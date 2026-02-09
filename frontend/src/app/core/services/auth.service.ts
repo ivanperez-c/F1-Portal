@@ -7,12 +7,13 @@ import { User } from '../models/user.interface';
 import { LoginRequest } from '../models/auth.interface';
 import { HttpClient } from '@angular/common/http';
 import { RegisterRequest } from '../models/auth.interface';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8080/api/usuarios';
+  private apiUrl = `${environment.apiUrl}/api/usuarios`;
   private USER_KEY = 'auth-user';
   private currentUserSubject: BehaviorSubject<User | null>;
   public user$: Observable<User | null>;

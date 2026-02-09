@@ -5,13 +5,14 @@ import { Team } from '../models/team.interface';
 import { Car } from '../models/car.interface';
 import { Driver } from '../models/driver.interface';
 import { User } from '../models/user.interface';
+import { environment } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class TeamsService {
   
-  private apiUrl = 'http://localhost:8080/api/equipos';
-  private apiUrlPilotos = 'http://localhost:8080/api/pilotos';
-  private apiUrlCoches = 'http://localhost:8080/api/coches';
+  private apiUrl = `${environment.apiUrl}/api/equipos`;
+  private apiUrlPilotos = `${environment.apiUrl}/api/pilotos`;
+  private apiUrlCoches = `${environment.apiUrl}/api/coches`;
 
   constructor(private http: HttpClient) { }
 
